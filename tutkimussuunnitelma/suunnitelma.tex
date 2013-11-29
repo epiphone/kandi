@@ -1,0 +1,409 @@
+% !TeX encoding = latin1
+%
+% [ Tiedostossa käytetty merkistö on ISO 8859-1 eli Latin 1. Ylläoleva rivi ]
+% [ tarvitaan, jos käyttää MiKTeX-paketin mukana tulevaa TeXworks-editoria. ]
+%
+% Tutkimussuunnitelmapohja, jossa käytetään LaTeX2e:n omaa report-dokumenttiluokkaa.
+%
+% Laatinut Sanna Mönkölä, lähdeviittauksiin liittyvät asiat kopioitu Timo Männikön vuoden 2011 mallitiedostosta
+%
+\documentclass[a4paper,12pt,final,twoside]{report}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{url}
+\usepackage{enumitem}
+
+% käytetään times-fonttia
+\usepackage{times} %muitat times-fontin paketteja: mathptmx, txfonts, txfontsb
+
+% riviväli 1.5 saadaan hieman harhaanjohtavasti komennolla \linespread{1.3} 
+\linespread{1.3}                      
+
+% marginaalit 2.5 cm
+\usepackage[margin=2.5cm]{geometry}
+
+% Otetaan käyttöön author-date-järjestelmän mukaiset lähdeviittaukset:
+\usepackage{natbib}
+% Vaihdetaan kirjoittajan nimen ja vuosiluvun väliseksi erottimeksi
+% välilyönti (oletuserottimena on pilkku):
+%\bibpunct{(}{)}{;}{a}{}{,}
+%\usepackage[authordate]{biblatex-chicago}
+
+\usepackage{graphicx} % kuvia varten
+
+% asetetaan otsikkotyylit
+\makeatletter
+\renewcommand\chapter{\@startsection{chapter}{1}{\z@}%
+                                   {-28pt}%
+                                   {28pt}%
+                                   {\fontsize{14pt}{14pt}\selectfont
+                                    }}
+\renewcommand\section{\@startsection{section}{2}{\z@}%
+                                     {-14 pt}
+                                     {14pt}
+                                     {\small\bfseries
+                                      }}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-12pt}
+                                     {12pt}
+		                {\fontsize{12pt}{12pt}\selectfont\it
+                                      }}
+
+
+\makeatother
+
+
+
+
+\begin{document}
+
+
+
+
+%*********************** 
+%     Kansilehti alkaa 
+%*********************** 
+
+
+\title{Sanaluokkien automaattisen tunnistamisen menetelmät}
+\date{\today}
+\author{Aleksi Pekkala}
+\def\contactinformation{\texttt{aleksi.v.a.pekkala@student.jyu.fi}}
+\def\university{Jyv\"askyl\"an yliopisto}
+\def\department{Tietotekniikan laitos}
+\def\subject{Tietotekniikka}
+\def\type{TIEA217 Tietojenkäsittelyn alan tutkimusmenetelmät}
+\def\supervisor{Hannakaisa Isomäki}
+
+%Määritellään kansilehden rakenne
+\makeatletter
+\begin{titlepage}
+\thispagestyle{empty} 
+\vspace*{6truecm} 
+
+\centerline{\bf \@author} 
+ \centerline{\contactinformation}
+
+\vspace{2truecm} 
+ 
+\centerline{\Large\bf \@title}
+
+\vspace{4truecm} 
+ 
+{\parindent7truecm\parskip0pt 
+        \subject \par
+        \type \par 
+        \@date \par
+        Tentaattori: \supervisor
+} 
+ %
+\vfill 
+\centerline{\large\bf \university} 
+\centerline{\bf \department} 
+\end{titlepage}
+\makeatother
+
+%*********************** 
+%     Kansilehti loppuu 
+%***********************
+
+\pagebreak
+
+\setcounter{page}{1}
+
+%\begin{abstract}
+%Tähän tulee tiivistelmä.
+%\end{abstract}
+
+\chapter{Johdanto}
+
+\section{Mitä on sanaluokkien automaattinen tunnistaminen?}
+
+Sanaluokkien automaattisella tunnistamisella (\emph{Part-of-speech tagging, POS tagging}) tarkoitetaan sanojen sanaluokkien tunnistamista tekstiyhteyden perusteella. Sanaluokittelun tavoitteena on rakentaa malli, joka ottaa syötteenään lauseen, kuten
+
+\[a\:black\:cat\:jumped\:on\:the\:table\]
+
+ja jonka tuloksena on sarja sanaluokkia, jotka vastaavat annettua lausetta, tässä tapauksessa esim.
+
+\[Det\:Adj\:Noun\:Verb\:Prep\:Det\:Noun\]
+
+Sanaluokkien tunnistaminen on luonteeltaan sarjanluokitteluongelma (\emph{sequence labeling problem}), joka puolestaan kuuluu hahmontunnistuksen (\emph{pattern recognition}) ongelmatyyppeihin.
+
+
+\section{Mihin sanaluokkien tunnistamista käytetään?}
+
+Sanaluokkien tunnistaminen on tärkeä ja käytännöllinen ongelma, joka kohdataan useimmissa luonnollisten kielten käsittelyyn liityvissä tehtävissä, joihin kuuluvat mm. puheentunnistus, konekääntäminen, semanttinen haku sekä automaattinen vastaaminen. Tällaisissa tehtävissä sanaluokkien tunnistaja toimii jonkin laajemman prosessointiketjun alkupäässä, koko prosessille välttämättömänä esikäsittelijänä, joka mahdollistaa syötteen jatkokäsittelyn korkeammalla tasolla. Jatkokäsittelyn tyypillisin seuraava vaihe on tekstin jäsentäminen eli lauserakenteiden tunnistaminen, jonka onnistumisen kannalta on oleellista, että sanaluokkien tunnistaminen on suoritettu mahdollisimman virheettömästi.
+
+
+\section{Sanaluokkien tunnistajan vaatimukset}
+
+Jotta tunnistajaa voidaan käyttää laajan kielenprosessointijärjestelmän komponenttina, tulee sen toteuttaa seuraavat ominaisuudet ~\citep{cutting1992}: 
+
+\begin{description}[labelindent=1cm]
+ \item[Kestävyys] Tunnistajan tulee kyetä selviytymään kaikista tekstisyötteen mahdollisista poikkeamista, kuten otsikoista, taulukoista sekä tuntemattomista sanoista.
+ \item[Tehokkuus] Voidakseen käsitellä laajoja tekstiaineistoja tunnistajan tulee toimia lineaarisessa ajassa. 
+ \item[Tarkkuus] Tunnistajan tulee kyetä ehdottamaan sanaluokka jokaista annettua sanaa kohden. Myös tunnistajan mahdollisen opettamisen tulisi onnistua mahdollisimman nopeasti.
+ \item[Viritettävyys] Tunnistajan tulee osata hyödyntää erilaisia kielitieteellisiä huomioita siten, että tunnistajan tekemiä virheitä voidaan paikata määrittämällä sopivia vihjeitä.
+ \item[Uudelleenkäytettävyys] Tunnistajan tulee rakentua siten, että sen kohdistaminen uudelle kielelle, aineistolle tai sanaluokkasetille on mahdollisimman vaivatonta.
+\end{description}
+
+
+\section{Miksi sanaluokkien tunnistaminen on ongelmallista?}
+
+Sanaluokkien tunnistaminen voi intuitiivisesti tuntua helpolta, mutta tehtävän automaatiota hankaloittavat kaksi oleellista ongelmaa: sanojen monitulkintaisuus sekä tuntemattomat sanat. Esimerkiksi lauseet
+\[Time\: flies\: like\: an\: arrow\]
+\[Fruit\: flies\: like\: a\: banana\]
+voidaan tulkita lukuisin eri tavoin, joista mikään ei ole välttämättä muita ilmeisempi. Lisäksi, vaikka tosielämässä tulkittavat lauseet ovat harvoin yhtä ongelmallisia kuin edellämainitut lingvistiset esimerkkilauseet, on monitulkintaisuus hyvin yleistä: arviolta 40\% englanninkielisen proosan sanastosta omaa useamman kuin yhden merkityksen \citep{derose1988}. Monitulkintaisuuden ollessa ongelman keskiössä olisikin ehkä luontevampaa puhua sanaluokkien tunnistamisen sijaan yksikäsitteistämisestä (\emph{disambiguation}). On myös mielenkiintoista huomata, että edes ammattilaisten käsin luokittelemat aineistot eivät saavuta täydellistä tunnistamistarkkuutta: ihmisten sanaluokkien tunnistamistarkkuuden on arvioitu olevan noin 97\%, mikä vastaa nykyisten automaattisten tunnistajien huipputuloksia \citep{manning2011}.
+
+Toinen merkittävä ongelma on tuntemattomien, eli harjoitusaineistosta puuttuvien sanojen käsitteleminen. Tuntemattomia sanoja kohdataan usein, ja koska niitä koskevaa tilastollista informaatiota tai sääntöjä ei tunneta, joudutaan turvautumaan jonkinlaiseen poikkeuskäsittelyyn. Useat tunnistajat hyödyntävät tuntemattomien sanojen kohdalla kieliopillisia ominaisuuksia: yksinkertainen menetelmä on määrätä sanalle se sanaluokka, joihin tuntemattomien sanojen on havaittu todennäköisimmin kuuluvan, eli yleensä substantiivi. Parempia tuloksia on saavutettu määrittämällä tuntemattoman sanan sanaluokka sen päätteen perusteella; esim. englannin kielen \emph{able}-päätteiset sanat ovat hyvin todennäköisesti adjektiiveja \citep{samuelsson1993}. Menetelmä ei kuitenkaan sovellu kaikille kielille: esim. \citet{tseng2005} osoittavat, että kiinan kielessä esiintyy huomattavan suuri määrä yleisiä affikseja, poiketen englannin ja saksan kielistä, joissa affiksit ovat vahva indikaattori sanan sanaluokasta.
+
+Ongelmallista on myös tunnistamisessa käytettävien sanaluokkien (\emph{POS tagset}) valinta. Yleisiä englannin kielen sanaluokkasettejä ovat Brownin aineiston 87 sanaluokkaa \citep{francis1964}, tai uudemman Penn Treebank-aineiston 48 sanaluokkaa \citep{marcus1993}. Myös yleisiä, kielestä riippumattomia sanaluokkasettejä on kehitetty, joskin tällöin joudutaan väistämättä tinkimään tunnistamistarkkuudesta \citep{petrov2011}.
+
+
+\section{Automaattisten tunnistajien suorituskyky}
+
+Kuten mainittua, nykyisten automaattisten sanaluokkien tunnistajien tunnistamistarkkuus on hieman yli 97\%  (\citealp{toutanova2003}, \citealp{shen2007}, \citealp{spoustova2009}, \citealp{sogaard2010}). \citet{manning2011} kuitenkin osoittaa, että kyseistä tulosta ei ole syytä tulkita liian optimistisesti: esimerkiksi lukuisat välikemerkit ja muut yksikäsitteiset elementit vääristävät evaluaatiotuloksia. Artikkelissa huomautetaankin, että realistisempaa olisi tarkastella automaattisten tunnistajien kykyä tunnistaa kokonaiset lauseet oikein, sillä pienikin virhe lauseessa voi vahingoittaa tunnistajan hyödyllisyyttä myöhempien prosessointivaiheiden kannalta; tällä saralla tunnistajat saavuttavat noin 55-57\% tarkkuuden, mikä on huomattavasti vaatimattomampi tulos.
+
+
+\chapter{Kirjallisuuskartoitus} 
+
+
+\section{Aineiston hakuprosessi}
+
+Tavoitteenani oli kuvailla viittä erilaista automaattista sanaluokkien tunnistamismenetelmää. Asetin menetelmille seuraavat vaatimukset:
+
+\begin{description}[labelindent=1cm]
+ \item[Monipuolisuus] Menetelmien tulee poiketa toisistaan merkittävästi.
+ \item[Suorituskyky] Jotta menetelmien vertailu on kannattavaa, tulee niiden olla keskenään kilpailukykyisiä. Tämä todetaan vertaamalla samalla aineistolla mitattuja tunnistustarkkuustuloksia.
+ \item[Yleistettävyys] Kunkin menetelmän tulee olla yleistettävissä eri kielille, aineistoille ja sanaluokkaseteille; menetelmä ei saa olla vain johonkin tiettyyn erityistapaukseen soveltuva. Menetelmän tulee olla toteutettu käytännössä.
+ \item[Yleisyys] Menetelmän tulee olla suhteellisen tunnettu ja laajalta tutkittu. Todetaan tarkastelemalla kirjallisuuden ja viittausten määrää.
+\end{description}
+
+Menetelmiä valitessa erinomaiseksi apuvälineeksi osoittautui ACL:n listaus nykyisistä ''state-of-the-art''-tunnistusmenetelmistä evaluaatiotuloksineen \citep{aclwiki2013}. 
+
+Löydettyäni tavoitteidenmukaiset tunnistamismenetelmät, etsin kutakin menetelmää kohti ainakin yhden artikkelin, joka sisälsi mahdollisimman tarkan kuvauksen kyseisestä menetelmästä. Lisäksi artikkelin vaatimuksena oli se, että se kuvaa tunnistamismenetelmänsä käytännöllisesti sekä toteuttamiskelpoisena. Tämän seurauksena valittu artikkeli ei välttämättä ollut juuri se julkaisu, jossa menetelmä esiteltiin ensimmäistä kertaa, vaan osa artikkeleista kuvailee vanhan menetelmän pohjalta toteutettua modernimpaa tunnistajaa.
+
+Artikkeleiden hakemiseen käytin Google- ja Google Scholar-hakukoneita, hakuehtona aina kunkin menetelmän nimi. Tarkastelin tarkemmin 21 eri artikkelia, joista valitsin lopulta 5 tärkeintä, lähinnä artikkelien välisten viittausten perusteella. Suurin osa artikkeleista löytyi ACM:n verkkokirjastosta.
+
+
+\section{Kuvaus käytetyistä artikkeleista}
+
+\subsection{TnT - A Statistical Part-of-Speech Tagger, Brants (2000)}
+
+\citet{brants2000} esittää artikkelissaan tilastollisen Trigrams'n'Tags-tunnistajan (TnT), joka perustuu Markovin piilomalleihin. Markovin piilomalleja on käytetty aikaisemmissakin tunnistimissa (mm. \citealp{derose1988}, \citealp{cutting1992}, \citealp{merialdo1994}), joiden ideoita jalostamalla TnT-tunnistin saavuttaa huomattavan korkean tunnistamistarkkuuden. Tunnistajan toiminnan esitetään artikkelissa perustuvan siihen, että lasketaan
+
+% määritetään argmax-operaattori
+\newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{max}}\;}
+
+\[
+\argmax{t_1,\dotsc,t_T} \Bigg[ \prod_{i=1}^T P(t_i | t_{i-1}, t_{i-2}) P(w_i | t_i)  \Bigg] P(t_{T+1} | t_T)
+\]
+
+missä $ w_1,\dotsc,w_T $ ovat sanoja ja $ t_1,\dotsc,t_T $ sanaluokkia. Todennäköisin sanaluokkasarja $ t_1,\dotsc,t_T $ ratkaistaan dynaamisella Viterbi-algoritmilla \citep{rabiner1989}. Kohdassa
+
+\[
+P(t_i | t_{i-1}, t_{i-2})
+\]
+
+lasketaan todennäköisyys sanaluokalle $ t_i $, kun kaksi edeltävää sanaluokkaa ovat $ t_{i-1} $ ja $ t_{i-2} $. Tästä huomataan, että kyseessä on toisen asteen Markovin piilomalli - lisäksi tunnistimen nimi viittaa kyseiseen trigrammiin. Kohdassa
+
+\[
+P(w_i | t_i)
+\]
+
+lasketaan todennäköisyys sille, että sana $ w_i $ esiintyy sanaluokan $ t_i $ yhteydessä, ja lopun
+
+\[
+P(t_{T+1} | t_T)
+\]
+
+merkitsee todennäköisyyttä sille, että päätemerkkisanaluokka $ t_{T+1} $ seuraa sarjan viimeistä sanaa.
+
+Artikkelissa kuvataan myös silotusmenetelmä, jolla voidaan lievittää liian pienestä aineistosta johtuvia vääristymiä. Lisäksi tunnistajaan kuuluu mm. tuntemattomien sanojen käsittely suffiksianalyysin \citep{samuelsson1993} avulla, sekä isojen alkukirjainten hyödyntäminen sanaluokkien tunnistamisessa. Lopuksi artikkelissa ilmoitetaan vielä Penn Treebank-aineistolla saavutettu tunnistamistarkkuus 96,7\%.
+
+\subsection{A Simple Rule-Based Part of Speech Tagger, Brill (1992)}
+
+\citet{brill1995} huomauttaa, että edeltävän kaltaiset tilastolliset tunnistajat saavuttavat korkean tunnistamistarkkuuden kiinnittämättä varsinaisesti huomiota aineiston taustalla olevaan kieliopilliseen rakenteeseen. Hän laskeekin tilastollisten menetelmien puutteeksi sen, että ne poimivat aineistosta lingvistisen informaation sijaan vain suuren määrän vaikeselkoisia tilastoja. \citet{brill1992} esittää artikkelissaan vaihtoehtoisen lähestymistavan, joka pohjautuu aineistosta havaittuihin kieliopillisiin sääntöihin. Aikaisemmista sääntöpohjaisista tunnistamismenetelmistä (mm. \citealp{garside1987}) poiketen sääntöjä ei syötetä manuaalisesti, vaan tunnistin poimii ne automaattisesti annetusta aineistosta. Sääntöjen tunnistaminen perustuu siihen, että käytössä olevaa, oikeilla sanaluokilla merkittyä aineistoa voidaan käyttää valvottuun oppimiseen.
+
+Säännöt selvitetään siten, että aineiston sanat merkitään ensin yksinkertaisesti sillä sanaluokalla, joka aineistossa esiintyy useimmiten annetun sanan kohdalla. Tämän jälkeen itse merkattua aineistoa verrataan oikein merkittyyn aineistoon, ja muodostetaan sääntöjä virheellisesti tunnistettujen sanaluokkien kohdalla. Muodostetuista säännöistä valitaan paras (arvon \emph{oikeat korjaukset - virheelliset korjaukset} mukaan), sovelletaan sitä aineistoon, ja toistetaan halutun sääntömäärän mukaan. Säännöt voivat olla esimerkiksi muotoa
+
+\[
+korvataan\: adjektiivi\: substantiivilla,\: jos\: edellinen\: sana\: on\: banana\text{, tai}
+\]
+\[
+korvataan\: pronomini\: konjunktiolla,\: jos\: seuraavan\: sanan\: sanaluokka\: on\: verbi
+\]
+
+Artikkelin mukaan sääntöpohjaisella lähestymistavalla on monia etuja tilastollisiin menetelmiin verrattuna: tallennettavan informaation pieni koko ja luettavuus, parannuskohteiden löytämisen ja toteuttamisen helppous sekä parempi siirrettävyys aineistolta tai sanaluokkasetiltä toiselle.
+
+
+\subsection{A Maximum Entropy Model for Part-of-Speech Tagging, Ratnaparkhi (1996)}
+
+\citet{ratnaparkhi1997} huomauttaa raportissaan, että monet luonnollisten kielten käsittelyyn liittyvät ongelmat voidaan esittää tilastollisena luokitteluongelmana, jossa tehtävänä on arvioida ''luokan'' $ a $ esiintymistä ''kontekstin'' $ b $ yhteydessä, eli $ p(a, b) $, missä kontekstilla tarkoitetaan tässä yhteydessä tiettyä sanaa ja sitä ympäröiviä sanoja sanaluokkineen. Suurimmatkaan aineistot eivät kuitenkaan sisällä tarpeeksi informaatiota määrittääkseen $ p(a, b) $ jokaiselle parille $ (a, b) $,  koska sanat $ b $ ovat usein harvinaisia; tällöin ongelmana on löytää menetelmä, jolla voidaan käytössä olevaa harvaa informaatiota hyödyntämällä arvioida luotettava todennäköisyysmalli $ p(a, b) $.
+
+Raportti ehdottaa ratkaisuksi suurimman entropian periaatetta \citep{jaynes1957}, missä entropialla tarkoitetaan sitä, kuinka selvästi havaitut muuttujan arvot keskittyvät yhteen tai vain muutamaan luokkaan (entropia on suurimmillaan silloin, kun vaihtelu on suurinta). Kyseisen periaatteen mukaan oikea jakauma $ p(a, b) $ on se, joka saavuttaa suurimman entropian kun huomioidaan ne ominaisuudet, joita käytettävistä muuttujista tiedetään.
+
+\citet{ratnaparkhi1996} kuvaa aikaisemmassa artikkelissaan kuinka suurimman entropian periaatetta voidaan hyödyntää sanaluokkien tunnistamisongelman ratkaisussa, saavuttaen tunnistamistarkkuuden 96,6\%. Artikkelin mukaan suurimman entropian periaatetta käyttävä malli soveltuu sanaluokkien tunnistamiseen erityisen hyvin, koska se pystyy hyödyntämään erilaista kontekstuaalista informaatiota tehokkaasti, eikä se ota kantaa harjoitusaineiston sana/sanaluokka-parien mahdollisesti epätasaiseen jakaumaan.
+ 
+
+\subsection{Feature-Rich Part-of-Speech Tagging with a Cyclic Dependency Network, Toutanova ym. (2003)}
+
+\citet{toutanova2003} arvostelevat aikaisempia tilastollisia tunnistimia (esim. \citealp{brants2000}) siitä, että ne hyödyntävät lauseita käsitellessään vain yksisuuntaista informaatiota: esimerkiksi ensimmäisen asteen Markovin piilomallissa, jonka suunta on vasemmalta oikealle, nykyinen sanaluokka $ t_i $ arvioidaan edeltävän sanaluokan $ t_{i-1} $ sekä nykyisen sanan $ w_i $ perusteella, eli $ P(t_i | t_{i-1}, w_i) $.
+
+Artikkelissa yksisuuntaisuuden haittavaikutusta havainnollistetaan seuraavalla esimerkillä: sanalla \emph{to} on vain yksi mahdollinen sanaluokka (\textsc{to}). Sanaluokkaa \textsc{to} edeltää usein substantiivi, mutta harvoin modaaliverbi. Lauseessa \emph{will to fight} kyseisen säännön mukaan sanan \emph{will} tulee olla substantiivi, ei modaaliverbi. Käytännössä sana \emph{will} tunnistetaan kuitenkin modaaliverbiksi, koska käytettävä tilastollinen malli huomio \emph{will}-sanan kohdalla vain edeltävän sanaluokan ja nykyisen sanan, ei seuraavan sanan sanaluokkaa.
+
+Artikkelissa ongelmaan esitetään vaihtoehtoinen, syklisiin riippuvuusverkkoihin \citep{heckerman2000} perustuva menetelmä, joka ei Markovin ketjun tavoin rajoita solmujen riippuvuussuhteita yksisuuntaisiksi. Lisäksi artikkelissa kuvaillaan tuntemattomien sanojen käsittely sekä silotusmenetelmä, joita käyttämällä tunnistajan tarkkuudeksi lasketaan 97.24\%. 
+
+
+\subsection{Fast and Accurate Part-of-Speech Tagging: The SVM Approach Revisited, Giménez \& Màrquez (2003)}
+
+\citet{gimenez2003} esittelevät artikkelissaan tukivektorikoneisiin (\emph{Support Vector Machine}) perustuvan sanaluokkatunnistajan. Tukivektorikone on koneoppimisalgoritmi, joka soveltuu binääriseen luokitteluun. Tukivektorikone opetetaan harjoitusesimerkeillä $ \{(x_1, y_1),\dotsc,(x_N,y_N)\} $, missä kukin $ x_i $ on vektori $ \in \mathbb{R}^N $, ja $ y_i \in \{-1, +1\} $ kuvaa vektorin luokkaa. Harjoitusaineiston perusteella tukivektorikone laskee tason, joka erottaa luokat toisistaan mahdollisimman suurella marginaalilla.
+
+Koska sanaluokan tunnistamisessa ei ole kyse binäärisestä luokittelusta, ongelma tulee binärisoida. Artikkelissa binärisöinti on toteutettu harjoittamalla jokaista sanaluokka kohti oma tukivektorikone, joka jakaa aineiston kyseiseen sanaluokkaan ja kaikkiin muihin sanaluokkiin. 
+
+
+\chapter{Tutkimusaihe/tutkimuskysymys}
+
+Sanaluokkien tunnistajia käytetään monissa erilaisissa luonnollisiin kieliin liittyvissä sovelluksissa. Lisäksi tunnistettavien aineistojen välillä on valtavasti poikkeamia, esim. kielten ja tekstityyppien osalta. Lisäksi havaitaan, että tarkasteltujen artikkeleiden raportoimat tunnistustarkkuudet liikkuvat kaikki samoissa lukemissa. Kun ilmiselvin valintakriteeri on näin poissuljettu, on tehokkaimman menetelmän valinta vaikeampaa. Tutkittavaa olisikin siinä, \textbf{miten eri menetelmät eroavat toisistaan, ja soveltuvatko jotkin menetelmät toisia paremmin tietyille toimintaympäristöille}. Täsmentäviä kysymyksiä ovat ainakin
+\begin{itemize}
+  \item Mitkä ovat yleisimmät sanaluokkien tunnistamismenetelmät?
+  \item Millaisiin ryhmiin tunnistamismenetelmät voidaan jaotella?
+  \item Millaisia eroja sanaluokkatunnistajien toimintaympäristöillä on?
+  \item Miten eri tunnistamismenetelmät käyttäytyvät erilaisten aineistojen yhteydessä?
+  \item Kuinka eri menetelmät poikkeavat harjoitusaineiston käytössä?
+  \item Onko eri menetelmillä saavutettujen virheellisten tunnistustulosten välillä poikkeamia?
+\end{itemize}
+
+
+\chapter{Tutkimusstrategia/metodi ja sen valinta}
+
+Tutkimuksen tarkoituksena on kartoittaa tutkittavan aihealueen nykytilaa kokoavasti ja katsauksenomaisesti. Tutkimus toteutetaan analysoituna kirjallisuuskatsauksena. Kirjallisuuskatsaus sopii metodina tutkimuksen luonteeseen; lisäksi tutkimusaiheesta löytyy laajalti laadukasta aineistoa.
+
+
+\chapter{Aineiston keruun suunnittelu ml. eettiset näkökohdat}
+
+Aineisto kerätään tehdyn kirjallisuuskatsauksen pohjalta. Kirjallisuuskatsauksen viidestä tunnistamismenetelmästä valitaan tärkeimmät, joihin syvennytään tarkemmin. Aineiston keruussa on huomioitava se, että tutkimusaihe on osa laajempaa aihe-aluetta: on selvitettävä kunkin menetelmän alkuperä, ei pelkästään menetelmän sovellukset tutkimusaiheen piirissä.
+
+
+\chapter{Tietojen keruu}
+
+Alan kirjallisuuden (mm. \citealp{cutting1992}) perusteella voidaan hahmotellaan sanaluokkatunnistajien tärkeimmät ominaisuudet. Näitä ominaisuuksia hyödyntäen tarkastellaan kutakin eri menetelmää systemaattisesti. Lisäksi kerätään tietoja siitä, miten eri menetelmiä on hyödynnetty erilaisissa erikoistapauksissa, esimerkiksi erilaisten kielten tunnistamisessa - tässä voidaan hyödyntää erityisesti \emph{forward search}-menetelmää, eri tarkastella niitä artikkeleita, joissa on viitattu alkuperäisesti menetelmän esittäneeseen artikkeliin.  
+
+
+\chapter{Tietojen analysointi}
+
+Kerättyjen tietojen perusteella arvioidaan, kuinka eri menetelmät, suhteessa toisiin menetelmiin, käyttäytyvät eri olosuhteissa. Analyysia varten tulee saavuttaa selkeä käsitys menetelmien toiminnasta, jotta vertailu on oikeudenmukaista ja johtopäätökset perusteltuja. Tarkemmin analysoidaan ainakin kunkin menetelmän suhdetta aineiston tekstityyppiin, aineiston kieleen, harjoitusaineiston määrään ja laatuun sekä tunnistamisvirheisiin.
+
+\chapter{Tulosten julkaiseminen}
+
+Tulokset julkaistaan kirjallisuuskatsauksen muodossa.
+
+
+\chapter{Johtopäätökset}
+
+Johtopäätöksinä voidaan esittää ainakin hypoteeseja siitä, miksi jokin menetelmä voisi olla toista parempi tietyssä käyttötapauksessa. Tutkimukseen ei kuitenkaan kuulu empiiristä kokeilua (menetelmien toteuttamista ja testaamista oikeilla aineistoilla), minkä vuoksi johtopäätöksiä ei voida varsinaisesti validoida; tehtävät johtopäätökset pohjautuvat siis aikaisempaan kirjallisuuteen.
+
+
+
+%Lähdeluettelo
+
+\begin{thebibliography}{}
+
+% Hakasulkeisiin tulee kirjoittajien sukunimet (siinä muodossa kuin
+% ne halutaan lähdeviittaukseen) ja julkaisun vuosiluku suluissa.
+% Huom: Älä laita välilyöntiä ennen vuosiluvun alkusulkua.
+
+\bibitem[Brants(2000)]{brants2000}
+Brants, T. 2000. \textit{TnT - A statistical part-of-speech tagger}. Proceedings of the 6th Applied NLP Conference (ANLP).
+
+\bibitem[Brill(1992)]{brill1992}
+Brill, E. 1992. \textit{A simple rule-based part of speech tagger}. Proceedings of the 3rd conference on Applied Computational Linguistics, ACL, Trento, Italy.
+
+\bibitem[Brill(1995)]{brill1995}
+Brill, E. 1995. \textit{Transformation-based error-driven learning and natural language processing: a case study in part-of-speech tagging}. Computational Linguistics, 21(4), s.~543-565.
+
+\bibitem[Church(1988)]{church1988}
+Church, K. 1988. \textit{A stochastic parts program and noun phrase parser for unrestricted text}. Proceedings of the 2nd conference on Applied Natural Language Processing, s.~136-143.
+
+\bibitem[Cutting ym.(1992)]{cutting1992}
+Cutting, D., Kupiec, J., Pedersen, J. \& Sibun, P. 1992. \textit{A Practical Part-of-Speech Tagger}. Proceedings of the 3rd conference on Applied Natural Language Processing, s.~133--140.
+
+\bibitem[DeRose(1988)]{derose1988}
+DeRose, S. J. 1988. \textit{Grammatical category disambiguation by statistical optimization}. Computational Linguistics, 14(1), s.~31--39.
+
+\bibitem[Francis(1964)]{francis1964}
+Francis, W. N. 1964. \textit{A standard sample of present-day English for the use with digital computers}. Report for the U.S Office of Education on Cooperative Research Project No. E-007.
+Brown University, Providence RI.
+
+\bibitem[Garside(1987)]{garside1987}
+Garside, R. 1987. \textit{The CLAWS word-tagging system}. Teoksessa R. Garside, G. Leech \& G. Sampson (toim.) The Computational Analysis of English: A Corpus-based Approach. London: Logman, s.~30-41.
+
+\bibitem[Gimenéz \& Màrquez(2003)]{gimenez2003}
+Gimenéz J. \& Màrquez, L. 2003. \textit{Fast and accurate part-of-speech tagging: The SVM approach revisited}. Proceedings of RANLP 2003, s.~158-165.
+
+\bibitem[Heckerman ym.(2000)]{heckerman2000}
+Heckerman, D., Chickering, D. M., Meek, C., Rounthwaite, R. \& Kadie, C. M. 2000. \textit{Dependency networks for inference, collaborative filtering and data visualization}.
+Journal of Machine Learning Research, 1(1), s.~49-75.
+
+\bibitem[Jaynes(1957)]{jaynes1957}
+Jaynes, E. T. 1957. \textit{Information Theory and Statistical Mechanics}. Physical Review, 106, s.~620-630.
+
+\bibitem[Manning(2011)]{manning2011}
+Manning, C. D. 2011. \textit{Part-of-Speech Tagging from 97\% to 100\%: Is It Time for Some Linguistics?} Proceedings of the 12th international conference on Computational linguistics and intelligent text processing, 1, s.~171--189.
+
+\bibitem[Marcus ym.(1993)]{marcus1993}
+Marcus, M. P., Marcinkiewicz, M. \& Santorini, B. 1993. \textit{Building a large annotated corpus of English: the Penn treebank}. Computational Linguistics, 19(2), s.~313-330.
+
+\bibitem[Merialdo(1994)]{merialdo1994}
+Merialdo, B. 1994. \textit{Tagging English text with a probabilistic model}. Computational Linguistics, 20(2), s.~155-171.
+
+\bibitem[Petrov ym.(2011)]{petrov2011}
+Petrov, S., Das, D. \& McDonald, R. 2011.
+\textit{A universal part-of-speech tagset}. ArXiv:1104.2086.
+
+\bibitem[''POS Tagging State of the Art''(2013)]{aclwiki2013}
+\textit{POS Tagging State of the Art}. 2013. The Wiki of the Association for Computational Linguistics.
+Haettu 28.10.2013, osoitteesta \url{aclweb.org/aclwiki/index.php?title=POS_Tagging_(State_of_the_art)}
+
+\bibitem[Rabiner(1989)]{rabiner1989}
+Rabiner, L. R. 1989. \textit{A tutorial on Hidden Markov Models and selected applications in speech recognition}. Proceedings of the IEEE, 77(2), s.~257-285.
+
+\bibitem[Ratnaparkhi(1996)]{ratnaparkhi1996}
+Ratnaparkhi, A. 1996. \textit{A maximum entropy model for part-of-speech tagging}. Proceedings of the Empirical Methods in Natural Language Processing Conference (EMNLP), University of Pennsylvania.
+
+\bibitem[Ratnaparkhi(1997)]{ratnaparkhi1997}
+Ratnaparkhi, A. 1997. \textit{ A simple introduction to maximum entropy models for natural language processing}.
+Technical Report 97-08, Institute for Research in Cognitive Science, University of Pennsylvania, 1997.
+
+\bibitem[Samuelsson(1993)]{samuelsson1993}
+Samuelsson, C. 1993. \textit{Morphological tagging based entirely on Bayesian inference}. Proceedings of the 9th Nordic Conference on Computational Linguistics NODALIDA-93.
+
+\bibitem[Shen ym.(2007)]{shen2007}
+Shen, L., Satta, G. \& Joshi, A. 2007. \textit{Guided learning for bidirectional sequence classification}. In: ACL 2007. (2007)
+
+\bibitem[Spoustova ym.(2009)]{spoustova2009}
+Spoustova, D.j., Hajic, J., Raab, J. \& Spousta, M. 2009. \textit{Semi-supervised training for the averaged perceptron POS tagger}. Proceedings of the 12th Conference of the
+European Chapter of the ACL (EACL 2009), s.~763-711.
+
+\bibitem[Søgaard(2010)]{sogaard2010}
+Søgaard, A. 2010. \textit{Simple semi-supervised training of part-of-speech taggers}. Proceedings of the ACL 2010 Conference Short Papers, s.~205-208.
+
+\bibitem[Toutanova ym.(2003)]{toutanova2003}
+Toutanova, K., Klein, D., Manning, C.D. \& Singer, Y. 2003. \textit{Feature-rich part-of-speech tagging with a cyclic dependency network}. In: NAACL 3. (2003), s.~252-259
+
+\bibitem[Tseng ym.(2005)]{tseng2005}
+Tseng, H., Jurafsky, D. \& Manning, C. 2005. \textit{Morphological features help POS tagging of unknown words across language varities}. Proceedings of the 4th SIGHAN bakeoff.
+
+% Hakasulkeisiin voi laittaa myös kirjoittajien nimet vaihtoehtoisessa
+% muodossa, jonka saa viittauksessa käyttöön *-merkillä (katso yllä).
+% Huom: Älä laita välilyöntiä vuosiluvun loppusulun jälkeen.
+
+\end{thebibliography}
+
+\end{document}

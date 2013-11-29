@@ -1,0 +1,84 @@
+#==========================================#
+| Sanaluokkien automaattinen tunnistaminen |
+#==========================================#
+
+### RAKENNE ###
+
+1. Johdanto:
+- Mitä POS taggaus on?
+- monitulkintaisuudet kategoriat:
+  - leksikaalinen (tagging)
+  - syntaktinen (parsing)
+  - semanttinen (analysis)
+
+2. Sanaluokkien automaattinen tunnistaminen
+- Mihin sitä tarvitaan?
+- Lyhyt historia
+- Miksi se on hankalaa?
+- Suorituskyky
+  - baseline @ 90%
+- Vaatimukset
+
+3. Transformaatio, brillin taggeri
+
+4. Markovin piilomallit
+
+5. Log-lineaariset mallit (maximum entropy)
+
+6. Johtopäätökset
+
+
+### MARKOV ###
+
+n-grammit
+- yksinkertaistava oletus: Markovin oletus
+  - vain edeltävillä on väliä
+- n-gram-mallin heikkous:
+  - "we can extend to trigrams, 4-grams, 5-grams; in general this is an insufficient model of languages,
+    because language has long-distance dependencies:
+    'The computer which I had just put into the machine room on the fifth floor crashed'"
+    Sana 'crashed' pitäisi arvata sanan 'floor' perusteella, vaikka objekti on lauseen 2. sana!
+  - But we can often get away with n-grams
+  - Selecting the order of a Markov model:
+    - higher order models remember more “history”
+    - additional history can have predictive value
+    - but the number of parameters we need to estimate  grows exponentially with the order
+      – for modeling DNA we need parameters for an nth order model
+      - the higher the order, the less reliable we can expect our parameter estimates to be
+      – estimating the parameters of a 2nd order Markov chain from the complete genome of E. Coli, we’d
+        see each word > 72,000 times on average
+      – estimating the parameters of an 8th order chain, we’d see each word ~ 5 times on average
+
+
+### MAXENT ###
+
+- generatiivinen (yhteisjakauma, "generate the observed data from hidden stuff") vs diskriminatiivinen (ehdollinen jakauma)
+- generatiiviset mallit
+  - painot triviaaleja: just relative frequencies
+- diskriminatiiviset mallit (https://class.coursera.org/nlp/lecture/38)
+  - korkea tarkkuus
+  - helposti laajennettavissa, virheitä tutkimalla, observation! rich features -> major improvements
+  - " in that a generative model is a full probabilistic model of all variables, whereas a discriminative model provides a model only for the target variable(s) conditional on the observed variables. Thus a generative model can be used, for example, to simulate (i.e. generate) values of any variable in the model, whereas a discriminative model allows only sampling of the target variables conditional on the observed quantities." - WikiPedia
+  - training is slower, requires linguistic understanding
+  - they make it easy to incorporate lots of linguistically important features
+  - Instead of putting probabilities over observed data (i.e. P(data,class) ) like joint models (e.g. Naive Bayes) do, conditional models take data as given and put probabilities over hidden structures (i.e. P(class|data) ) because these probabilities are more closely related to classification success. Conditional models seek to maximize these conditional probabilities.
+
+- features
+  - 1. an indicator function
+  - 2. a particular class
+- weights
+- crucially two expectations:
+  - empirical count (training data) of a feature
+  - model expectation of a feature
+
+
+### YHTEENVETO ###
+
+Tässä tutkielmassa käsiteltiin jalkapallon pelianalyysin ohjelmistoja.
+Ohjelmistoista on hyötyä - -.
+Nykyohjelmien rajoituksena voidaan pitää - -.
+kertoo johtopäätöksiä tai antaa suosituksia
+Tällä hetkellä pelianalyysialalla on useita kilpailevia ohjelmistoja, mutta yleinen, pelin eri osa-alueet huomioonottava ohjelma tuntuu puuttuvan.
+Tulevaisuudessa - -. Tällä tavoin pelianalyyseillä
+pystyttäisiin kehittämään jokaiselle joukkueelle paras
+mahdollinen pelitapa. voi sisältää työn arviointia tai jatkotutkimushaasteita
