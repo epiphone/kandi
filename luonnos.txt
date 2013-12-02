@@ -48,6 +48,9 @@ miinukset
  - hitaus (FastTBL - Ngai 2001)
  - tuntemattomien sanojen heikko tarkkuus
 
+Koska säännöt ovat niin yksinkertaisia, onko mahdollista parantaa tarkkuustuloksia tekemällä käsin
+uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
+
 ### MARKOV ###
 
 The trigram assumption is arguably quite strong, and linguistically naive. However, it leads to models that are very useful in practice.
@@ -92,6 +95,27 @@ n-grammit
 - crucially two expectations:
   - empirical count (training data) of a feature
   - model expectation of a feature
+
+Brill & Wu 1998:
+The maximum-entropy framework is a
+probabilistic framework where a model is found
+that is consistent with the observed data and is
+maximally agnostic with respect to all
+parameters for which no data exists. It is a nice
+framework for combining multiple constraints.
+Whereas the transformation-based tagger
+enforces multiple constraints by having multiple
+rules fire, the maximum-entropy tagger can have
+all of these constraints play a role at setting the
+probability estimates for the model's parameters.
+In Ratnaparkhi (1996), a maximum entropy
+tagger is presented. The tagger uses essentially
+the same parameters as the transformation-based
+tagger, but employs them in a different model.
+For our experiments, we used a publicly
+available implementation of maximum-entropy
+tagging) retrained on our training set.
+
 
 
 ### YHTEENVETO ###
