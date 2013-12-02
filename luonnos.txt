@@ -28,7 +28,29 @@
 6. Johtopäätökset
 
 
+### BRILL ###
+
+
+TODO
++ yksinkertainen
++ vaatii vähän muistia vrt. tilastolliset menetelmät
++ lopputuloksena saadaan lingvistisesti merkityksellistä ja helposti tulkittavaa dataa --- sääntöjä
+- hitaampi opettaa
+- huonompi tarkkuus (?)
+plussat:
+ - vast reduction in stored information required
+ - perspicuity of small set of meaningful rules
+ - ease of finding and implementing improvements
+ - better portability from one tag set, corpus genre or language to another (?)
+ - konseptuaalisesti yksinkertaisempi !!!
+miinukset
+ - ei leksikaalista informaatiota (Brill 94 ratkaisee)
+ - hitaus (FastTBL - Ngai 2001)
+ - tuntemattomien sanojen heikko tarkkuus
+
 ### MARKOV ###
+
+The trigram assumption is arguably quite strong, and linguistically naive. However, it leads to models that are very useful in practice.
 
 n-grammit
 - yksinkertaistava oletus: Markovin oletus

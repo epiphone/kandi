@@ -83,7 +83,7 @@ jonka perusteella pyritään päättelemään se sanaluokkien sarja, joka todenn
 
 \[Det\:Adj\:Noun\:Verb\:Prep\:Det\:Noun\]
 
-Sanaluokkien tunnistaminen on laajuudeltaan rajallinen ongelma: sen tarkoituksena ei ole jäsentää kokonaisia lauserakenteita tai tulkita lauseiden merkitystä --- tarkastelun alla ovat vain yksittäisten sanojen syntaktiset kategoriat. Sanaluokkien tunnistaminen on kuitenkin välttämätön ensimmäinen askel useimmissa luonnollisten kielten käsittelyprosesseissa, ja siten yksi aihealueen keskeisimmistä osaongelmista.
+Sanaluokkien tunnistaminen on laajuudeltaan rajallinen ongelma: sen tarkoituksena ei ole jäsentää kokonaisia lauserakenteita tai tulkita lauseiden merkitystä --- tarkastelun alla ovat vain yksittäisten sanojen leksikaaliset kategoriat. Sanaluokkien tunnistaminen on kuitenkin välttämätön ensimmäinen askel useimmissa luonnollisten kielten käsittelyprosesseissa, ja siten yksi aihealueen keskeisimmistä osaongelmista.
 
 Rajallisen laajuutensa myötä sanaluokkien tunnistaminen on paljon helpommin lähestyttävä ongelma kuin kielen täydellinen ymmärtäminen, ja sen ratkaisemiseksi onkin kehitetty useita kohtuullisen luotettavia menetelmiä. Täysin ratkaistusta ongelmasta ei kuitenkaan voida puhua, sillä yksikään tunnettu menetelmä ei vielä saavuta täydellistä tunnistustarkkuutta.
 
@@ -106,15 +106,14 @@ TODO
 
 \section{Miksi sanaluokkien tunnistaminen on ongelmallista?}
 
-Sanaluokkien tunnistaminen voi intuitiivisesti tuntua helpolta, mutta tehtävän automaatiota hankaloittavat kaksi oleellista ongelmaa: sanojen monitulkintaisuus sekä tuntemattomat sanat. Esimerkiksi lauseet
-TODO back door, back of my foot - esimerkki, josta ilmenee sanaluokan monitulk.
-\[Time\: flies\: like\: an\: arrow\]
-\[Fruit\: flies\: like\: a\: banana\]
-voidaan tulkita lukuisin eri tavoin, joista mikään ei ole välttämättä muita ilmeisempi. Lisäksi, vaikka tosielämässä tulkittavat lauseet ovat harvoin yhtä ongelmallisia kuin edellämainitut lingvistiset esimerkkilauseet, on monitulkintaisuus hyvin yleistä: arviolta 40\% englanninkielisen proosan sanastosta voidaan luokitella useampaan kuin yhteen sanaluokkaan \citep{derose1988}. 
+Sanaluokkien tunnistaminen voi intuitiivisesti tuntua helpolta, mutta tehtävän automaatiota hankaloittavat kaksi oleellista ongelmaa: sanojen monitulkintaisuus sekä tuntemattomat sanat. Esimerkiksi lauseissa
+\[Time\: flies\: like\: an\: arrow.\]
+\[Fruit\: flies\: like\: a\: banana.\]
+sana \textit{flies} esiintyy ensin verbinä ja sitten substantiivina. Sanan \textit{time} ilmeisin sanaluokka on substantiivi, mutta se voidaan mieltää myös imperatiiviverbinä, jolloin lauseen merkitys muuttuu täysin. Itse asiassa kummatkin esimerkkilauseet voidaan tulkita kymmenin eri tavoin, joista ilmeisimmän tulkinnan valitseminen automaattisesti on haastavaa. Lisäksi, vaikka tosielämässä tulkittavat lauseet ovat harvoin yhtä ongelmallisia kuin edellämainitut lingvistiset esimerkkilauseet, on monitulkintaisuus hyvin yleistä: arviolta 40\% englanninkielisen proosan sanastosta voidaan luokitella useampaan kuin yhteen sanaluokkaan \citep{derose1988}. 
 
-Jatkokäsittelyn kannalta automaattisen tunnistajan oleellisin tehtävä onkin valita kaikista mahdollisista sanaluokista se, joka tuottaa luontevimman tulkinnan. Tällaisen yksikäsitteistämisen mahdollistavat luonnollisten kielten sisäänrakennetut rajoitteet, jotka voidaan jakaa lokaaleihin sekä kontekstuaalisiin vihjeisiin: lokaaleista vihjeistä ilmeisin on itse sana (''sana \textit{can} on on todennäköisemmin modaaliverbi kuin substantiivi''), mutta päätelmiä voidaan tehdä myös esimerkiksi sanan prefiksin, suffiksin sekä alkukirjaimen koon perusteella. Kontekstuaalisia vihjeitä ovat kaikki lauseen muut sanat sanaluokkineen: esimerkiksi sana \textit{fly} on todennäköisimmin substantiivi, jos edeltävä sana on artikkeli.
+Jatkokäsittelyn kannalta automaattisen tunnistajan oleellisin tehtävä onkin valita kaikista mahdollisista sanaluokista se, joka tuottaa luontevimman tulkinnan. Tällaisen yksikäsitteistämisen mahdollistavat luonnollisten kielten sisäänrakennetut rajoitteet, jotka voidaan jakaa lokaaleihin sekä kontekstuaalisiin vihjeisiin: lokaaleista vihjeistä ilmeisin on itse sana (''sana \textit{can} on on todennäköisemmin modaaliverbi kuin substantiivi''), mutta päätelmiä voidaan tehdä myös mm. sanan prefiksin, suffiksin tai kirjainten koon perusteella. Kontekstuaalisia vihjeitä ovat kaikki lauseen muut sanat sanaluokkineen: esimerkiksi sana \textit{fly} on todennäköisimmin substantiivi, jos edeltävä sana on artikkeli.
 
-On tärkeää huomata, ettei sanaluokkien tunnistaminen itsessään ole ratkaisu kieliopilliseen monitulkintaisuuteen: monitulkintaisuudella on useita tasoja, joista osaa käsitellään vielä prosessointiketjun myöhemmissä vaiheissa. Esimerkiksi syntaktinen, tai rakenteellinen monitulkintaisuus on ongelma, joka on huomattavasti helpompi ratkaista lauseiden jäsennyksen yhteydessä. Sanaluokkien tunnistamista ei myöskään tule sekoittaa semanttiseen yksikäsitteistämiseen, eli sanan merkityksen selvittämiseen: esimerkiksi sana \textit{mouse} on semanttisesti monitulkintainen, vaikka sen sanaluokka tunnettaisiinkin. Sanaluokkien tunnistusprosessin rooli on pikemminkin rajata mahdollisten tulkintojen määrää prosessointiketjun alkupäässä, jotta myöhemmissä vaiheissa vältytään turhalta työltä.
+On tärkeää huomata, ettei sanaluokkien tunnistaminen itsessään ole ratkaisu kieliopilliseen monitulkintaisuuteen: monitulkintaisuudella on useita tasoja, joista osaa käsitellään vielä prosessointiketjun myöhemmissä vaiheissa. Esimerkiksi syntaktinen, tai rakenteellinen monitulkintaisuus on ongelma, joka on huomattavasti helpompi ratkaista lauseiden jäsennyksen yhteydessä. Sanaluokkien tunnistamista ei myöskään tule sekoittaa semanttiseen yksikäsitteistämiseen, eli sanan merkityksen selvittämiseen: esimerkiksi sana \textit{mouse} on semanttisesti monitulkintainen, vaikka sen sanaluokka tunnettaisiinkin. Sanaluokkien tunnistamisen rooli on pikemminkin rajata mahdollisten tulkintojen määrää prosessointiketjun alkupäässä, jotta myöhemmissä vaiheissa vältytään turhalta työltä.
 
 Monitulkintaisuuden lisäksi toinen merkittävä ongelma on tuntemattomien, eli harjoitusaineistosta puuttuvien sanojen käsitteleminen. Englannin kielessä yleisiä tuntemattomia sanoja ovat erisnimet sekä puhekieliset, vieraskieliset ja muut harvinaiset ilmaisut. Tällaisia sanoja kohdataan usein, ja koska niitä koskevaa tilastollista informaatiota tai sääntöjä ei tunneta, joudutaan turvautumaan jonkinlaiseen poikkeuskäsittelyyn. Useat tunnistajat hyödyntävät tuntemattomien sanojen kohdalla kieliopillisia ominaisuuksia: yksinkertainen menetelmä on määrätä sanalle se sanaluokka, joihin tuntemattomien sanojen on havaittu todennäköisimmin kuuluvan, eli yleensä substantiivi. Parempia tuloksia on saavutettu määrittämällä tuntemattoman sanan sanaluokka sen päätteen perusteella; esim. englannin kielen \emph{able}-päätteiset sanat ovat hyvin todennäköisesti adjektiiveja \citep{samuelsson1993}. Menetelmä ei kuitenkaan sovellu kaikille kielille: esim. \citet{tseng2005} osoittavat, että kiinan kielessä esiintyy huomattavan suuri määrä yleisiä affikseja, poiketen englannin ja saksan kielistä, joissa affiksit ovat vahva indikaattori sanan sanaluokasta.
 
@@ -142,41 +141,61 @@ Jotta tunnistajaa voidaan käyttää laajan kielenprosessointijärjestelmän kom
 
 \section{Harjoitusaineisto ja sanaluokkasetit}
 
-TODO Tässä kappaleessa mainitaan yleisimmät harjoitusaineistot ja sanaluokkasetit (Brown, Penn Treebank). Mahd. syytä täsmentää, että on kyse ohjatusta oppimisesta. Testiaineiston ja harjoitusaineiston erot; mitä seuraa jos liian erilaiset? Ongelmaan vaikuttaa myös tunnistettavien sanaluokkien määrä: mitä enemmän sanaluokkia, sitä suurempi mahdollisuus monitulkintaisuuteen. Harjoitusaineiston koko. Ongelmallista on myös tunnistamisessa käytettävien sanaluokkien (engl. \emph{POS tagset}) valinta. Yleisiä englannin kielen sanaluokkasettejä ovat Brownin aineiston 87 sanaluokkaa \citep{francis1964}, tai uudemman Penn Treebank-aineiston 48 sanaluokkaa \citep{marcus1993}. Myös yleisiä, kielestä riippumattomia sanaluokkasettejä on kehitetty, joskin tällöin joudutaan väistämättä tinkimään tunnistamistarkkuudesta \citep{petrov2011}.
+Sanaluokkien tunnistaminen on luonteeltaan sarjanluokitteluongelma, joka taas on yksi koneoppimisen (tarkemmin hahmontunnistuksen) aliongelmatyypeistä. Tämän seurauksena nykyiset sanaluokkien tunnistusmenetelmät perustuvat lähes poikkeuksetta ohjattuun oppimiseen, eli tunnistimet tulee ''opettaa'' jonkinlaisella harjoitusaineistolla ennen käyttöä. Sanaluokkien tunnistimille syötettävä harjoitusdata koostuu suurista tekstiaineistoista (engl. \textit{corpus}), joissa jokaisen sanan yhteyteen on merkattu oikea sanaluokka. Nykyisin ehkä yleisimmin käytetty englanninkielinen harjoitusaineisto on ns. Penn Treebank-aineisto \citep{marcus1993}, joka sisältää noin viiden miljoonan sanan edestä uutisartikkeleita, kaunokirjallisuutta, tieteellisiä julkaisuja ym. tekstilajeja. (TODO harjoitusaineiston merkitys tunnistustuloksille).
 
-Yleensä puhutaan 8:sta tagista, NLP:llä eri vaatimukset: päätemerkit yms.
+Tunnistusongelmaan on olemassa myös ohjaamattomaan oppimiseen perustuvia ratkaisuja, jotka eivät vaadi valmiiksi luokiteltua harjoitusaineistoa. Toisaalta tällaiset menetelmät ovat väistämättä alttiimpia virheille kuin vastaavat ohjatun oppimisen menetelmät. Joissain tapauksissa --- esimerkiksi harvinaisia kieliä analysoitaessa --- luokiteltua harjoitusaineistoa ei kuitenkaan ole saatavilla, jolloin ohjaamaton oppiminen on ainoa vaihtoehto.
+
+Tunnistamisessa käytetyt sanaluokat määräytyvät yleensä harjoitusaineiston mukaan: esimerkiksi Penn Treebank-aineiston käyttämä sanaluokkasetti koostuu 48 sanaluokasta, joista 12 ovat välikemerkkejä. On tärkeää huomata, että käytettävän sanaluokkasetin laajuus vaikuttaa suoraan tunnistustarkkuuteen: mitä enemmän sanaluokkia, sitä suurempi mahdollisuus monitulkintaisuuteen. Toisaalta sanaluokkien tunnistamisen tuottama lingvistinen informaatio on sitä arvokkaampaa, mitä tarkempi jaottelu eri sanaluokkien välillä on. \citep{marcus1993}
+
+(TODO: Tulisiko sanaluokista tehdä oma kappaleensa? mahd. listaus Penn Treebank-sanaluokista liiteeksi, esimerkkiä harjoitusaineistosta: ''cat/NN jumped/VB-P on/PRE...'')
 
 
 \chapter{Transformaatiosäännöt}
 
-TODO
-+ yksinkertainen \\
-+ vaatii vähän muistia vrt. tilastolliset menetelmät \\
-+ lopputuloksena saadaan lingvistisesti merkityksellistä ja helposti tulkittavaa dataa --- sääntöjä \\
-- hitaampi opettaa \\
-- huonompi tarkkuus
+Ensimmäiset automaattiset sanaluokkatunnistimet (mm. \citealp{greene1971}) perustuivat pitkälti käsin laadittuihin kieliopillisiin transformaatiosääntöihin. Tällainen sääntöpohjainen menetelmä toimii seuraavasti: ensin kunkin sanan mahdolliset sanaluokat haetaan sanakirjasta tai vastaavasta tietolähteestä. Seuraavaksi niiden sanojen kohdalla, joiden sanaluokka ei ole yksikäsitteinen, käytetään valmiita transformaatiosääntöjä oikean sanaluokan tunnistamiseen. Transformaatiosäännöt voivat hyödyntää sekä lokaaleja että kontekstuaalisia kieliopillisia vihjeitä; tyypillisiä transformaatiosääntöjä ovat esimerkiksi \textit{korvaa substantiivi erisnimellä, jos sanalla on iso alkukirjain} (lokaali vihje) tai \textit{korvaa substantiivi verbillä, jos edeltävä sanaluokka on pronomini} (kontekstuaalinen vihje).
+
+Tällaisen lähestymistavan ilmeisin heikkous on vaaditun manuaalisen työn määrä: erilaisille aineistoille tulee aina luoda uusi, aineiston kielelle ja tyylille spesifi sääntökokoelma. Huomattavan työpanoksen lisäksi sääntöpohjainen menetelmä vaatii myös ymmärryksen tulkittavan aineiston kieliopillisista ominaisuuksista, jotta luodut säännöt tuottavat toivotun tuloksen. Puhtaasti sääntöpohjaisilla menetelmillä voidaan saavuttaa --- sääntöjen määrästä riippuen --- korkeita tarkkuustuloksia, mutta kyseiset tulokset eivät ole siirrettävissä erilaisille aineistoille ilman mittavia muutoksia.
+
+Sääntöpohjaisten menetelmien puutteiden vuoksi useimmat nykyiset sanaluokkien tunnistajat perustuvat tilastollisiin menetelmiin: sanaluokkia koskeva tilastollinen informaatio voidaan poimia harjoitusaineistosta automaattisesti, siinä missä sääntöjen laatiminen vaatii lingvististä asiantuntemusta ja manuaalista työtä. Seuraavissa kappaleissa esiteltävät Markovin piilomallit sekä log-lineaariset mallit ovat esimerkkejä tilastollisista tunnistusmenetelmistä. Sääntöpohjaisilla menetelmillä on kuitenkin joitakin etuja tilastollisiin menetelmiin verrattuna: ensinnäkin kielioppisääntöjen tallentaminen vaatii huomattavasti vähemmän tallennustilaa kuin vastaava tilastollinen informaatio. Tilastollista informaatiota on myös hankalampi tulkita ja käsitellä kuin yksinkertaisia kielioppisääntöjä, jonka myötä tunnistusvirheiden tunnistaminen ja korjaaminen on helpompaa kielioppisääntöjä käytettäessä. \citep{brill1992}
+
+\citet{brill1992} huomauttaakin, että tilastolliset tunnistajat saavuttavat korkean tunnistamistarkkuuden kiinnittämättä varsinaisesti huomiota aineiston taustalla olevaan kieliopilliseen rakenteeseen. Hän laskee tilastollisten menetelmien puutteeksi sen, että ne poimivat aineistosta lingvistisen informaation sijaan vain suuren määrän vaikeselkoisia tilastoja. 
+
+\section{Brillin sääntöpohjainen sanaluokkatunnistin}
+
+\citet{brill1992,brill1994} esittää artikkeleissaan vaihtoehtoisen lähestymistavan, joka pohjautuu varhaisimpien tunnistusmenetelmien tavoin kieliopillisiin sääntöihin. Aikaisemmista sääntöpohjaisista tunnistamismenetelmistä poiketen sääntöjä ei kuitenkaan syötetä manuaalisesti, vaan tunnistin oppii ne automaattisesti oikeilla sanaluokilla merkitystä harjoitusaineistosta. Menetelmän kantava idea on tunnistaa tehdyt tunnistusvirheet, ja inkrementaalisesti soveltaa virheitä korjaavia transformaatiosääntöjä kunnes ne eivät enään paranna kokonaistarkkuutta.
+
+\subsection{Alustus}
+
+Brillin tunnistin alustetaan 
+
+\subsection{Transformaatiosääntöjen soveltaminen}
+
+
+\section{Arviota}
+
+TODO: yksinkertainen, tarkkuus?
 
 \chapter{Markovin piilomallit}
 
 Markovin malli (mm. \citealp{rabiner1989}) kuvaa sellaista stokastista prosessia, joka toteuttaa ns. Markov-ominaisuuden: seuraava tila riippuu aina vain $N$:stä edeltävästä tilasta. Markov-ominaisuus on siis eräänlainen riippumattomuusoletus, joka yksinkertaistaa stokastisen prosessin tilan estimointia rajoittamalla tilasiirtymien historian määrää. $N$:nen asteen Markov-ominaisuuden toimiessa esimerkiksi todennäköisyys
 
-\[
+\begin{align}
 P(x_k | x_1, \ldots, x_{k-1})
-\]
+\end{align}
 
 voidaan laskea huomattavasti yksinkertaisemmin tarkastelemalla vain $N$:ää edellistä tilaa:
 
-\[
+\begin{align}
 P(x_k | x_{k - N }, \ldots, x_{k-1})
-\]
+\end{align}
 
 Markov-ominaisuudesta puhuttaessa on yleensä kyse juuri ensimmäisen asteen Markov-ominaisuudesta, jolloin $N=1$. Käytännössä tämä tarkoittaa sitä, että tarkastellaan jotakin kahta peräkkäistä tilaa --- nykyistä sekä tulevaa. Markov-ominaisuutta voidaan kuitenkin laajentaa myös korkeampiin asteisiin, jolloin myös tarkasteltavien tilasarjojen pituudet kasvavat. Sanaluokkia tunnistaessa näitä tilasarjoja vastaavat n:n peräkkäisen sanaluokan sarjat, eli ns. n-grammit.   
+
+TODO: Asteen valinnasta.
 
 Yksinkertaisimmillaan Markovin mallia voidaan kuvata tilakoneena, joka koostuu havaittavia tapahtumia kuvaavista tiloista, sekä tilasiirtymämatriisista, josta ilmenevät todennäköisyydet siirtyä kustakin tilasta mihin tahansa muuhun tilaan. Kukin tila on siis itsenäinen ja muistiton.
 
 TODO Mahd. selitykset HMM:n viidestä elementistä \citep{rubiner1989}.
-
-
 
 TODO: tähän esimerkkikuva Markovin ketjusta
 
@@ -191,15 +210,15 @@ TODO: tähän kuva Markovin piilomallista
 
 Tunnistamisongelmassa siis haetaan annetulla lauseelle sitä todennäköisimmin vastaavaa sanaluokkien sarjaa. Todennäköisyyttä voidaan mallintaa funktiolla
 
-\[
+\begin{align}
 p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n)
-\]
+\end{align}
 
 mikä ilmaisee todennäköisyyden sille, että jokin lause $ w_1 \ldots w_n $ esiintyy jonkin sanaluokkasarjan $ t_1 \ldots t_n $ yhteydessä. Tällöin ratkaistavaksi jää
 
-\[
+\begin{align}
 \argmax{t_1 \ldots t_n} p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n)
-\]
+\end{align}
 
 eli sanaluokkasarja $ t_1 \ldots t_n $, jolla saadaan maksimiarvo edeltävästä funktiosta. Mahdollisten sanaluokkasarjojen määrä kuitenkin kasvaa eksponentiaalisesti sanojen ja sanaluokkien määrän mukaan, jolloin maksimiarvon ratkaiseminen on epätehokasta.
 
@@ -208,21 +227,21 @@ eli sanaluokkasarja $ t_1 \ldots t_n $, jolla saadaan maksimiarvo edeltävästä
 
 Markovin piilomallien avulla edellämainittu funktio $ p $ voidaan kuvata muodossa
 
-\[
+\begin{align}
 p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n) = \underbrace{\prod_{i=1}^{n+1} q(t_i | t_{i-2}, t_{i-1})}_\text{Markovin ketju}\prod_{i=1}^{n}e(w_i | t_i)
-\]
+\end{align}
 
 missä $t_0$ ja $t_{-1}$ ovat lauseen alkuun lisättyjä alkusanaluokkia, ja $t_{n+1}$ on päätemerkkisanaluokka. Mallin ensimmäinen parametri
 
-\[
+\begin{align}
 q(t_i | t_{i-2}, t_{i-1})
-\]
+\end{align}
 
 laskee todennäköisyyden sanaluokalle $t_i$, kun kaksi edeltävää sanaluokkaa ovat $t_{i-1}$ ja $t_{i-2}$. Parametri voidaan myös mieltää todennäköisyytenä trigrammille $t_{i-2}, t_{i-1}, t_i $. Tästä huomataan, että kyseessä on toisen asteen Markovin piilomalli. Mallin toinen parametri
 
-\[
+\begin{align}
 e(w_i | t_i)
-\]
+\end{align}
 
 laskee todennäköisyyden sille, että sana $w_i$ esiintyy sanaluokan $t_i$ yhteydessä.
 
@@ -231,33 +250,34 @@ laskee todennäköisyyden sille, että sana $w_i$ esiintyy sanaluokan $t_i$ yhte
 
 Yksinkertaisimmillaan parametri $q(t_i|t_{i-2},t_{i-1})$ voidaan estimoida laskemalla
 
-\[
-q(t_3|t_1,t_2) = \frac{f(t_1,t_2,t_3)}{f(t_1,t_2)}
-\]
+\begin{align}
+q(t_i|t_{i-2},t_{i-1}) = \frac{f(t_{i-2},t_{i-1},t_i)}{f(t_{i-1},t_{i-1})}
+\end{align}
 
-missä funktio $f$ merkitsee annetun n-grammin lukumäärää harjoitusaineistossa. \citet{brants2000} kuitenkin osoittaa, että datan harvuuden vuoksi tällainen estimaatti ei ole käyttökelpoinen: laajassakaan harjoitusaineistossa ei ole tarpeeksi montaa kappaletta kutakin eri trigrammia. Lisäksi osa trigrammeista $t_i,t_{i+1},t_{i+2}$ ovat väistämättä sellaisia, että $f(t_i,t_{i+1},t_{i+2}) = 0$, jolloin koko sarja $t_1 \ldots t_n$ saa todennäköisyyden $0$. Luotettavampi tapa estimoida arvoa $q$ on hyödyntää trigrammien lisäksi myös harjoitusaineistosta johdettujen uni- ja bigrammien suhteellisia frekvenssejä:
+missä funktio $f$ merkitsee annetun n-grammin lukumäärää harjoitusaineistossa. \citet{brants2000} kuitenkin osoittaa, että datan harvuuden vuoksi tällainen estimaatti ei ole käyttökelpoinen: laajassakaan harjoitusaineistossa ei ole tarpeeksi montaa kappaletta kutakin eri trigrammia. Lisäksi osa trigrammeista $t_{i-2},t_{i-1},t_i$ ovat väistämättä sellaisia, että $f(t_{i-2},t_{i-1},t_i) = 0$, jolloin koko sarja $t_1 \ldots t_n$ saa todennäköisyyden $0$. Luotettavampi tapa estimoida arvoa $q$ on hyödyntää trigrammien lisäksi myös harjoitusaineistosta johdettujen uni- ja bigrammien suhteellisia frekvenssejä:
 
-\begin{align*}
-Unigrammi&: P(t_3) = \frac{f(t_3)}{N} \\
-Bigrammi&: P(t_3 | t_2) = \frac{f(t_2, t_3)}{f(t_2)} \\
-Trigrammi&: P(t_3 | t_1, t_2) = \frac{f(t_1,t_2,t_3)}{f(t_1,t_2)}
-\end{align*}
+\begin{align}
+Unigrammi&: P(t_i) = \frac{f(t_i)}{N} \\
+Bigrammi&: P(t_i | t_{i-1}) = \frac{f(t_{i-1}, t_i)}{f(t_{i-1})} \\
+Trigrammi&: P(t_i | t_{i-2}, t_{i-1}) = \frac{f(t_{i-2},t_{i-1},t_i)}{f(t_{i-2},t_{i-1})}
+\end{align}
 
 missä $N$ merkitsee harjoitusaineiston sanojen kokonaislukumäärää. Nyt funktion $q$ arvoa voidaan silottaa interpoloimalla edellämainittuja n-grammeja:
 
-\[
-q(t_3 | t_1, t_2) = \lambda_1 P(t_3) + \lambda_2 P(t_3 | t_2) + \lambda_3 P(t_3 | t_1, t_2)
-\]
+\begin{align}
+q(t_i | t_{i-2}, t_{i-1}) = \lambda_1 P(t_i) + \lambda_2 P(t_i | t_{i-1}) + \lambda_3 P(t_i | t_{i-2}, t_{i-1})
+\end{align}
 
-missä $\lambda_1+\lambda_2+\lambda_3 = 1$ ja $\lambda_1,\lambda_2,\lambda_3 \geq 0$ (TODO muut silotusmenetelmät, perustelu interpolaatiolle). Vastaavasti todennäköisyys $e$ voidaan estimoida vertaamalla sana-sanaluokka-yhdistelmän frekvenssiä pelkän sanaluokan frekvenssiin:
+missä $\lambda_1+\lambda_2+\lambda_3 = 1$ ja $\lambda_1,\lambda_2,\lambda_3 \geq 0$ (TODO muut silotusmenetelmät, perustelu interpolaatiolle ja lambda-arvoille). Vastaavasti todennäköisyys $e$ voidaan estimoida vertaamalla sana-sanaluokka-yhdistelmän frekvenssiä pelkän sanaluokan frekvenssiin:
 
-\[
-e(w_3|t_3) = \frac{f(w_3, t_3)}{f(t_3)}
-\]
+\begin{align}
+e(w_i|t_i) = \frac{f(w_i, t_i)}{f(t_i)}
+\label{hmm_param_e}
+\end{align}
 
 \subsection{Tuntemattomien sanojen käsittely}
 
-Edellinen todennäköisyyden $e$ estimaatti ei kuitenkaan ole luotettava, jos sana $w$ ei esiinny harjoitusaineistossa kertaakaan. Tällöin $e(w|t)=0$ millä tahansa sanaluokalla $t$, ja samoin 
+Todennäköisyyden $e$ estimaatti \eqref{hmm_param_e} ei kuitenkaan ole luotettava, jos sana $w$ ei esiinny harjoitusaineistossa kertaakaan. Tällöin $e(w|t)=0$ millä tahansa sanaluokalla $t$, ja samoin 
 $p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n) = 0$, jos yksikään sanoista $w_1 \ldots w_n$ on tuntematon. Yksinkertaisin ratkaisu on määrätä tuntemattoman sanalle aina harjoitusaineiston yleisin sanaluokka, käytännössä substantiivi. Joitain kieliä --- kuten englantia --- tulkittaessa voidaan saavuttaa parempia tuloksia suffiksianalyysin \citep{samuelsson1993} avulla. Tällöin tarkoituksena on hyödyntää sitä seikkaa, että sanan pääte on usein vahva indikaattori sen sanaluokasta. Lisäksi \citet{toutanova2003} ovat esittäneet, kuinka seuraavassa kappaleessa esiteltäviä log-lineaarisia malleja voidaan hyödyntää tuntemattomien sanojen käsittelyssä.
 
 
@@ -267,8 +287,7 @@ Tässä kappaleessa kuvaillaan lyhyesti Viterbin algoritmia, jolla ratkaistaan t
 
 \section{Parannukset (tjsp)}
 
-Tähän kuvaukset Cyclic Dependency Network-menetelmästä \citep{toutanova2003}, mahd. ohjaamattomasta oppimisesta \citep{banko2004}. The trigram assumption is arguably quite strong, and linguistically naive. However, it leads to models that are very useful in
-practice.
+Tähän kuvaukset Cyclic Dependency Network-menetelmästä \citep{toutanova2003}, mahd. ohjaamattomasta oppimisesta \citep{banko2004}. 
 
 
 \chapter{Log-lineaariset mallit}
@@ -276,25 +295,18 @@ practice.
 TODO
 
 
-
-\chapter{Menetelmien vertailua/analyysia}
-
-
-TODO Tässä kappaleessa esitellään tunnistimien eri toimintaympäristöt (esim. erilaiset kielet, aineistot, harjoitusaineiston saatavuus), ja pohditaan miten eri menetelmät toimivat eri olosuhteissa; vastataan siis tutkimuskysymykseen (miten eri menetelmät eroavat toisistaan, ja soveltuvatko jotkin menetelmät toisia paremmin tietyille toimintaympäristöille).
-
-Toisaalta voisi olla mielekkäämpää perustella menetelmien etuja jo aikaisemmissa kappaleissa, niiden esittelyiden yhteydessä. Menetelmien esitysjärjestys on sellainen, että myöhempi menetelmä tavallaan vastaa aikaisemman menetelmän puutteisiin.  Lisäksi tässä kappaleessa esiteltäviä johtopäätöksiä voisi jättää yhteenveto-kappaleeseen; kokonaisen kappaleen verran johtopäätöksiä ja merkityksellistä analyysia vaikuttaa turhan kunnianhimoiselta tavoitteelta.  Harkitsen siis tämän kappaleen poistamista.
-
-
 \chapter{Yhteenveto}
 
 TODO Yhteenvedossa kerrataan työn pääkohdat lyhyehkösti johtopäätöksiä tehden. Siinä voi myös esittää pohdintoja siitä, minkälaisia tutkimuksia aiheesta voisi jatkossa tehdä. viittaa kirjallisuuskatsauksen tarkoitukseen ja kertoo ''päätulokset''.
+TODO vastataan tutkimuskysymykseen
+
 
 
 
 \begin{thebibliography}{}
 
 \bibitem[Banko \& Moore(2004)]{banko2004}
-Banko, M. \& Moore, R. C. (2004). \textit{Part of speech tagging in context}. Proceedings of the 20th conference on Computational Linguistics, ACL, s. 556.
+Banko, M. \& Moore, R. C. 2004. \textit{Part of speech tagging in context}. Proceedings of the 20th conference on Computational Linguistics, ACL, s. 556.
 
 \bibitem[Brants(2000)]{brants2000}
 Brants, T. 2000. \textit{TnT - A statistical part-of-speech tagger}. Proceedings of the 6th Applied NLP Conference (ANLP).
@@ -302,8 +314,8 @@ Brants, T. 2000. \textit{TnT - A statistical part-of-speech tagger}. Proceedings
 \bibitem[Brill(1992)]{brill1992}
 Brill, E. 1992. \textit{A simple rule-based part of speech tagger}. Proceedings of the 3rd conference on Applied Computational Linguistics, ACL, Trento, Italy.
 
-\bibitem[Brill(1995)]{brill1995}
-Brill, E. 1995. \textit{Transformation-based error-driven learning and natural language processing: a case study in part-of-speech tagging}. Computational Linguistics, 21(4), s.~543-565.
+\bibitem[Brill(1994)]{brill1994}
+Brill, E. 1994. \textit{Some advances in transformation-based part of speech tagging}. AAAI 1994, s.~722-727.
 
 \bibitem[Charniak ym.(1993)]{charniak1993}
 Charniak, E., Hendrickson, C., Jacobson, N., \& Perkowitz, M. 1993. \textit{Equations for part-of-speech tagging}. Proceedings of AAAI-93, s.~784--789.
@@ -317,12 +329,11 @@ Cutting, D., Kupiec, J., Pedersen, J. \& Sibun, P. 1992. \textit{A Practical Par
 \bibitem[DeRose(1988)]{derose1988}
 DeRose, S. J. 1988. \textit{Grammatical category disambiguation by statistical optimization}. Computational Linguistics, 14(1), s.~31--39.
 
-\bibitem[Francis(1964)]{francis1964}
-Francis, W. N. 1964. \textit{A standard sample of present-day English for the use with digital computers}. Report for the U.S Office of Education on Cooperative Research Project No. E-007.
-Brown University, Providence RI.
-
 \bibitem[Garside(1987)]{garside1987}
 Garside, R. 1987. \textit{The CLAWS word-tagging system}. Teoksessa R. Garside, G. Leech \& G. Sampson (toim.) The Computational Analysis of English: A Corpus-based Approach. London: Logman, s.~30-41.
+
+\bibitem[Greene \& Rubin(1971)]{greene1971}
+Greene, B. B., \& Rubin, G. M. 1971. \textit{Automatic grammatical tagging of English}. Department of Linguistics, Brown University, 1971.
 
 \bibitem[Heckerman ym.(2000)]{heckerman2000}
 Heckerman, D., Chickering, D. M., Meek, C., Rounthwaite, R. \& Kadie, C. M. 2000. \textit{Dependency networks for inference, collaborative filtering and data visualization}.
@@ -343,9 +354,6 @@ Marcus, M. P., Marcinkiewicz, M. \& Santorini, B. 1993. \textit{Building a large
 
 \bibitem[Merialdo(1994)]{merialdo1994}
 Merialdo, B. 1994. \textit{Tagging English text with a probabilistic model}. Computational Linguistics, 20(2), s.~155-171.
-
-\bibitem[Petrov ym.(2011)]{petrov2011}
-Petrov, S., Das, D. \& McDonald, R. 2011. \textit{A universal part-of-speech tagset}. ArXiv:1104.2086.
 
 \bibitem[''POS Tagging State of the Art''(2013)]{aclwiki2013}
 \textit{POS Tagging State of the Art}. 2013. The Wiki of the Association for Computational Linguistics.
