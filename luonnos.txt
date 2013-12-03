@@ -77,6 +77,18 @@ n-grammit
 
 ### MAXENT ###
 
+On Discriminative vs. Generative classifiers (Ng & Jordan) !!!
+- generative classifiers learn a model of the joint probability p(x,y) of the inputs x and the label y,
+  and make their predictions using Bayes rules to calculate p(y|x), and then picking the most likely label y.
+- Discriminative classifiers model the posterior p(y|x) directly, or learn a direct map from inputs x to the
+  class labels.
+- "one should solve the classification problem directly and never solve more general problem as an
+  intermediate step" Ng eri mieltä?
+-
+
+Wikipedia - Generative Model:
+Generative models contrast with discriminative models, in that a generative model is a full probabilistic model of all variables, whereas a discriminative model provides a model only for the target variable(s) conditional on the observed variables. Thus a generative model can be used, for example, to simulate (i.e. generate) values of any variable in the model, whereas a discriminative model allows only sampling of the target variables conditional on the observed quantities.
+
 - generatiivinen (yhteisjakauma, "generate the observed data from hidden stuff") vs diskriminatiivinen (ehdollinen jakauma)
 - generatiiviset mallit
   - painot triviaaleja: just relative frequencies

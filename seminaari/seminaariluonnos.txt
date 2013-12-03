@@ -1,0 +1,17 @@
+1. Otsikko
+
+2. Sisällysluettelo
+
+3. Mistä on kyse? / Johdanto
+
+korpukset, sanaluokat
+
+4. Sääntöpohjaiset
+- lingvistinen näkökulma
+- Transformaatiosäännöt
+
+5. Tilastolliset mallit
+- Markovin piilomallit/generatiiviset mallit
+- Log-lineaariset mallit/Suurimman entropian periaate/diskriminatiiviset mallit
+
+7. Yhteenveto
