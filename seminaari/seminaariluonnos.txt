@@ -1,17 +1,17 @@
-1. Otsikko
+Esitys:
+1. Esittely
+2. Sisällys
+3. Johdanto
+ - sanaluokkia enemmän kuin 8-9
+ - arvokkaaampaa mitä enemmän luokkia
+4. Haasteet
+ - 40%
+ - harjoitusaineisto
+ - suorituskyky engl. kielisessä kirjakielellä
 
-2. Sisällysluettelo
 
-3. Mistä on kyse? / Johdanto
-
-korpukset, sanaluokat
-
-4. Sääntöpohjaiset
-- lingvistinen näkökulma
-- Transformaatiosäännöt
-
-5. Tilastolliset mallit
-- Markovin piilomallit/generatiiviset mallit
-- Log-lineaariset mallit/Suurimman entropian periaate/diskriminatiiviset mallit
-
-7. Yhteenveto
+Palaute:
+- työn tavoite, ongelmanasettelu ja rajaus
+- sisällön jäsentyneisyys, loogisuus ja selkeys
+- lähdemateriaali
+- johtopäätökset

@@ -1,0 +1,112 @@
+% !TeX encoding = utf8
+%
+% [ Tiedostossa käytetty merkistö on utf8, vaihtoehtoisesti voisi olla esim.]
+% [ ISO 8859-1 eli Latin 1. Ylläoleva rivi ]
+% [ tarvitaan, jos käyttää MiKTeX-paketin mukana tulevaa TeXworks-editoria. ]
+%
+% TIETOTEKNIIKAN KANDIDAATINTUTKIELMA
+%
+% Yksinkertainen LaTeX2e-mallipohja kandidaatintutkielmalle.
+% Käyttää Antti-Juhani Kaijanahon kirjoittamaa gradu3-dokumenttiluokkaa.
+%
+% Jos kirjoitat pro gradu -tutkielmaa, tee mallipohjaan seuraavat muutokset:
+%  - Poista dokumenttiluokasta optio bachelor .
+%  - Poista makro \type .
+%  - Lisää suuntautumisvaihtoehto makrolla \studyline .
+%  - Lisää tieto ohjaajasta makrolla \supervisor .
+
+\documentclass[utf8,bachelor,manualbib]{gradu3}
+
+\usepackage{palatino} % valitaan oletusfonttia hieman tyylikkäämpi fontti
+
+\usepackage{graphicx} % tarvitaan vain, jos halutaan mukaan kuvia
+\usepackage{amsmath}  % tarvitaan käytettäessä monimutkaisten matemaattisten kaavojen ja \eqref-kaavaviittauksen yhteydessä
+\usepackage{url} % tarvitaan \url-komentoa varten
+\usepackage{booktabs}
+
+\usepackage{amsfonts}
+\usepackage{enumitem}
+\usepackage{eucal}
+\usepackage{pbox}
+\usepackage{comment}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+
+% Otetaan käyttöön author-date-järjestelmän mukaiset lähdeviittaukset:
+\usepackage{natbib}
+% Vaihdetaan kirjoittajan nimen ja vuosiluvun väliseksi erottimeksi
+% välilyönti (oletuserottimena on pilkku):
+%\bibpunct{(}{)}{;}{a}{}{,}
+
+\newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{max}}\;}
+
+% HUOM! Tämän tulee olla viimeinen \usepackage koko dokumentissa!
+\usepackage[bookmarksopen,bookmarksnumbered,linktocpage]{hyperref}
+\setcounter{tocdepth}{2}
+\begin{document}
+
+\title{Sanaluokkien automaattisen tunnistamisen menetelmät}
+
+\translatedtitle{Methods for automated part-of-speech tagging}
+
+%\studyline{}
+\avainsanat{kieliteknologia, luonnollisten kielten käsittely, sanaluokkien tunnistaminen, koneoppiminen}
+\keywords{computational linguistics, natural language processing, part-of-speech tagging, machine learning}
+\tiivistelma{Tiivistelmä on tyypillisesti 5-10 riviä pitkä esitys työn pääkohdista (tausta, tavoite, tulokset, johtopäätökset).
+}
+\abstract{Englanninkielinen versio tiivistelmästä.
+}
+
+\author{Aleksi Pekkala}
+\contactinformation{\texttt{aleksi.v.a.pekkala@student.jyu.fi}}
+% jos useita tekijöitä, anna useampi \author-komento
+%\supervisor{Kirsi Valjus}
+% jos useita ohjaajia, anna useampi \supervisor-komento
+%\type{kandidaatintutkielma} % tämän makron oletus on "pro gradu -tutkielma" ja bachelor-optiolla kandidaatintutkielma
+
+%\maketitle
+  
+%\mainmatter
+
+Sanaluokkien automaattisen tunnistamisen menetelmät\\
+Aleksi Pekkala\\
+
+\setcounter{chapter}{3}
+\chapter{Markovin piilomallit}
+
+Edellisestä sääntöpohjaisesta menetelmästä poiketen useimmat nykyiset sanaluokkien tunnistajat perustuvat tilastollisiin menetelmiin. Tilastollisissa menetelmissä sanaluokkien tunnistaminen mielletään lingvistisen lähestymistavan sijaan koneoppimisongelmaksi, tai tarkemmin sarjanluokitteluongelmaksi. Sarjanluokitteluongelmassa tavoitteena on oppia funktio $f: \mathcal{X} \to \mathcal{Y}$, joka luokittelee kunkin syötteen $x$ johonkin luokkaan $y$. Todennäköisyyslaskennan kautta funktio $f$ voidaan määritellä muodossa
+
+\begin{align}
+f(x) = \argmax{y \in \mathcal{Y}} P(y|x)
+\end{align}
+
+missä todennäköisyyttä $P(y|x)$ estimoidaan harjoitusaineiston perusteella.
+
+Tilastolliset mallit voidaan vuorostaan jakaa diskriminatiivisiin ja generatiivisiin malleihin. Diskriminatiiviset mallit käsittelevät suoraan todennäköisyyttä $P(y|x)$, eli ne eivät ota kantaa syötteeseen $x$. Generatiiviset mallit puolestaan käsittelevät koko yhteisjakaumaa $P(x,y)$, josta todennäköisyys $P(y|x)$ johdetaan Bayesin säännön avulla. Diskriminatiiviset mallit ovat siten generatiivisia malleja rajoittuneempia, mutta sarjanluokitteluongelman kannalta mallin rajoitteilla ei ole väliä. Intuition mukaan generatiivinen malli on diskriminatiivista mallia tehottomampi, sillä yhteisjakauman mallintaminen on laskennallisesti vaativampaa kuin ehdollisen jakauman. Ng \& Jordan (2002) kuitenkin osoittavat, ettei tämä välttämättä aina pidä paikkaansa: sanaluokkien tunnistamiseen onkin olemassa kumpaankin malliin perustuvia tehokkaita ratkaisuja. Tässä tutkielmassa esitellään generatiivinen Markovin piilomalli sekä diskriminatiivinen log-lineaarinen malli.
+
+\section{Markovin malli}
+
+Markovin malli (mm. Rabiner, 1989) kuvaa sellaista stokastista prosessia, joka toteuttaa ns. Markov-ominaisuuden: seuraava tila riippuu aina vain $N$:stä edeltävästä tilasta. Markov-ominaisuus on siis eräänlainen riippumattomuusoletus, joka yksinkertaistaa stokastisen prosessin tilan estimointia rajoittamalla tilasiirtymien historian määrää. $N$:nen asteen Markov-ominaisuuden toimiessa esimerkiksi todennäköisyys
+
+\begin{align}
+P(x_k | x_1, \ldots, x_{k-1})
+\end{align}
+
+voidaan laskea huomattavasti yksinkertaisemmin tarkastelemalla vain $N$:ää edellistä tilaa:
+
+\begin{align}
+P(x_k | x_{k - N }, \ldots, x_{k-1})
+\end{align}
+
+Markov-ominaisuudesta puhuttaessa on yleensä kyse juuri ensimmäisen asteen Markov-ominaisuudesta, jolloin $N=1$. Käytännössä tämä tarkoittaa sitä, että tarkastellaan jotakin kahta peräkkäistä tilaa --- nykyistä sekä tulevaa. Markov-ominaisuutta voidaan kuitenkin laajentaa myös korkeampiin asteisiin, jolloin myös tarkasteltavien tilasarjojen pituudet kasvavat. Sanaluokkia tunnistaessa näitä tilasarjoja vastaavat n:n peräkkäisen sanaluokan sarjat, eli ns. n-grammit.   
+
+Yksinkertaisimmillaan Markovin mallia voidaan kuvata tilakoneena, joka koostuu havaittavia tapahtumia kuvaavista tiloista, sekä tilasiirtymämatriisista, josta ilmenevät todennäköisyydet siirtyä kustakin tilasta mihin tahansa muuhun tilaan. Kukin tila on siis itsenäinen ja muistiton.
+
+\subsection{Markovin piilomalli}
+
+Markovin mallin hyödyllisyyttä rajoittaa se, että malli ei pysty itsessään mallintamaan prosesseja, joiden tilat eivät ole suoraan havaittavissa. Useimmissa mielenkiintoisissa tapauksissa prosessin tilat eivät kuitenkaan suoraan vastaa havaintoja, eli prosessin tila --- vaikkakin havainnosta riippuvainen --- on piilotettu: esimerkiksi sanaluokkien tunnistamisongelmassa havainto (sana) on tiedossa, tila (sanaluokka) on riippuvainen havainnosta, mutta tila itsessään ei ole tiedossa. Tällöin Markovin malli tulee laajentaa Markovin piilomalliksi, jossa havainto on aina sitä vastaavan tilan todennäköisyysfunktio.
+
+\end{document}

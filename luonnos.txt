@@ -53,6 +53,13 @@ uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
 
 ### MARKOV ###
 
+1. kyseessä on sarjanluokitteluongelma, ensin P(y|x)
+
+2. generatiivinen malli P(x,y) eli yhteisjakauma
+
+3. P(x,y) = p(y)p(x|y) (ongelma jaetaan)
+
+
 The trigram assumption is arguably quite strong, and linguistically naive. However, it leads to models that are very useful in practice.
 
 n-grammit
