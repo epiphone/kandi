@@ -51,6 +51,37 @@ miinukset
 Koska säännöt ovat niin yksinkertaisia, onko mahdollista parantaa tarkkuustuloksia tekemällä käsin
 uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
 
+
+http://www.inf.fu-berlin.de/lehre/WS02/sprachverarbeitung/Reader/14.Termin_Brill_Tagger/brill-slides.pdf
+- can capture more context than Markov models
+- always learns on the whole data set - no data sparseness:
+
+miksi opettaminen on hidasta? - Roche, E., & Schabes, Y. (1995). Deterministic part-of-speech tagging with finite-state transducers. Computational linguistics, 21(2), 227-253.
+Once the lexical assignment is performed, in Brill's algorithm, each contextual rule
+acquired during the training phase is applied to each sentence to be tagged. For each
+individual rule, the algorithm scans the input from left to right while attempting to
+match the rule.
+This simple algorithm is computationally inefficient for two reasons. The first rea-
+son for inefficiency is the fact that an individual rule is compared at each token of the
+input, regardless of the fact that some of the current tokens may have been previously
+examined when matching the same rule at a previous position. The algorithm treats
+each rule as a template of tags and slides it along the input, one word at a time.
+Consider, for example, the rule A B PREVBIGRAM C C that changes tag A to tag B if
+the previous two tags are C.
+When applied to the input CDCCA, the pattern CCA is compared three times to
+the input, as shown in Figure 3. At each step no record of previous partial matches
+or mismatches is remembered. In this example, C is compared with the second input
+token D during the first and second steps, and therefore, the second step could have
+been skipped by remembering the comparisons from the first step. This method is
+similar to a naive pattern-matching algorithm.
+The second reason for inefficiency is the potential interaction between rules. For
+example, when the rules in Figure 1 are applied to sentence (3), the first rule results
+in a change (6) that is undone by the second rule as shown in (9). The algorithm may
+therefore perform unnecessary computation.
+In summary, Brill's algorithm for implementing the contextual tagger may require
+RKn elementary steps to tag an input of n words with R contextual rules requiring at
+most K tokens of context.
+
 ### MARKOV ###
 
 1. kyseessä on sarjanluokitteluongelma, ensin P(y|x)
@@ -59,6 +90,8 @@ uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
 
 3. P(x,y) = p(y)p(x|y) (ongelma jaetaan)
 
+
+leksikaalinen e() ja kontekstuaalinen d() !!!
 
 The trigram assumption is arguably quite strong, and linguistically naive. However, it leads to models that are very useful in practice.
 
@@ -80,6 +113,16 @@ n-grammit
       – estimating the parameters of a 2nd order Markov chain from the complete genome of E. Coli, we’d
         see each word > 72,000 times on average
       – estimating the parameters of an 8th order chain, we’d see each word ~ 5 times on average
+
+Brill 95:
+"In the Markov model typically used for stochastic tagging, state
+transition probabilities (P(Tagi I Tagi_l... Tagi-n)) express the likelihood of a tag immediately
+following n other tags, and emit probabilities (P(Wordj I Tagi)) express the
+likelihood of a word, given a tag. Many useful relationships, such as that between a
+word and the previous word, or between a tag and the following word, are not directly
+captured by Markov-model based taggers. The same is true of the nonlexicalized
+transformation-based tagger, where transformation templates do not make reference
+to words."
 
 
 ### MAXENT ###
