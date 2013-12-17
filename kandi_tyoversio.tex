@@ -86,9 +86,9 @@ Rajallisen laajuutensa myötä sanaluokkien tunnistaminen on paljon helpommin l�
 
 Sanaluokkien tunnistajia käytetään monissa erilaisissa luonnollisiin kieliin liittyvissä sovelluksissa, ja tunnistajalle asetetut vaatimukset vaihtelevat sovelluksittain. Myös tunnistettavien aineistojen välillä on valtavasti poikkeamia, esim. kielten sekä tekstilajien osalta. Lisäksi havaitaan, että nykyisten tunnistusmenetelmien saavuttamat tunnistustarkkuudet liikkuvat kaikki suunnilleen samoissa lukemissa. Kun ilmiselvin valintakriteeri on näin poissuljettu, on tehokkaimman menetelmän valinta vaikeampaa. Tunnistusmenetelmien toimintaperiaatteiden vaihdellessa merkittävästi on kuitenkin väistämätöntä, että jotkin menetelmät soveltuvat toisia paremmin tiettyihin tunnistustehtäviin. Tässä tutkielmassa pyritäänkin selventämään sitä, millaisia eri ratkaisuja sanaluokkien tunnistusongelmaan on olemassa ja mitkä ovat niiden tärkeimmät erot. Menetelmien suhteelliset ominaisuudet johdetaan tarkastelemalla lähemmin kunkin menetelmän toimintaa sekä menetelmään liittyvää tutkimuskirjallisuutta. 
 
-Tutkielma rakentuu seuraavasti: toisessa luvussa annetaan lyhyt johdanto sanaluokkien tunnistamiseen ja sen haasteisiin. Luvuissa 3-5 tarkastellaan kolmea erilaista tunnistusmenetelmää: transformaatiosääntöjä, Markovin piilomalleja sekä log-lineaarisia malleja. Luvuissa esitellään menetelmien keskeiset ominaisuudet, sekä pyritään hahmottamaan niiden suhteelliset vahvuudet ja heikkoudet. Lopuksi vielä kootaan yhteen menetelmistä kerätyt huomiot ja esitellään johtopäätökset.
+Tutkielma rakentuu seuraavasti: toisessa luvussa annetaan lyhyt johdanto sanaluokkien tunnistamiseen ja sen haasteisiin. Luvuissa 3-4 tarkastellaan kahta erilaista lähtökohtaa tunnistusongelman ratkaisemiseksi: sääntöpohjaista Brillin tunnistinta sekä tilastollisia Markovin piilomalleja. Luvuissa esitellään menetelmien keskeiset ominaisuudet, sekä pyritään hahmottamaan niiden suhteelliset vahvuudet ja heikkoudet. Lopuksi vielä kootaan yhteen menetelmistä kerätyt huomiot ja esitellään johtopäätökset.
 
-TODO olisiko syytä esitellä lyhyesti valitut menetelmät tässä, ja/tai mainita jotain valintaperusteista tai esitysjärjestyksestä (kaksi ensimmäistä ovat tavallaan toistensa vastakohtia, ja kolmas menetelmä yhdistää piirteitä kummastakin aikaisemmasta menetelmästä. Samalla menetelmät ovat järjestetty yksinkertaisimmasta monimutkaisimpaan.).
+TODO maininta menetelmien valintaperusteista ja/tai esitysjärjestyksestä
 
 
 \chapter{Sanaluokkien automaattinen tunnistaminen}
@@ -105,9 +105,9 @@ sana \textit{flies} esiintyy ensin verbinä ja sitten substantiivina. Sanan \tex
 
 Jatkokäsittelyn kannalta automaattisen tunnistajan oleellisin tehtävä onkin valita kaikista mahdollisista sanaluokista se, joka tuottaa luontevimman tulkinnan. Tällaisen yksikäsitteistämisen mahdollistavat luonnollisten kielten sisäänrakennetut rajoitteet, jotka voidaan jakaa lokaaleihin sekä kontekstuaalisiin vihjeisiin: lokaaleista vihjeistä ilmeisin on itse sana (''sana \textit{can} on on todennäköisemmin modaaliverbi kuin substantiivi''), mutta päätelmiä voidaan tehdä myös mm. sanan prefiksin, suffiksin tai kirjainten koon perusteella. Kontekstuaalisia vihjeitä ovat kaikki lauseen muut sanat sanaluokkineen: esimerkiksi sana \textit{fly} on todennäköisimmin substantiivi, jos edeltävä sana on artikkeli.
 
-On tärkeää huomata, ettei sanaluokkien tunnistaminen itsessään ole ratkaisu kieliopilliseen monitulkintaisuuteen: monitulkintaisuudella on useita tasoja, joista osaa käsitellään vielä prosessointiketjun myöhemmissä vaiheissa. Esimerkiksi syntaktinen, tai rakenteellinen monitulkintaisuus on ongelma, joka on huomattavasti helpompi ratkaista lauseiden jäsennyksen yhteydessä. Sanaluokkien tunnistamista ei myöskään tule sekoittaa semanttiseen yksikäsitteistämiseen, eli sanan merkityksen selvittämiseen: esimerkiksi sana \textit{mouse} on semanttisesti monitulkintainen, vaikka sen sanaluokka tunnettaisiinkin. Sanaluokkien tunnistamisen rooli on pikemminkin rajata mahdollisten tulkintojen määrää prosessointiketjun alkupäässä, jotta myöhemmissä vaiheissa vältytään turhalta työltä.
+On tärkeää huomata, ettei sanaluokkien tunnistaminen itsessään ole ratkaisu kieliopilliseen monitulkintaisuuteen: monitulkintaisuudella on useita tasoja, joista osaa käsitellään vielä prosessointiketjun myöhemmissä vaiheissa. Esimerkiksi syntaktinen eli rakenteellinen monitulkintaisuus on ongelma, joka on huomattavasti helpompi ratkaista lauseiden jäsennyksen yhteydessä. Sanaluokkien tunnistamista ei myöskään tule sekoittaa semanttiseen yksikäsitteistämiseen eli sanan merkityksen selvittämiseen: esimerkiksi sana \textit{mouse} on semanttisesti monitulkintainen, vaikka sen sanaluokka tunnettaisiinkin. Sanaluokkien tunnistamisen rooli on pikemminkin rajata mahdollisten tulkintojen määrää prosessointiketjun alkupäässä, jotta myöhemmissä vaiheissa vältytään ylimääräiseltä työltä. \citep[s. 341]{manning1999}
 
-Monitulkintaisuuden lisäksi toinen merkittävä ongelma on tuntemattomien, eli harjoitusaineistosta puuttuvien sanojen käsitteleminen. Englannin kielessä yleisiä tuntemattomia sanoja ovat erisnimet sekä puhekieliset, vieraskieliset ja muut harvinaiset ilmaisut. Tällaisia sanoja kohdataan usein, ja koska niitä koskevaa tilastollista informaatiota tai sääntöjä ei tunneta, joudutaan turvautumaan jonkinlaiseen poikkeuskäsittelyyn. Useat tunnistajat hyödyntävät tuntemattomien sanojen kohdalla kieliopillisia ominaisuuksia: yksinkertainen menetelmä on määrätä sanalle se sanaluokka, joihin tuntemattomien sanojen on havaittu todennäköisimmin kuuluvan, eli yleensä substantiivi. Parempia tuloksia on saavutettu määrittämällä tuntemattoman sanan sanaluokka sen päätteen perusteella; esim. englannin kielen \emph{able}-päätteiset sanat ovat hyvin todennäköisesti adjektiiveja \citep{samuelsson1993}. Menetelmä ei kuitenkaan sovellu kaikille kielille: esim. \citet{tseng2005} osoittavat, että kiinan kielessä esiintyy huomattavan suuri määrä yleisiä affikseja, poiketen englannin ja saksan kielistä, joissa affiksit ovat vahva indikaattori sanan sanaluokasta.
+Monitulkintaisuuden lisäksi toinen merkittävä ongelma on tuntemattomien eli harjoitusaineistosta puuttuvien sanojen käsitteleminen. Englannin kielessä yleisiä tuntemattomia sanoja ovat erisnimet sekä puhekieliset, vieraskieliset ja muut harvinaiset ilmaisut. Tällaisia sanoja kohdataan usein, ja koska niitä koskevaa tilastollista informaatiota tai sääntöjä ei tunneta, joudutaan turvautumaan jonkinlaiseen poikkeuskäsittelyyn. Useat tunnistajat hyödyntävät tuntemattomien sanojen kohdalla kieliopillisia ominaisuuksia: yksinkertainen menetelmä on määrätä sanalle se sanaluokka, johon tuntemattomien sanojen on havaittu todennäköisimmin kuuluvan, eli yleensä substantiivi. Parempia tuloksia on saavutettu määrittämällä tuntemattoman sanan sanaluokka sen päätteen perusteella; esimerkiksi englannin kielen \emph{able}-päätteiset sanat ovat hyvin todennäköisesti adjektiiveja \citep{samuelsson1993}. Menetelmä ei kuitenkaan sovellu kaikille kielille: esimerkiksi \citet{tseng2005} osoittavat, että kiinan kielessä esiintyy huomattavan suuri määrä yleisiä affikseja, poiketen englannin ja saksan kielistä, joissa affiksit ovat vahva indikaattori sanan sanaluokasta.
 
 
 \section{Automaattisten tunnistajien suorituskyky}
@@ -181,7 +181,6 @@ TODO esimerkkipätkä harjoitusaineistosta.
 \chapter{Sääntöpohjaiset menetelmät}
 
 Ensimmäiset automaattiset sanaluokkatunnistimet (mm. \citealp{greene1971}) olivat lähtöisin kielitieteen piiristä, ja ne perustuivat pitkälti käsin laadittuihin kieliopillisiin sääntöihin. Tällainen sääntöpohjainen menetelmä toimii seuraavasti: ensin kunkin sanan mahdolliset sanaluokat haetaan sanakirjasta tai vastaavasta tietolähteestä. Seuraavaksi monitulkintaisten sanojen kohdalla sovelletaan valmiita kielioppisääntöjä sanaluokkien poissulkemiseen, kunnes jäljelle on enään yksi sanaluokka. Kielioppisäännöt voivat hyödyntää sekä lokaaleja että kontekstuaalisia vihjeitä; tyypillisiä sääntöjä ovat esimerkiksi
-%\textit{hylkää sanaluokka $x$ jos sanalla on iso alkukirjain} (lokaali vihje) tai \textit{hylkää sanaluokka $x$, jos edeltävä sanaluokka on $y$} (kontekstuaalinen vihje).
 
 \begin{enumerate}
 \item \textit{hylkää sanaluokka $x$ jos sanalla on iso alkukirjain} (lokaali vihje), sekä
@@ -197,8 +196,6 @@ Sääntöpohjaisten menetelmien puutteiden vuoksi useimmat nykyiset sanaluokkien
 \section{Brillin sääntöpohjainen sanaluokkatunnistin}
 
 \citet{brill1992} esittää artikkelissaan vaihtoehtoisen lähestymistavan, joka pohjautuu varhaisimpien tunnistusmenetelmien tavoin kieliopillisiin sääntöihin. Aikaisemmista sääntöpohjaisista menetelmistä poiketen sääntöjä ei kuitenkaan syötetä manuaalisesti, vaan tunnistin oppii ne automaattisesti oikeilla sanaluokilla merkitystä harjoitusaineistosta. Menetelmän kantava idea on (1) aloittaa jostakin yksinkertaisesta ratkaisusta, (2) tunnistaa tehdyt virheet ja (3) inkrementaalisesti soveltaa virheitä korjaavia transformaatiosääntöjä, kunnes ne eivät enään paranna kokonaistarkkuutta.
-
-\subsection{Toiminta}
 
 Brillin tunnistinta alustettaessa harjoitusaineisto jaetaan kahteen osaan, joista pienempää käytetään niinsanottuna sääntöaineistona (engl. \textit{patch corpus}) ja suurempaa varsinaisena harjoitusaineistona. Tunnistimen alustaminen alkaa siten, että sääntöaineiston kukin sana luokitellaan ensin sillä sanaluokalla, joka useimmiten esiintyy sanan yhteydessä harjoitusaineistossa. Tuntemattomien sanojen kohdalla sanaluokka määräytyy sanan kolmen viimeisen kirjaimen mukaan: esimerkiksi kaikki \textit{ous}-päätteiset tuntemattomat sanat luokitellaan adjektiiveiksi, koska harjoitusaineiston \textit{ous}-päätteiset sanat ovat useimmiten adjektiiveja. Lisäksi kaikki isolla alkukirjaimella alkavat tuntemattomat sanat luokitellaan erisnimiksi. Tämän yksinkertaisen menetelmän tarkkuus on noin 92\%. \citep{brill1992}
 
@@ -274,7 +271,11 @@ Vaihda tuntemattoman sanan sanaluokka $a$ sanaluokkaan $b$, kun:
 
 Huomataan, ettei yksikään sääntörunko ota kantaa sanaluokkiin, koska tuntemattomat sanat käsitellään ennen varsinaisten transformaatiosääntöjen soveltamista. \citep{brill1994}
 
+Näillä kahdella lisäyksellä Brillin tunnistin saavuttaa 
+
 \section{Arviota}
+Brillin tunnistin 
+
 1. Sääntöjen kanssa ei tarvitse olla tarkkana. Sääntöjä ei tarvita paljon. - can capture more context than Markov models (helpompi ymmärtää kuin tilastollinen). Vaatii silti jonkinlaista ymmärrystä kielestä.
 
 2. Koska säännöt ovat niin yksinkertaisia, on mahdollista parantaa tarkkuustuloksia tekemällä käsin uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
@@ -406,6 +407,8 @@ e(w_i|t_i) = \frac{f(w_i, t_i)}{f(t_i)}
 \label{hmm_param_e}
 \end{align}
 
+TODO: Maininta Viterbi-algoritmista \citep{viterbi1967}.
+
 \subsection{Tuntemattomien sanojen käsittely}
 
 Todennäköisyyden $e$ estimaatti \eqref{hmm_param_e} ei kuitenkaan ole luotettava, jos jokin kohdattu sana ei esiinny harjoitusaineistossa kertaakaan. Tällöin, jos sana $w_i$ on tuntematon, on $e(w_i|t_i)=0$ millä tahansa sanaluokalla $t_i$. Samoin $p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n) = 0$, jos yksikään sanoista $w_i \ldots w_n$ on tuntematon. Jotta vältytään mallin rikkovilta nollaestimaateilta, on tuntemattomien sanojen kohdalla sovellettava jonkinlaista poikkeuskäsittelyä.
@@ -415,13 +418,9 @@ Yksinkertaisin ratkaisu on määrätä tuntemattoman sanalle aina harjoitusainei
 \citet{bikel1999} esittivät vaihtoehtoisen, pseudosanoihin perustuvan menetelmän tuntemattomien sanojen käsittelylle. Menetelmän perusajatuksena on korvata tunnistettavan aineiston kukin tuntematon sana jollakin pseudosanalla, joita on rajallinen määrä. Myös kaikki harvinaiset (vähemmän kuin 5 esiintymää) sanat voidaan korvata pseudosanoilla. Korvaava pseudosana määräytyy aina tuntemattoman sanan ominaisuuksien mukaan: esimerkiksi \textit{isoAlkukirjain}, \textit{lauseenEnsimmäinenSana} sekä \textit{neljäNumeroa} ovat tyypillisiä pseudosanoja. Nyt kun harjoitusaineiston harvinaiset sanat korvataan vastaavilla pseudosanoilla, voidaan tunnistettavan aineiston pseudosanoja käsitellä samoin kuin tavallisia sanoja.
 
 
-\subsection{Viterbin algoritmi}
+\section{Cyclic Dependency Network}
 
-Tässä kappaleessa kuvaillaan lyhyesti Viterbin algoritmia, jolla ratkaistaan tehokkaasti em. arvo $\argmax{t_1 \ldots t_n} p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n)$.
-
-\section{Parannukset (tjsp)}
-
-Tähän kuvaukset Cyclic Dependency Network-menetelmästä \citep{toutanova2003}, mahd. ohjaamattomasta oppimisesta \citep{banko2004}. 
+Tähän kuvaukset Cyclic Dependency Network-menetelmästä \citep{toutanova2003}.
 
 
 \chapter{Yhteenveto}
@@ -517,10 +516,13 @@ Spoustova, D.j., Hajic, J., Raab, J. \& Spousta, M. 2009. \textit{Semi-supervise
 European Chapter of the ACL (EACL 2009), s.~763-711.
 
 \bibitem[Toutanova ym.(2003)]{toutanova2003}
-Toutanova, K., Klein, D., Manning, C.D. \& Singer, Y. 2003. \textit{Feature-rich part-of-speech tagging with a cyclic dependency network}. In: NAACL 3. (2003), s.~252-259
+Toutanova, K., Klein, D., Manning, C.D. \& Singer, Y. 2003. \textit{Feature-rich part-of-speech tagging with a cyclic dependency network}. In: NAACL 3. (2003), s.~252--259
 
 \bibitem[Tseng ym.(2005)]{tseng2005}
 Tseng, H., Jurafsky, D. \& Manning, C. 2005. \textit{Morphological features help POS tagging of unknown words across language varities}. Proceedings of the 4th SIGHAN bakeoff.
+
+\bibitem[Viterbi(1967)]{viterbi1967}
+Viterbi, A. 1967. \textit{Error bounds for convolutional codes and an asymptotically optimum decoding algorithm}. Information Theory, IEEE Transactions on, 13(2), s.~260--269.
 
 \end{thebibliography}
 
