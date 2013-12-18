@@ -82,6 +82,25 @@ In summary, Brill's algorithm for implementing the contextual tagger may require
 RKn elementary steps to tag an input of n words with R contextual rules requiring at
 most K tokens of context.
 
+### ALKUPERÄINEN SUUNNITELMA ARVIO-LUVULLE ###
+
+1. Sääntöjen kanssa ei tarvitse olla tarkkana. Sääntöjä ei tarvita paljon. - can capture more context than Markov models (helpompi ymmärtää kuin tilastollinen). Vaatii silti jonkinlaista ymmärrystä kielestä.
+
+2. Koska säännöt ovat niin yksinkertaisia, on mahdollista parantaa tarkkuustuloksia tekemällä käsin uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
+
+3. ei tilastollista informaatiota, mitä voidaan joskus tarvita. (ainakaan ilman muutoksia).
+
+4. Hidas opettaminen. (edellisessä kappaleessa jo käsitelty, ei tarvitse alustaa jos aineisto on samanlaista) FastTBL
+
+5. Hidas toiminta? Roche and Schabes (1995) show a method for converting a list
+of tagging transformations into a deterministic finite state transducer with one state
+transition taken per word of input; the result is a transformation-based tagger whose
+tagging speed is about ten times that of the fastest Markov-model tagger.
+
+6. tarkkuus? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. \citet{manning2011} vain kuudesosa ongelmista ratkaistu, oliko Brill oikeassa? Myös muilla kielillä (saksa-artikkeli). Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus.
+
+
+
 ### MARKOV ###
 
 1. kyseessä on sarjanluokitteluongelma, ensin P(y|x)
@@ -190,3 +209,5 @@ Tällä hetkellä pelianalyysialalla on useita kilpailevia ohjelmistoja, mutta y
 Tulevaisuudessa - -. Tällä tavoin pelianalyyseillä
 pystyttäisiin kehittämään jokaiselle joukkueelle paras
 mahdollinen pelitapa. voi sisältää työn arviointia tai jatkotutkimushaasteita
+
+Unohdin tallentaa viime tarkastuspisteen .tex-tiedoston, diffi jäi tekemättä. Poistin kokonaan luvun 5, eli viimeisen menetelmän esittelyn, koska sivuraja alkoi tulla vastaan. Muutin lukujen 3 ja 4 otsikoita. Poistin lyhenteitä ja pilkkuja äidinkielen kurssilta saadun palautteen mukaan.
