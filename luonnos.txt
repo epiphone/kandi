@@ -66,21 +66,7 @@ son for inefficiency is the fact that an individual rule is compared at each tok
 input, regardless of the fact that some of the current tokens may have been previously
 examined when matching the same rule at a previous position. The algorithm treats
 each rule as a template of tags and slides it along the input, one word at a time.
-Consider, for example, the rule A B PREVBIGRAM C C that changes tag A to tag B if
-the previous two tags are C.
-When applied to the input CDCCA, the pattern CCA is compared three times to
-the input, as shown in Figure 3. At each step no record of previous partial matches
-or mismatches is remembered. In this example, C is compared with the second input
-token D during the first and second steps, and therefore, the second step could have
-been skipped by remembering the comparisons from the first step. This method is
-similar to a naive pattern-matching algorithm.
-The second reason for inefficiency is the potential interaction between rules. For
-example, when the rules in Figure 1 are applied to sentence (3), the first rule results
-in a change (6) that is undone by the second rule as shown in (9). The algorithm may
-therefore perform unnecessary computation.
-In summary, Brill's algorithm for implementing the contextual tagger may require
-RKn elementary steps to tag an input of n words with R contextual rules requiring at
-most K tokens of context.
+Consider, for example, the rule A B PREVBIGRAM C C that changes tag A to tag B if the previous two tags are C. When applied to the input CDCCA, the pattern CCA is compared three times to the input, as shown in Figure 3. At each step no record of previous partial matches or mismatches is remembered. In this example, C is compared with the second input token D during the first and second steps, and therefore, the second step could have been skipped by remembering the comparisons from the first step. This method is similar to a naive pattern-matching algorithm. The second reason for inefficiency is the potential interaction between rules. For example, when the rules in Figure 1 are applied to sentence (3), the first rule results in a change (6) that is undone by the second rule as shown in (9). The algorithm may therefore perform unnecessary computation. In summary, Brill's algorithm for implementing the contextual tagger may require RKn elementary steps to tag an input of n words with R contextual rules requiring at most K tokens of context.
 
 ### ALKUPERÄINEN SUUNNITELMA ARVIO-LUVULLE ###
 
@@ -115,6 +101,8 @@ leksikaalinen e() ja kontekstuaalinen d() !!!
 The trigram assumption is arguably quite strong, and linguistically naive. However, it leads to models that are very useful in practice.
 
 n-grammit
++ voi poimia sellaisia rakenteita/vihjeitä joita ihminen ei huomaisi (vrt. sääntöpohjaiset menetelmät)
+- "does not model long-distance relationships"
 - yksinkertaistava oletus: Markovin oletus
   - vain edeltävillä on väliä
 - n-gram-mallin heikkous:
@@ -209,5 +197,3 @@ Tällä hetkellä pelianalyysialalla on useita kilpailevia ohjelmistoja, mutta y
 Tulevaisuudessa - -. Tällä tavoin pelianalyyseillä
 pystyttäisiin kehittämään jokaiselle joukkueelle paras
 mahdollinen pelitapa. voi sisältää työn arviointia tai jatkotutkimushaasteita
-
-Unohdin tallentaa viime tarkastuspisteen .tex-tiedoston, diffi jäi tekemättä. Poistin kokonaan luvun 5, eli viimeisen menetelmän esittelyn, koska sivuraja alkoi tulla vastaan. Muutin lukujen 3 ja 4 otsikoita. Poistin lyhenteitä ja pilkkuja äidinkielen kurssilta saadun palautteen mukaan.
