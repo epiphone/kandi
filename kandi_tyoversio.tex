@@ -43,6 +43,12 @@
 % HUOM! Tämän tulee olla viimeinen \usepackage koko dokumentissa!
 \usepackage[bookmarksopen,bookmarksnumbered,linktocpage]{hyperref}
 \setcounter{tocdepth}{2}
+
+% &-merkin sijaan ''ja'' - tähän on varmaan olemassa joku parempikin tapa
+\defcitealias{giesbrecht2009}{Giesbrecht ja Evert (2009)}
+\defcitealias{ng2002}{Ng ja Jordan (2002)}
+
+
 \begin{document}
 
 \title{Sanaluokkien automaattisen tunnistamisen menetelmät}
@@ -73,13 +79,9 @@
 
 
 Sanaluokkien automaattinen tunnistaminen (engl. \emph{part-of-speech tagging}) tarkoittaa sanojen sanaluokkien tunnistamista tekstiyhteyden perusteella.  Tunnistamisprosessissa tarkastellaan tekstiaineistoa, kuten
-
 \[a\:black\:cat\:jumped\:on\:the\:table\]
-
 jonka perusteella pyritään päättelemään se sanaluokkien sarja, joka todennäköisimmin vastaa kyseistä aineistoa; tässä tapauksessa tuloksena voisi olla esimerkiksi
-
 \[Det\:Adj\:Noun\:Verb\:Prep\:Det\:Noun\]
-
 Sanaluokkien tunnistaminen on laajuudeltaan rajallinen ongelma: tarkoituksena ei ole jäsentää kokonaisia lauserakenteita tai tulkita lauseiden merkitystä --- tarkastelun alla ovat vain yksittäisten sanojen leksikaaliset kategoriat. Sanaluokkien tunnistaminen on kuitenkin välttämätön ensimmäinen askel monissa luonnollisten kielten käsittelyprosesseissa, ja siten yksi aihealueen keskeisistä osaongelmista. Lisäksi tunnistusongelman eri ratkaisut ovat usein suoraan siirrettävissä muiden yksikäsitteistämisongelmien, kuten sanan merkitysanalyysin piiriin \citep{brill1995}.
 
 Rajallisen laajuutensa myötä sanaluokkien tunnistaminen on paljon helpommin lähestyttävä ongelma kuin kielen täydellinen ymmärtäminen, ja sen ratkaisemiseksi onkin kehitetty useita kohtuullisen luotettavia menetelmiä. Täysin ratkaistusta ongelmasta ei kuitenkaan voida puhua, sillä yksikään tunnettu menetelmä ei vielä saavuta täydellistä tunnistustarkkuutta. \citep[s. 342]{manning1999}
@@ -112,13 +114,10 @@ Monitulkintaisuuden lisäksi toinen merkittävä ongelma on tuntemattomien eli h
 
 \section{Automaattisten tunnistajien suorituskyky}
 
-Kuten mainittua, nykyisten automaattisten sanaluokkien tunnistajien tunnistustarkkuus --- englanninkielistä kirjakieltä analysoitaessa --- on hieman yli 97\%  (mm. \citealp{toutanova2003}, \citealp{shen2007}, \citealp{spoustova2009}). \citet{manning2011} kuitenkin osoittaa, että kyseistä tulosta ei ole syytä tulkita liian optimistisesti: esimerkiksi lukuisat välimerkit ja muut yksikäsitteiset elementit vääristävät evaluaatiotuloksia. Lisäksi useissa tekstilajeissa, kuten uutisiartikkeleissa, lauseiden keskipituus on yli 20 sanaa, jolloin edellämainitullakin tunnistustarkkuudella jokaisessa lauseessa on keskimäärin ainakin yksi virhe \citep{manning1999}. Artikkelissa huomautetaankin, että realistisempaa olisi tarkastella automaattisten tunnistajien kykyä tunnistaa kokonaiset lauseet oikein, sillä pienikin virhe lauseessa voi vahingoittaa tunnistajan hyödyllisyyttä myöhempien prosessointivaiheiden kannalta; tällä saralla tunnistajat saavuttavat noin 55-57\% tarkkuuden, mikä on huomattavasti vaatimattomampi tulos.
+Kuten mainittua, nykyisten tunnistimien saavuttama tunnistustarkkuus on hieman yli 97\%  (mm. \citealp{toutanova2003}, \citealp{shen2007}, \citealp{spoustova2009}). \citet{manning2011} kuitenkin osoittaa, että kyseistä tulosta ei ole syytä tulkita liian optimistisesti: esimerkiksi lukuisat välimerkit ja muut yksikäsitteiset elementit vääristävät evaluaatiotuloksia. Lisäksi useissa tekstilajeissa, kuten uutisiartikkeleissa, lauseiden keskipituus on yli 20 sanaa, jolloin edellämainitullakin tunnistustarkkuudella jokaisessa lauseessa on keskimäärin ainakin yksi virhe \citep{manning1999}. Artikkelissa huomautetaankin, että realistisempaa olisi tarkastella automaattisten tunnistimien kykyä tunnistaa kokonaiset lauseet oikein, sillä pienikin virhe lauseessa voi vahingoittaa tunnistajan hyödyllisyyttä myöhempien prosessointivaiheiden kannalta; tällä saralla tunnistajat saavuttavat noin 55-57\% tarkkuuden, mikä on huomattavasti vaatimattomampi tulos. Lisäksi \citetalias{giesbrecht2009} ovat osoittaneet, että kyseiset huipputulokset ovat saavutettavissa vain hyvin keinotekoisissa koetilanteissa: todellisissa käyttötapauksissa tunnistimien tarkkuus laskee alle 93 prosentin, tarkkuuden vaihdellessa merkittävästi tekstilajeittain.
 
-Tarkkuustuloksia arvioidessa tulee myös ottaa huomioon varsin korkea lähtötaso: jo yksinkertaisimmalla metodilla, eli valitsemalla kullekin sanalle se sanaluokka, joka esiintyy harjoitusaineistossa useiten annetun sanan yhteydessä, saavutetaan 90\% tunnistustarkkuus \citep{charniak1993}.
-
-On myös mielenkiintoista huomata, että edes ammattilaisten käsin luokittelemat aineistot eivät saavuta täydellistä tunnistamistarkkuutta: yksittäisen ihmisen tunnistustarkkuuden on arvioitu olevan noin 97\% \citep{manning2011}, mikä vastaa edellämainittua automaattisten tunnistajien huipputulosta.
-
-
+Tarkkuustuloksia arvioidessa tulee myös ottaa huomioon varsin korkea lähtötaso: jo yksinkertaisimmalla metodilla, eli valitsemalla kullekin sanalle se sanaluokka, joka esiintyy harjoitusaineistossa useiten annetun sanan yhteydessä, saavutetaan noin 90\% tunnistustarkkuus \citep{charniak1993}. On myös mielenkiintoista huomata, että edes ammattilaisten käsin luokittelemat aineistot eivät saavuta täydellistä tunnistamistarkkuutta: yksittäisen ihmisen tunnistustarkkuuden on arvioitu olevan noin 97\% \citep{manning2011}, mikä vastaa edellä mainittua automaattisten tunnistimien huipputulosta.
+ 
 \section{Sanaluokkien tunnistajan vaatimukset}
 
 Jotta tunnistajaa voidaan käyttää laajan kielenprosessointijärjestelmän komponenttina, tulee sen toteuttaa seuraavat ominaisuudet ~\citep{cutting1992}: 
@@ -133,9 +132,9 @@ Jotta tunnistajaa voidaan käyttää laajan kielenprosessointijärjestelmän kom
 
 \section{Harjoitusaineisto ja sanaluokkasetit}
 
-Sanaluokkien tunnistaminen on luonteeltaan sarjanluokitteluongelma, joka taas on yksi koneoppimisen (tarkemmin hahmontunnistuksen) aliongelmatyypeistä. Tämän seurauksena nykyiset sanaluokkien tunnistusmenetelmät perustuvat usein ohjattuun oppimiseen, eli tunnistimet tulee ''opettaa'' jonkinlaisella harjoitusaineistolla ennen käyttöä. Sanaluokkien tunnistimille syötettävä harjoitusdata koostuu suurista tekstiaineistoista (engl. \textit{corpus}), joissa jokaisen sanan yhteyteen on merkattu oikea sanaluokka. Nykyisin ehkä yleisimmin käytetty englanninkielinen harjoitusaineisto on \textit{Penn Treebank}-aineisto \citep{marcus1993}, joka sisältää noin viiden miljoonan sanan edestä uutisartikkeleita, kaunokirjallisuutta, tieteellisiä julkaisuja ynnä muita tekstilajeja. Kaikki tässä tutkielmassa raportoidut tunnistustarkkuudet ovat mitattu Penn Treebank-aineistolla.
+Sanaluokkien tunnistaminen on luonteeltaan sarjanluokitteluongelma, joka taas on yksi koneoppimisen (tarkemmin hahmontunnistuksen) aliongelmatyypeistä. Tämän seurauksena nykyiset sanaluokkien tunnistusmenetelmät perustuvat usein ohjattuun oppimiseen, missä tunnistimet harjoitetaan jonkinlaisella harjoitusaineistolla ennen käyttöä. Sanaluokkien tunnistimille syötettävä harjoitusdata koostuu suurista tekstiaineistoista (engl. \textit{corpus}), joissa jokaisen sanan yhteyteen on merkattu oikea sanaluokka. Nykyisin ehkä yleisimmin käytetty englanninkielinen harjoitusaineisto on \textit{Penn Treebank}-aineisto \citep{marcus1993}, joka sisältää noin viiden miljoonan sanan edestä uutisartikkeleita, kaunokirjallisuutta, tieteellisiä julkaisuja ynnä muita tekstilajeja.
 
-Tunnistusongelmaan on olemassa myös ohjaamattomaan oppimiseen perustuvia ratkaisuja, jotka eivät vaadi valmiiksi luokiteltua harjoitusaineistoa. Toisaalta tällaiset menetelmät ovat väistämättä alttiimpia virheille kuin vastaavat ohjatun oppimisen menetelmät. Joissain tapauksissa --- esimerkiksi harvinaisia kieliä analysoitaessa --- luokiteltua harjoitusaineistoa ei kuitenkaan ole saatavilla, jolloin ohjaamaton oppiminen on ainoa vaihtoehto.
+Tunnistusongelmaan on olemassa myös ohjaamattomaan oppimiseen perustuvia ratkaisuja, jotka eivät vaadi ennalta luokiteltua harjoitusaineistoa. Toisaalta tällaiset menetelmät ovat väistämättä alttiimpia virheille kuin vastaavat ohjatun oppimisen menetelmät. Joissain tapauksissa --- esimerkiksi harvinaisia kieliä analysoitaessa --- luokiteltua harjoitusaineistoa ei kuitenkaan ole saatavilla, jolloin ohjaamaton oppiminen on ainoa vaihtoehto.
 
 Tunnistamisessa käytetyt sanaluokat määräytyvät yleensä harjoitusaineiston mukaan: esimerkiksi Penn Treebank-aineiston käyttämä sanaluokkasetti koostuu 48 sanaluokasta, joista 12 ovat välimerkkejä. On tärkeää huomata, että käytettävän sanaluokkasetin laajuus vaikuttaa suoraan tunnistustarkkuuteen: mitä enemmän sanaluokkia, sitä suurempi mahdollisuus monitulkintaisuuteen. Toisaalta sanaluokkien tunnistamisen tuottama lingvistinen informaatio on sitä arvokkaampaa, mitä tarkempi jaottelu eri sanaluokkien välillä on. \citep{marcus1993}
 
@@ -178,14 +177,14 @@ TODO esimerkkipätkä harjoitusaineistosta, jotain siitä miksi suomen kieli ym.
 
 \chapter{Sääntöpohjaiset menetelmät}
 
-Ensimmäiset automaattiset sanaluokkatunnistimet (mm. \citealp{greene1971}) olivat lähtöisin kielitieteen piiristä, ja ne perustuivat pitkälti käsin laadittuihin kieliopillisiin sääntöihin. Tällainen sääntöpohjainen menetelmä toimii seuraavasti: ensin kunkin sanan mahdolliset sanaluokat haetaan sanakirjasta tai vastaavasta tietolähteestä. Seuraavaksi monitulkintaisten sanojen kohdalla sovelletaan valmiita kielioppisääntöjä sanaluokkien poissulkemiseen, kunnes jäljelle on enään yksi sanaluokka. Kielioppisäännöt voivat hyödyntää sekä lokaaleja että kontekstuaalisia vihjeitä; tyypillisiä sääntöjä ovat esimerkiksi
+Ensimmäiset automaattiset sanaluokkatunnistimet (mm. \citealp{greene1971}) olivat lähtöisin kielitieteen piiristä, ja ne perustuivat pitkälti käsin laadittuihin kieliopillisiin sääntöihin. Tällainen sääntöpohjainen menetelmä toimii seuraavasti: ensin kunkin sanan mahdolliset sanaluokat haetaan sanakirjasta tai vastaavasta tietolähteestä. Seuraavaksi monitulkintaisten sanojen kohdalla sovelletaan valmiita kielioppisääntöjä sanaluokkien poissulkemiseen, kunnes jäljelle on vain yksi sanaluokka. Kielioppisäännöt voivat hyödyntää sekä lokaaleja että kontekstuaalisia vihjeitä; tyypillisiä sääntöjä ovat esimerkiksi
 
 \begin{enumerate}
 \item \textit{hylkää sanaluokka $x$ jos sanalla on iso alkukirjain} (lokaali vihje), sekä
 \item \textit{hylkää sanaluokka $x$, jos edeltävä sanaluokka on $y$} (kontekstuaalinen vihje).
 \end{enumerate}
 
-Tällaisen lähestymistavan ilmeisin heikkous on vaaditun manuaalisen työn määrä: erilaisille aineistoille tulee aina luoda uusi, aineiston kielelle ja tyylille spesifi sääntökokoelma. Huomattavan työpanoksen lisäksi sääntöpohjainen menetelmä vaatii myös ymmärryksen tulkittavan aineiston kieliopillisista erikoispiirteistä, jotta luodut säännöt tuottavat toivotun tuloksen. Puhtaasti sääntöpohjaisilla menetelmillä voidaan saavuttaa --- sääntöjen määrästä riippuen --- korkeita tarkkuustuloksia, mutta kyseiset tulokset eivät ole siirrettävissä erilaisille aineistoille ilman mittavia muutostöitä.
+Kyseisen lähestymistavan ilmeisin heikkous on vaaditun manuaalisen työn määrä: erilaisille aineistoille tulee aina luoda uusi, aineiston kielelle ja tyylille spesifi sääntökokoelma. Huomattavan työpanoksen lisäksi sääntöpohjainen menetelmä vaatii myös ymmärryksen tulkittavan aineiston kieliopillisista erikoispiirteistä, jotta luodut säännöt tuottavat toivotun tuloksen. Puhtaasti sääntöpohjaisilla menetelmillä voidaan saavuttaa --- sääntöjen määrästä riippuen --- korkeita tarkkuustuloksia, mutta kyseiset tulokset eivät ole siirrettävissä erilaisille aineistoille ilman mittavia muutostöitä.
 
 Sääntöpohjaisten menetelmien puutteiden vuoksi useimmat nykyiset sanaluokkien tunnistajat perustuvat tilastollisiin menetelmiin: sanaluokkia koskeva tilastollinen informaatio voidaan poimia harjoitusaineistosta automaattisesti, siinä missä sääntöjen laatiminen vaatii lingvististä asiantuntemusta ja manuaalista työtä. Sääntöpohjaisilla menetelmillä on kuitenkin joitakin etuja tilastollisiin menetelmiin verrattuna: ensinnäkin kielioppisääntöjen tallentaminen vaatii huomattavasti vähemmän tallennustilaa kuin vastaava tilastollinen informaatio. Tilastollista informaatiota on myös hankalampi tulkita ja käsitellä kuin yksinkertaisia kielioppisääntöjä, jonka myötä tunnistusvirheiden tunnistaminen ja korjaaminen on helpompaa kielioppisääntöjä käytettäessä. \citep{brill1992}
 
@@ -193,7 +192,7 @@ Sääntöpohjaisten menetelmien puutteiden vuoksi useimmat nykyiset sanaluokkien
 
 \section{Brillin sääntöpohjainen sanaluokkatunnistin}
 
-\citet{brill1992} esittää artikkelissaan vaihtoehtoisen lähestymistavan, joka pohjautuu varhaisimpien tunnistusmenetelmien tavoin kieliopillisiin sääntöihin. Aikaisemmista sääntöpohjaisista menetelmistä poiketen sääntöjä ei kuitenkaan syötetä manuaalisesti, vaan tunnistin oppii ne automaattisesti oikeilla sanaluokilla merkitystä harjoitusaineistosta. Menetelmän kantava idea on (1) aloittaa jostakin yksinkertaisesta ratkaisusta, (2) tunnistaa tehdyt virheet ja (3) inkrementaalisesti soveltaa virheitä korjaavia transformaatiosääntöjä, kunnes ne eivät enään paranna kokonaistarkkuutta.
+\citet{brill1992} esittää artikkelissaan vaihtoehtoisen lähestymistavan, joka pohjautuu varhaisimpien tunnistusmenetelmien tavoin kieliopillisiin sääntöihin. Aikaisemmista sääntöpohjaisista menetelmistä poiketen sääntöjä ei kuitenkaan syötetä manuaalisesti, vaan tunnistin oppii ne automaattisesti oikeilla sanaluokilla merkitystä harjoitusaineistosta. Menetelmän kantava idea on (1) aloittaa jostakin yksinkertaisesta ratkaisusta, (2) tunnistaa tehdyt virheet ja (3) inkrementaalisesti soveltaa virheitä korjaavia transformaatiosääntöjä, kunnes ne eivät enää paranna kokonaistarkkuutta.
 
 Brillin tunnistinta alustettaessa harjoitusaineisto jaetaan kahteen osaan, joista pienempää käytetään niin sanottuna sääntöaineistona (engl. \textit{patch corpus}) ja suurempaa varsinaisena harjoitusaineistona. Tunnistimen alustus alkaa siten, että sääntöaineiston kukin sana luokitellaan ensin sillä sanaluokalla, joka useimmiten esiintyy sanan yhteydessä harjoitusaineistossa. Tuntemattomien sanojen kohdalla sanaluokka määräytyy sanan kolmen viimeisen kirjaimen mukaan: esimerkiksi kaikki \textit{ous}-päätteiset tuntemattomat sanat luokitellaan adjektiiveiksi, koska harjoitusaineiston \textit{ous}-päätteiset sanat ovat useimmiten adjektiiveja. Lisäksi kaikki isolla alkukirjaimella alkavat tuntemattomat sanat luokitellaan erisnimiksi. Tämän yksinkertaisen menetelmän tarkkuus on noin 92\%. \citep{brill1992}
 
@@ -212,9 +211,7 @@ Vaihda sanaluokka $a$ sanaluokkaan $b$, kun:
 \item Edellinen sana alkaa isolla (pienellä) alkukirjaimella.
 \end{enumerate}
 
-Kun arvokkain transformaatiosääntö on löydetty, sääntö laitetaan muistiin ja sääntöaineistoon tehdään löydetyn säännön mukaiset muutokset. Prosessia jatketaan keräämällä taas lista sääntöaineiston tunnistusvirheistä, ja etsimällä uusi paras transformaatiosääntö. Tätä toistetaan, kunnes ei enään löydetä sellaista sääntöä, joka tuottaisi enemmän korjauksia kuin aiheuttaisi uusia virheitä. Tällöin alustamisprosessi on valmis, ja tuloksena saatuja transformaatiosääntöjä voidaan soveltaa uuden aineston tunnistamiseen seuraavasti: ensin aineisto luokitellaan edellämainitulla yksinkertaisella menetelmällä. Tämän jälkeen aineistoon sovelletaan kutakin alustusvaiheessa löydettyä transformaatiosääntöä, jolloin virheprosentti laskee. \citep{brill1992}
-
-
+Kun arvokkain transformaatiosääntö on löydetty, sääntö laitetaan muistiin ja sääntöaineistoon tehdään löydetyn säännön mukaiset muutokset. Prosessia jatketaan keräämällä taas lista sääntöaineiston tunnistusvirheistä, ja etsimällä uusi paras transformaatiosääntö. Tätä toistetaan, kunnes ei enää löydetä sellaista sääntöä, joka tuottaisi enemmän korjauksia kuin aiheuttaisi uusia virheitä. Tällöin alustamisprosessi on valmis, ja tuloksena saatuja transformaatiosääntöjä voidaan soveltaa uuden aineston tunnistamiseen seuraavasti: ensin aineisto luokitellaan edellämainitulla yksinkertaisella menetelmällä. Tämän jälkeen aineistoon sovelletaan kutakin alustusvaiheessa löydettyä transformaatiosääntöä, jolloin virheprosentti laskee. \citep{brill1992}
 
 % Esimerkit löytyneistä säännöistä
 \begin{comment}
@@ -238,7 +235,7 @@ Kun arvokkain transformaatiosääntö on löydetty, sääntö laitetaan muistiin
 \end{table}
 \end{comment}
 
-\subsection{Tunnistimen laajentaminen}
+\section{Brillin tunnistimen laajentaminen}
 
 Yksi Brillin alkuperäisen tunnistimen puutteista on se, että käytetyt sääntörungot huomioivat pelkästään sanaluokkien väliset suhteet: itse sanoihin liittyvää kontekstuaalista informaatiota ei käsitellä lainkaan. Tällöin merkittävä osa kielen kontekstuaalisista vihjeistä jää hyödyntämättä. Tätä puutetta voidaan paikata laajentamalla tunnistinta seuraavilla sääntörungoilla:
 
@@ -269,9 +266,9 @@ Vaihda tuntemattoman sanan sanaluokka $a$ sanaluokkaan $b$, kun:
 \item Sana sisältää kirjaimen $z$.
 \end{enumerate}
 
-Huomataan, ettei yksikään sääntörunko ota kantaa sanaluokkiin, koska tuntemattomat sanat käsitellään ennen varsinaisten transformaatiosääntöjen soveltamista. \citep{brill1994}
+Huomataan, ettei yksikään sääntörunko ota kantaa sanaluokkiin, koska tuntemattomat sanat käsitellään ennen varsinaisten transformaatiosääntöjen soveltamista. Näiden kahden lisäyksen myötä Brillin tunnistin saavuttaa 96,6\% tunnistustarkkuuden, missä tuntemattomien sanojen tunnistustarkkuus on 85\%. \citep{brill1994, brill1995}
 
-Näillä kahdella lisäyksellä Brillin tunnistin saavuttaa 96,6\% tunnistustarkkuuden, missä tuntemattomien sanojen tunnistustarkkuus on 85\%. \citep{brill1995}
+Edellisten puutteiden lisäksi Brillin tunnistin on itsessään suhteellisen epätehokas: 
 
 \section{Arviota}
 TODO keskeneräinen luku, asiasisältö on jokseenkin selvillä.
@@ -288,29 +285,25 @@ TODO keskeneräinen luku, asiasisältö on jokseenkin selvillä.
 
 6. Tarkkuus on noin prosenttiyksikön jäljessä nykyisistä huipputuloksista. Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus --- voisiko käsittelyä parantaa? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. Tilastollisia menetelmiä on kehitetty (Brillin menetelmän jälkeen) jo 20 vuotta, mutta tarkkuus on noussut vain prosenttiyksikön, oliko Brill oikeassa? \citep{manning2011} 
 
+7. Koht. immuuni ylisovittamiselle \citep{ramshaw1994}.
 
 \chapter{Tilastolliset menetelmät}
 
 Edellisestä sääntöpohjaisesta menetelmästä poiketen useimmat nykyiset sanaluokkien tunnistajat perustuvat tilastollisiin menetelmiin. Tilastollisissa menetelmissä sanaluokkien tunnistaminen mielletään lingvistisen lähestymistavan sijaan koneoppimisongelmaksi, tai tarkemmin sarjanluokitteluongelmaksi. Sarjanluokitteluongelmassa tavoitteena on oppia funktio $f: \mathcal{X} \to \mathcal{Y}$, joka luokittelee kunkin syötteen $x$ johonkin luokkaan $y$. Todennäköisyyslaskennan kautta funktio $f$ voidaan määritellä muodossa
-
 \begin{align}
 f(x) = \argmax{y \in \mathcal{Y}} P(y|x)
 \end{align}
-
 missä todennäköisyyttä $P(y|x)$ estimoidaan harjoitusaineiston perusteella.
 
-Tilastolliset menetelmät voidaan vuorostaan jakaa diskriminatiivisiin ja generatiivisiin malleihin. Diskriminatiiviset mallit käsittelevät suoraan todennäköisyyttä $P(y|x)$, eli ne eivät ota kantaa syötteeseen $x$. Generatiiviset mallit puolestaan käsittelevät koko yhteisjakaumaa $P(x,y)$, josta todennäköisyys $P(y|x)$ johdetaan Bayesin säännön avulla. Diskriminatiiviset mallit ovat siten generatiivisia malleja rajoittuneempia, mutta sarjanluokitteluongelman kannalta mallin rajoitteilla ei ole väliä. Intuition mukaan generatiivinen malli on diskriminatiivista mallia tehottomampi, sillä yhteisjakauman mallintaminen on laskennallisesti vaativampaa kuin ehdollisen jakauman. \citet{ng2002} kuitenkin osoittavat, ettei tämä välttämättä aina pidä paikkaansa: sanaluokkien tunnistamiseen onkin olemassa kumpaankin malliin perustuvia tehokkaita ratkaisuja. Seuraavassa luvussa esitellään generatiivinen Markovin piilomalli; diskriminatiiviseen menetelmään perustuvan ratkaisun on esittänyt mm. \citet{ratnaparkhi1996}.
+Tilastolliset menetelmät voidaan vuorostaan jakaa diskriminatiivisiin ja generatiivisiin malleihin. Diskriminatiiviset mallit käsittelevät suoraan todennäköisyyttä $P(y|x)$, eli ne eivät ota kantaa syötteeseen $x$. Generatiiviset mallit puolestaan käsittelevät koko yhteisjakaumaa $P(x,y)$, josta todennäköisyys $P(y|x)$ johdetaan Bayesin säännön avulla. Diskriminatiiviset mallit ovat siten generatiivisia malleja rajoittuneempia, mutta sarjanluokitteluongelman kannalta mallin rajoitteet eivät ole oleellisia. Intuition mukaan generatiivinen malli on diskriminatiivista mallia tehottomampi, sillä yhteisjakauman mallintaminen on laskennallisesti vaativampaa kuin ehdollisen jakauman. \citetalias{ng2002} kuitenkin osoittavat, ettei tämä välttämättä aina pidä paikkaansa: sanaluokkien tunnistamiseen onkin olemassa kumpaankin malliin perustuvia tehokkaita ratkaisuja. Seuraavassa luvussa esitellään generatiivinen Markovin piilomalli; diskriminatiivisen tunnistimen on esittänyt muun muassa \citet{ratnaparkhi1996}.
 
 \section{Markovin malli}
 
-Markovin malli (mm. \citealp{rabiner1989}) kuvaa sellaista stokastista prosessia, joka toteuttaa ns. Markov-ominaisuuden: seuraava tila riippuu aina vain $N$:stä edeltävästä tilasta. Markov-ominaisuus on siis eräänlainen riippumattomuusoletus, joka yksinkertaistaa stokastisen prosessin tilan estimointia rajoittamalla tilasiirtymien historian määrää. $N$:nen asteen Markov-ominaisuuden toimiessa esimerkiksi todennäköisyys
-
+Markovin malli \citep[mm.][]{rabiner1989} kuvaa sellaista stokastista prosessia, joka toteuttaa ns. Markov-ominaisuuden: seuraava tila riippuu aina vain $N$:stä edeltävästä tilasta. Markov-ominaisuus on siis eräänlainen riippumattomuusoletus, joka yksinkertaistaa stokastisen prosessin tilan estimointia rajoittamalla tilasiirtymien historian määrää. $N$:nen asteen Markov-ominaisuuden toimiessa esimerkiksi todennäköisyys
 \begin{align}
 P(x_k | x_1, \ldots, x_{k-1})
 \end{align}
-
 voidaan laskea huomattavasti yksinkertaisemmin tarkastelemalla vain $N$:ää edellistä tilaa:
-
 \begin{align}
 P(x_k | x_{k - N }, \ldots, x_{k-1})
 \end{align}
@@ -334,71 +327,51 @@ TODO: tähän kuva Markovin piilomallista
 \section{Lähtökohta}
 
 Tunnistamisongelmassa siis haetaan annetulla lauseelle sitä todennäköisimmin vastaavaa sanaluokkien sarjaa. Todennäköisyyttä voidaan mallintaa yhteisjakaumalla
-
 \begin{align}
 p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n)
 \label{generativemodel}
 \end{align}
-
 mikä ilmaisee todennäköisyyden sille, että jokin lause $ w_1 \ldots w_n $ esiintyy jonkin sanaluokkasarjan $ t_1 \ldots t_n $ yhteydessä. Tällöin ratkaistavaksi jää
-
 \begin{align}
 \argmax{t_1 \ldots t_n} p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n)
 \end{align}
-
 eli sanaluokkasarja $ t_1 \ldots t_n $, jolla saadaan maksimiarvo edeltävästä funktiosta. Mahdollisten sanaluokkasarjojen määrä kuitenkin kasvaa eksponentiaalisesti sanojen ja sanaluokkien määrän mukaan, jolloin maksimiarvon ratkaiseminen naiivisti on epätehokasta.
-
 
 \section{Tunnistusongelma Markovin piilomallina}
 
 Markovin piilomallit hyödyntävät sitä yhteisjakauman laskusääntöä $P(x,y) = P(y)P(x|y)$. Tällöin edellämainittu funktio $ p $ \eqref{generativemodel} voidaan kuvata muodossa (TODO: parempi selitys siitä miten parametrit vastaavat yhteisjakauman osia, e = P(x|y) ja q = P(y)
-
-
 \begin{align}
 & \hphantom{= } p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n) \\
 & = p(t_1, t_2, \ldots, t_n)\:p(w_1, w_2, \ldots, w_n|t_1, t_2, \ldots, t_n) \\
 & = \prod_{i=1}^{n+1} q(t_i | t_{i-2}, t_{i-1}) \prod_{i=1}^{n}e(w_i | t_i)
 \end{align}
-
 missä $t_0$ ja $t_{-1}$ ovat lauseen alkuun lisättyjä alkusanaluokkia, ja $t_{n+1}$ on päätemerkkisanaluokka. Mallin ensimmäinen parametri
-
 \begin{align}
 q(t_i | t_{i-2}, t_{i-1})
 \end{align}
-
 laskee todennäköisyyden sanaluokalle $t_i$, kun kaksi edeltävää sanaluokkaa ovat $t_{i-1}$ ja $t_{i-2}$. Parametri voidaan myös mieltää todennäköisyytenä trigrammille $t_{i-2}, t_{i-1}, t_i $. Tästä huomataan, että kyseessä on toisen asteen Markovin piilomalli. Mallin toinen parametri
-
 \begin{align}
 e(w_i | t_i)
 \end{align}
-
 laskee todennäköisyyden sille, että sana $w_i$ esiintyy sanaluokan $t_i$ yhteydessä.
-
 
 \subsection{Parametrien estimointi}
 
 Yksinkertaisimmillaan parametri $q(t_i|t_{i-2},t_{i-1})$ voidaan estimoida laskemalla
-
 \begin{align}
 q(t_i|t_{i-2},t_{i-1}) = \frac{f(t_{i-2},t_{i-1},t_i)}{f(t_{i-1},t_{i-1})}
 \end{align}
-
 missä funktio $f$ merkitsee annetun n-grammin lukumäärää harjoitusaineistossa. \citet{brants2000} kuitenkin osoittaa, että datan harvuuden vuoksi tällainen estimaatti ei ole käyttökelpoinen: laajassakaan harjoitusaineistossa ei ole tarpeeksi montaa kappaletta kutakin eri trigrammia. Lisäksi osa trigrammeista $t_{i-2},t_{i-1},t_i$ ovat väistämättä sellaisia, että $f(t_{i-2},t_{i-1},t_i) = 0$, jolloin koko sarja $t_1 \ldots t_n$ saa todennäköisyyden $0$. Luotettavampi tapa estimoida arvoa $q$ on hyödyntää trigrammien lisäksi myös harjoitusaineistosta johdettujen uni- ja bigrammien suhteellisia frekvenssejä:
-
 \begin{align}
 Unigrammi&: P(t_i) = \frac{f(t_i)}{N} \\
 Bigrammi&: P(t_i | t_{i-1}) = \frac{f(t_{i-1}, t_i)}{f(t_{i-1})} \\
 Trigrammi&: P(t_i | t_{i-2}, t_{i-1}) = \frac{f(t_{i-2},t_{i-1},t_i)}{f(t_{i-2},t_{i-1})}
 \end{align}
-
 missä $N$ merkitsee harjoitusaineiston sanojen kokonaislukumäärää. Nyt funktion $q$ arvoa voidaan silottaa interpoloimalla edellämainittuja n-grammeja:
-
 \begin{align}
 q(t_i | t_{i-2}, t_{i-1}) = \lambda_1 P(t_i) + \lambda_2 P(t_i | t_{i-1}) + \lambda_3 P(t_i | t_{i-2}, t_{i-1})
 \end{align}
-
 missä $\lambda_1+\lambda_2+\lambda_3 = 1$ ja $\lambda_1,\lambda_2,\lambda_3 \geq 0$ (TODO muut silotusmenetelmät, perustelu interpolaatiolle ja lambda-arvoille). Vastaavasti todennäköisyys $e$ voidaan estimoida vertaamalla sana-sanaluokka-yhdistelmän frekvenssiä pelkän sanaluokan frekvenssiin:
-
 \begin{align}
 e(w_i|t_i) = \frac{f(w_i, t_i)}{f(t_i)}
 \label{hmm_param_e}
@@ -427,7 +400,7 @@ TODO
 
 2. Ei poimi sanojen välisiä suhteita, pelkästään sanaluokkien.
 
-3. ???
+3. Jää jälkeen nykyisistä SOTA-taggereista, mutta pärjää hyvin web-tekstissä \citep{giesbrecht2009}.
 
 \chapter{Yhteenveto}
 
@@ -462,6 +435,9 @@ Cutting, D., Kupiec, J., Pedersen, J. \& Sibun, P. 1992. \textit{A Practical Par
 \bibitem[DeRose(1988)]{derose1988}
 DeRose, S. J. 1988. \textit{Grammatical category disambiguation by statistical optimization}. Computational Linguistics, 14(1), s.~31--39.
 
+\bibitem[Giesbrecht \& Evert(2009)]{giesbrecht2009}
+Giesbrecht, E., \& Evert, S. 2009. \textit{Is Part-of-Speech tagging a solved task? An evaluation of POS taggers for the German Web as Corpus}. Proceedings of the 5th Web as Corpus Workshop (WAC5), s.~ 27--35.
+
 \bibitem[Greene \& Rubin(1971)]{greene1971}
 Greene, B. B., \& Rubin, G. M. 1971. \textit{Automatic grammatical tagging of English}. Department of Linguistics, Brown University, 1971.
 
@@ -482,15 +458,14 @@ Marcus, M. P., Marcinkiewicz, M. \& Santorini, B. 1993. \textit{Building a large
 \bibitem[Ngai \& Florian(2001)]{ngai2001}
 Ngai, G. \& Florian, R. 2001. \textit{Transformation-based learning in the fast lane}. Proceedings of the 2nd meeting of the North American Chapter of the Association for Computational Linguistics on Language technologies, s.~1--8.
 
-\bibitem[Ng ja Jordan(2002)]{ng2002}
+\bibitem[Ng \& Jordan(2002)]{ng2002}
 Ng, A. Y. \& Jordan, M. 2002. \textit{On Discriminative vs. Generative Classifiers: A comparison of logistic regression and Naive Bayes}. In NIPS 14.
-
-\bibitem[''POS Tagging State of the Art''(2013)]{aclwiki2013}
-\textit{POS Tagging State of the Art}. 2013. The Wiki of the Association for Computational Linguistics.
-Haettu 28.10.2013, osoitteesta \url{aclweb.org/aclwiki/index.php?title=POS_Tagging_(State_of_the_art)}
 
 \bibitem[Rabiner(1989)]{rabiner1989}
 Rabiner, L. R. 1989. \textit{A tutorial on Hidden Markov Models and selected applications in speech recognition}. Proceedings of the IEEE, 77(2), s.~257-285.
+
+\bibitem[Ramshaw \& Marcus(1994)]{ramshaw1994}
+Ramshaw, L., \& Marcus, M. 1994. \textit{Exploring the statistical derivation of transformational rule sequences for part-of-speech tagging}. Proceedings of the ACL Workshop on Combining Symbolic and Statistical Approaches to Language, s.~128--135.
 
 \bibitem[Ratnaparkhi(1996)]{ratnaparkhi1996}
 Ratnaparkhi, A. 1996. \textit{A maximum entropy model for part-of-speech tagging}. Proceedings of the Empirical Methods in Natural Language Processing Conference (EMNLP), University of Pennsylvania.
@@ -509,7 +484,7 @@ Spoustova, D.j., Hajic, J., Raab, J. \& Spousta, M. 2009. \textit{Semi-supervise
 European Chapter of the ACL (EACL 2009), s.~763-711.
 
 \bibitem[Toutanova ym.(2003)]{toutanova2003}
-Toutanova, K., Klein, D., Manning, C.D. \& Singer, Y. 2003. \textit{Feature-rich part-of-speech tagging with a cyclic dependency network}. In: NAACL 3. (2003), s.~252--259
+Toutanova, K., Klein, D., Manning, C. D., \& Singer, Y. 2003. \textit{Feature-rich part-of-speech tagging with a cyclic dependency network}. Proceedings of the 2003 Conference of the North American Chapter of the Association for Computational Linguistics on Human Language Technology, 1, s.~173--180. Association for Computational Linguistics.
 
 \bibitem[Tseng ym.(2005)]{tseng2005}
 Tseng, H., Jurafsky, D. \& Manning, C. 2005. \textit{Morphological features help POS tagging of unknown words across language varities}. Proceedings of the 4th SIGHAN bakeoff.
@@ -518,7 +493,8 @@ Tseng, H., Jurafsky, D. \& Manning, C. 2005. \textit{Morphological features help
 Viterbi, A. 1967. \textit{Error bounds for convolutional codes and an asymptotically optimum decoding algorithm}. Information Theory, IEEE Transactions on, 13(2), s.~260--269.
 
 \bibitem[Volk \& Schneider(1998)]{volk1998}
-Volk, M. \& Schneider, G. 1998. \textit{Comparing a statistical and a rule-based tagger for German}. Proceedings of KONVENS-98.
+Volk, M. \& Schneider, G. 1998. \textit{Comparing a statistical and a rule-based tagger for German}. Computers, Linguistics, and Phonetics between Language and Speech. Proceedings
+of the 4th Conference on Natural Language Processing - KONVENS-98, s.~125--137.
 
 \end{thebibliography}
 

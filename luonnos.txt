@@ -27,6 +27,21 @@
 
 6. Johtopäätökset
 
+### OVERFITTING ### (ylisovittuminen)
+
+Overfitting/Overtraining the model occurs when model parameters correctly
+represent the training set but the model cannot generalize the training data to a
+larger set.
+
+Ramshaw & Marcus, 1994:
+- One of the intriguing features of rule sequence learning is its apparent resistance to overtraining.
+
+### Is POS Tagging a solved task? ###
+
+Giesbrecht % Evert, 2009:
+- In a real-life scenario, accuracy drops below 93% with enormous variation between different text genres, making the taggers unsuitable for fully automatic processing.
+- HMM taggers are more robust and much faster than advanced machine-learning approaches such as MaxEnt !!!
+- [...] we see that the best overall accuracy is now achieved by TnT, a HMM-based tagger. While the Stanford tagger is considerably better than its competitors on unknown words, its overall accuracy falls slightly short of TnT certain degree of overtraining for the machinelearning approaches (Stanford and SVM tagger), while TnT generalizes better to less standardized genres such as Web texts. We may thus conclude that HMM-based approaches are both more robust and computationally more efficient than MaxEnt and other advanced machine-learning techniques.
 
 ### BRILL ###
 
@@ -95,6 +110,7 @@ tagging speed is about ten times that of the fastest Markov-model tagger.
 
 3. P(x,y) = p(y)p(x|y) (ongelma jaetaan)
 
+TnT: overfit !!!
 
 leksikaalinen e() ja kontekstuaalinen d() !!!
 
