@@ -240,7 +240,7 @@ Kun arvokkain transformaatiosääntö on löydetty, sääntö laitetaan muistiin
 
 \section{Brillin tunnistimen laajentaminen}
 
-Yksi Brillin alkuperäisen tunnistimen puutteista on se, että käytetyt sääntörungot huomioivat pelkästään sanaluokkien väliset suhteet: itse sanoihin liittyvää kontekstuaalista informaatiota ei käsitellä lainkaan. Tällöin merkittävä osa kielen kontekstuaalisista vihjeistä jää hyödyntämättä. Tätä puutetta voidaan paikata laajentamalla tunnistinta seuraavilla sääntörungoilla:
+Yksi Brillin alkuperäisen tunnistimen puutteista on se, että käytetyt sääntörungot huomioivat pelkästään sanaluokkien väliset suhteet: itse sanoihin liittyvää kontekstuaalista informaatiota ei käsitellä lainkaan. Tällöin merkittävä osa kielen kontekstuaalisista vihjeistä jää hyödyntämättä. Kyseistä puutetta voidaan paikata laajentamalla tunnistinta seuraavilla sääntörungoilla:
 
 Vaihda sanaluokka $a$ sanaluokkaan $b$, kun:
 \begin{enumerate}
@@ -269,25 +269,20 @@ Vaihda tuntemattoman sanan sanaluokka $a$ sanaluokkaan $b$, kun:
 
 Huomataan, ettei yksikään sääntörunko ota kantaa sanaluokkiin, koska tuntemattomat sanat käsitellään ennen varsinaisten transformaatiosääntöjen soveltamista. Näiden kahden lisäyksen myötä Brillin tunnistin saavuttaa 96,6\% tunnistustarkkuuden, missä tuntemattomien sanojen tunnistustarkkuus on 85\%. \citep{brill1994, brill1995}
 
-Edellisten puutteiden lisäksi Brillin tunnistin on itsessään suhteellisen epätehokas: \citetalias{ngai2001} mainitsevat, että tunnistimen harjoittaminen miljoonan sanan aineistolla vie tyypillisesti yli 38 tuntia. Samoin \citetalias{volk1998} raportoivat Brillin tunnistimen harjoittamisen vievän päiviä siinä missä vastaava tilastollinen tunnistin harjoitetaan minuuteissa. Harjoittamisen nopeuttamiseksi on esitetty muun muassa inkrementaalinen menetelmä, jonka myötä Brillin tunnistin skaalautuu paremmin laajoille harjoitusaineistoille \citep{ramshaw1994}. Menetelmässä jokainen transformaatiosääntö sisältää listan niistä sääntöaineiston kohdista, joissa sääntöä voidaan soveltaa. Samoin jokainen sääntöaineiston indeksi sisältää listan kyseisessä kohdassa sovellettaviin sääntöihin. Näiden indeksien avulla vältytään koko  sääntöaineiston läpikäymiseltä transformaatiosäännön arvoa laskiessa. Inkrementaaliseen menetelmään perustuva FastTBL-algoritmi suoriutuu mainitusta 38 tunnin harjoittamisesta noin 17 minuutissa \citep{ngai2001}. Harjoittamisen nopeuttamisen lisäksi \citetalias{roche1995} ovat osoittaneet kuinka tunnistimen käyttämistä voidaan nopeuttaa muokkaamalla transformaatiosäännöt eräänlaiseksi äärelliseksi automaatiksi: artikkelissa raportoidaan noin 20-kertainen tunnistusnopeus verrattuna Brillin alkuperäiseen tunnistimeen.
+Edellisten puutteiden lisäksi Brillin tunnistin on itsessään suhteellisen epätehokas: \citetalias{ngai2001} mainitsevat, että tunnistimen harjoittaminen miljoonan sanan aineistolla vie tyypillisesti yli 38 tuntia. Samoin \citetalias{volk1998} raportoivat Brillin tunnistimen harjoittamisen vievän päiviä siinä missä vastaava tilastollinen tunnistin harjoitetaan minuuteissa. Harjoittamisen nopeuttamiseksi on esitetty muun muassa inkrementaalinen menetelmä, jonka avulla Brillin tunnistin skaalautuu paremmin laajoille harjoitusaineistoille \citep{ramshaw1994}. Menetelmässä jokainen transformaatiosääntö sisältää listan niistä sääntöaineiston kohdista, joissa sääntöä voidaan soveltaa. Samoin jokainen sääntöaineiston indeksi sisältää listan kyseisessä kohdassa sovellettaviin sääntöihin. Näiden indeksien avulla vältytään koko sääntöaineiston läpikäymiseltä transformaatiosäännön arvoa laskiessa. Inkrementaaliseen menetelmään perustuva FastTBL-algoritmi suoriutuu mainitusta 38 tunnin harjoittamisesta noin 17 minuutissa \citep{ngai2001}. Harjoittamisen nopeuttamisen lisäksi \citetalias{roche1995} ovat osoittaneet kuinka tunnistimen käyttämistä voidaan nopeuttaa muokkaamalla löydetyt transformaatiosäännöt eräänlaiseksi äärelliseksi automaatiksi: artikkelissa raportoidaan noin 20-kertainen tunnistusnopeus Brillin alkuperäiseen tunnistimeen verrattuna.
 
+\section{Brillin tunnistimen arviointi}
 
-\section{Arviota}
-TODO keskeneräinen luku, asiasisältö on jokseenkin selvillä.
+Brillin tunnistin osoittaa, että sääntöpohjaisilla menetelmillä voidaan saavuttaa sekä kilpailukykyisiä tuloksia että tilastollisten menetelmien kaltainen helppokäyttöisyys. Tunnistin myös säilyttää kaikki aikaisemmin mainitut sääntöpohjaisten menetelmien edut: transformaatiosäännöt peittoavat vastaavan tilastodatan havainnollisuudessa, kompaktiudessa sekä muokattavuudessa. Esimerkiksi yltääkseen siihen tarkkuuteen, mihin Markovin malleihin perustuva tilastollinen tunnistin vaatii 10 000 todennäköisyyslukemaa, Brillin tunnistin tarvitsee vain 217 transformaatiosääntöä \citep{brill1994}. Tunnistimen kompaktiuden ansiosta sen tuloksia on helpompi analysoida ja tarvittaessa muokata manuaalisesti. Edellä esitettyjen parannusten myötä Brillin tunnistin on myös hyvin tehokas.
 
-1. Sääntörunkojen kanssa ei tarvitse olla tarkkana - huonot rungot eivät kerää sääntöjä. Sääntöjä ei tarvita paljon. Säännöt ovat helpompia tulkita kuin tilastodata. Sääntörunkojen laatiminen vaatii silti jonkinlaista ymmärrystä kielestä. 'Can capture more context than Markov models''.
+Koht. immuuni ylisovittamiselle \citep{ramshaw1994}.
 
-2. Koska säännöt ovat niin yksinkertaisia, on mahdollista parantaa tarkkuustuloksia tekemällä käsin uusia sääntöjä \citep{volk1998}.
+Sääntörunkojen laatiminen vaatii silti jonkinlaista ymmärrystä kielestä. 'Can capture more context than Markov models''. Toisaalta sääntörunkojen kanssa ei tarvitse olla tarkkana - huonot rungot eivät kerää sääntöjä.
 
-3. Ei voi toimia osana probabilistista järjestelmää, koska ei käsitellä todennäköisyyksiä. Ainakaan ilman suuria muutoksia?
+Ei voi toimia osana probabilistista järjestelmää, koska ei käsitellä todennäköisyyksiä. Ainakaan ilman suuria muutoksia? K-best tags \citep{brill1995}
 
-4. Opettaminen on hidasta (tunneista kymmeniin tunteihin) --- apuun FastTBL-algoritmi \citep{ngai2001}.
+Tarkkuus on noin prosenttiyksikön jäljessä nykyisistä huipputuloksista. Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus --- voisiko käsittelyä parantaa? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. Tilastollisia menetelmiä on kehitetty (Brillin menetelmän jälkeen) jo 20 vuotta, mutta tarkkuus on noussut vain prosenttiyksikön, oliko Brill oikeassa? \citep{manning2011} 
 
-5. Soveltaminen on hidasta - ''show a method for converting a list of tagging transformations into a deterministic finite state transducer with one state transition taken per word of input; the result is a transformation-based tagger whose tagging speed is about ten times that of the fastest Markov-model tagger.'' \citep{roche1995}
-
-6. Tarkkuus on noin prosenttiyksikön jäljessä nykyisistä huipputuloksista. Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus --- voisiko käsittelyä parantaa? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. Tilastollisia menetelmiä on kehitetty (Brillin menetelmän jälkeen) jo 20 vuotta, mutta tarkkuus on noussut vain prosenttiyksikön, oliko Brill oikeassa? \citep{manning2011} 
-
-7. Koht. immuuni ylisovittamiselle \citep{ramshaw1994}.
 
 \chapter{Tilastolliset menetelmät}
 

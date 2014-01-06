@@ -2,32 +2,7 @@
 | Sanaluokkien automaattinen tunnistaminen |
 #==========================================#
 
-### RAKENNE ###
-
-1. Johdanto:
-- Mitä POS taggaus on?
-- monitulkintaisuudet kategoriat:
-  - leksikaalinen (tagging)
-  - syntaktinen (parsing)
-  - semanttinen (analysis)
-
-2. Sanaluokkien automaattinen tunnistaminen
-- Mihin sitä tarvitaan?
-- Lyhyt historia
-- Miksi se on hankalaa?
-- Suorituskyky
-  - baseline @ 90%
-- Vaatimukset
-
-3. Transformaatio, brillin taggeri
-
-4. Markovin piilomallit
-
-5. Log-lineaariset mallit (maximum entropy)
-
-6. Johtopäätökset
-
-### OVERFITTING ### (ylisovittuminen)
+### OVERFITTING ### ylisovittaminen
 
 Overfitting/Overtraining the model occurs when model parameters correctly
 represent the training set but the model cannot generalize the training data to a
@@ -35,13 +10,6 @@ larger set.
 
 Ramshaw & Marcus, 1994:
 - One of the intriguing features of rule sequence learning is its apparent resistance to overtraining.
-
-### Is POS Tagging a solved task? ###
-
-Giesbrecht % Evert, 2009:
-- In a real-life scenario, accuracy drops below 93% with enormous variation between different text genres, making the taggers unsuitable for fully automatic processing.
-- HMM taggers are more robust and much faster than advanced machine-learning approaches such as MaxEnt !!!
-- [...] we see that the best overall accuracy is now achieved by TnT, a HMM-based tagger. While the Stanford tagger is considerably better than its competitors on unknown words, its overall accuracy falls slightly short of TnT certain degree of overtraining for the machinelearning approaches (Stanford and SVM tagger), while TnT generalizes better to less standardized genres such as Web texts. We may thus conclude that HMM-based approaches are both more robust and computationally more efficient than MaxEnt and other advanced machine-learning techniques.
 
 ### BRILL ###
 
@@ -57,9 +25,7 @@ plussat:
  - ease of finding and implementing improvements
  - better portability from one tag set, corpus genre or language to another (?)
  - konseptuaalisesti yksinkertaisempi !!!
-miinukset
- - ei leksikaalista informaatiota (Brill 94 ratkaisee)
- - hitaus (FastTBL - Ngai 2001)
+miinukset:
  - tuntemattomien sanojen heikko tarkkuus
 
 http://www.inf.fu-berlin.de/lehre/WS02/sprachverarbeitung/Reader/14.Termin_Brill_Tagger/brill-slides.pdf
@@ -77,25 +43,6 @@ input, regardless of the fact that some of the current tokens may have been prev
 examined when matching the same rule at a previous position. The algorithm treats
 each rule as a template of tags and slides it along the input, one word at a time.
 Consider, for example, the rule A B PREVBIGRAM C C that changes tag A to tag B if the previous two tags are C. When applied to the input CDCCA, the pattern CCA is compared three times to the input, as shown in Figure 3. At each step no record of previous partial matches or mismatches is remembered. In this example, C is compared with the second input token D during the first and second steps, and therefore, the second step could have been skipped by remembering the comparisons from the first step. This method is similar to a naive pattern-matching algorithm. The second reason for inefficiency is the potential interaction between rules. For example, when the rules in Figure 1 are applied to sentence (3), the first rule results in a change (6) that is undone by the second rule as shown in (9). The algorithm may therefore perform unnecessary computation. In summary, Brill's algorithm for implementing the contextual tagger may require RKn elementary steps to tag an input of n words with R contextual rules requiring at most K tokens of context.
-
-### ALKUPERÄINEN SUUNNITELMA ARVIO-LUVULLE ###
-
-1. Sääntöjen kanssa ei tarvitse olla tarkkana. Sääntöjä ei tarvita paljon. - can capture more context than Markov models (helpompi ymmärtää kuin tilastollinen). Vaatii silti jonkinlaista ymmärrystä kielestä.
-
-2. Koska säännöt ovat niin yksinkertaisia, on mahdollista parantaa tarkkuustuloksia tekemällä käsin uusia sääntöjä, heuristisesti? (Volk & Schneider 98)
-
-3. ei tilastollista informaatiota, mitä voidaan joskus tarvita. (ainakaan ilman muutoksia).
-
-4. Hidas opettaminen. (edellisessä kappaleessa jo käsitelty, ei tarvitse alustaa jos aineisto on samanlaista) FastTBL
-
-5. Hidas toiminta? Roche and Schabes (1995) show a method for converting a list
-of tagging transformations into a deterministic finite state transducer with one state
-transition taken per word of input; the result is a transformation-based tagger whose
-tagging speed is about ten times that of the fastest Markov-model tagger.
-
-6. tarkkuus? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. \citet{manning2011} vain kuudesosa ongelmista ratkaistu, oliko Brill oikeassa? Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus (mm. Volk & Schneider 98)
-
-
 
 ### MARKOV ###
 
@@ -131,6 +78,10 @@ n-grammit
       – estimating the parameters of a 2nd order Markov chain from the complete genome of E. Coli, we’d
         see each word > 72,000 times on average
       – estimating the parameters of an 8th order chain, we’d see each word ~ 5 times on average
+
+Giesbrecht & Evert (2009):
+- HMM taggers are more robust and much faster than advanced machine-learning approaches such as MaxEnt !!!
+- [...] we see that the best overall accuracy is now achieved by TnT, a HMM-based tagger. While the Stanford tagger is considerably better than its competitors on unknown words, its overall accuracy falls slightly short of TnT certain degree of overtraining for the machinelearning approaches (Stanford and SVM tagger), while TnT generalizes better to less standardized genres such as Web texts. We may thus conclude that HMM-based approaches are both more robust and computationally more efficient than MaxEnt and other advanced machine-learning techniques.
 
 Brill 95:
 "In the Markov model typically used for stochastic tagging, state
