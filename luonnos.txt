@@ -45,7 +45,6 @@ Giesbrecht % Evert, 2009:
 
 ### BRILL ###
 
-
 TODO
 + yksinkertainen
 + vaatii vähän muistia vrt. tilastolliset menetelmät
@@ -63,15 +62,11 @@ miinukset
  - hitaus (FastTBL - Ngai 2001)
  - tuntemattomien sanojen heikko tarkkuus
 
-Koska säännöt ovat niin yksinkertaisia, onko mahdollista parantaa tarkkuustuloksia tekemällä käsin
-uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
-
-
 http://www.inf.fu-berlin.de/lehre/WS02/sprachverarbeitung/Reader/14.Termin_Brill_Tagger/brill-slides.pdf
 - can capture more context than Markov models
 - always learns on the whole data set - no data sparseness:
 
-miksi opettaminen on hidasta? - Roche, E., & Schabes, Y. (1995). Deterministic part-of-speech tagging with finite-state transducers. Computational linguistics, 21(2), 227-253.
+miksi käyttäminen on hidasta? - Roche, E., & Schabes, Y. (1995). Deterministic part-of-speech tagging with finite-state transducers. Computational linguistics, 21(2), 227-253.
 Once the lexical assignment is performed, in Brill's algorithm, each contextual rule
 acquired during the training phase is applied to each sentence to be tagged. For each
 individual rule, the algorithm scans the input from left to right while attempting to
@@ -87,7 +82,7 @@ Consider, for example, the rule A B PREVBIGRAM C C that changes tag A to tag B i
 
 1. Sääntöjen kanssa ei tarvitse olla tarkkana. Sääntöjä ei tarvita paljon. - can capture more context than Markov models (helpompi ymmärtää kuin tilastollinen). Vaatii silti jonkinlaista ymmärrystä kielestä.
 
-2. Koska säännöt ovat niin yksinkertaisia, on mahdollista parantaa tarkkuustuloksia tekemällä käsin uusia sääntöjä, heuristisesti? (se saksalaisten artikkeli)
+2. Koska säännöt ovat niin yksinkertaisia, on mahdollista parantaa tarkkuustuloksia tekemällä käsin uusia sääntöjä, heuristisesti? (Volk & Schneider 98)
 
 3. ei tilastollista informaatiota, mitä voidaan joskus tarvita. (ainakaan ilman muutoksia).
 
@@ -98,7 +93,7 @@ of tagging transformations into a deterministic finite state transducer with one
 transition taken per word of input; the result is a transformation-based tagger whose
 tagging speed is about ten times that of the fastest Markov-model tagger.
 
-6. tarkkuus? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. \citet{manning2011} vain kuudesosa ongelmista ratkaistu, oliko Brill oikeassa? Myös muilla kielillä (saksa-artikkeli). Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus.
+6. tarkkuus? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. \citet{manning2011} vain kuudesosa ongelmista ratkaistu, oliko Brill oikeassa? Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus (mm. Volk & Schneider 98)
 
 
 

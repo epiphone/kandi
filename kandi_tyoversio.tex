@@ -47,6 +47,9 @@
 % &-merkin sijaan ''ja'' - tähän on varmaan olemassa joku parempikin tapa
 \defcitealias{giesbrecht2009}{Giesbrecht ja Evert (2009)}
 \defcitealias{ng2002}{Ng ja Jordan (2002)}
+\defcitealias{ngai2001}{Ngai ja Florian (2001)}
+\defcitealias{volk1998}{Volk ja Schneider (1998)}
+\defcitealias{roche1995}{Roche ja Schabes (1995)}
 
 
 \begin{document}
@@ -114,7 +117,7 @@ Monitulkintaisuuden lisäksi toinen merkittävä ongelma on tuntemattomien eli h
 
 \section{Automaattisten tunnistajien suorituskyky}
 
-Kuten mainittua, nykyisten tunnistimien saavuttama tunnistustarkkuus on hieman yli 97\%  (mm. \citealp{toutanova2003}, \citealp{shen2007}, \citealp{spoustova2009}). \citet{manning2011} kuitenkin osoittaa, että kyseistä tulosta ei ole syytä tulkita liian optimistisesti: esimerkiksi lukuisat välimerkit ja muut yksikäsitteiset elementit vääristävät evaluaatiotuloksia. Lisäksi useissa tekstilajeissa, kuten uutisiartikkeleissa, lauseiden keskipituus on yli 20 sanaa, jolloin edellämainitullakin tunnistustarkkuudella jokaisessa lauseessa on keskimäärin ainakin yksi virhe \citep{manning1999}. Artikkelissa huomautetaankin, että realistisempaa olisi tarkastella automaattisten tunnistimien kykyä tunnistaa kokonaiset lauseet oikein, sillä pienikin virhe lauseessa voi vahingoittaa tunnistajan hyödyllisyyttä myöhempien prosessointivaiheiden kannalta; tällä saralla tunnistajat saavuttavat noin 55-57\% tarkkuuden, mikä on huomattavasti vaatimattomampi tulos. Lisäksi \citetalias{giesbrecht2009} ovat osoittaneet, että kyseiset huipputulokset ovat saavutettavissa vain hyvin keinotekoisissa koetilanteissa: todellisissa käyttötapauksissa tunnistimien tarkkuus laskee alle 93 prosentin, tarkkuuden vaihdellessa merkittävästi tekstilajeittain.
+Kuten mainittua, nykyisten tunnistimien saavuttama tunnistustarkkuus on hieman yli 97\%  (mm. \citealp{toutanova2003}, \citealp{shen2007}, \citealp{spoustova2009}). \citet{manning2011} kuitenkin osoittaa, että kyseistä tulosta ei ole syytä tulkita liian optimistisesti: esimerkiksi lukuisat välimerkit ja muut yksikäsitteiset elementit vääristävät evaluaatiotuloksia. Lisäksi useissa tekstilajeissa, kuten uutisiartikkeleissa, lauseiden keskipituus on yli 20 sanaa, jolloin edellämainitullakin tunnistustarkkuudella jokaisessa lauseessa on keskimäärin yksi virhe \citep{manning1999}. Artikkelissa huomautetaankin, että realistisempaa olisi tarkastella automaattisten tunnistimien kykyä tunnistaa kokonaiset lauseet oikein, sillä pienikin virhe lauseessa voi vahingoittaa tunnistajan hyödyllisyyttä myöhempien prosessointivaiheiden kannalta; tällä saralla tunnistajat saavuttavat noin 55-57\% tarkkuuden, mikä on huomattavasti vaatimattomampi tulos. Lisäksi \citetalias{giesbrecht2009} ovat osoittaneet, että kyseiset huipputulokset ovat saavutettavissa vain hyvin keinotekoisissa koetilanteissa: todellisissa käyttötapauksissa tunnistimien tarkkuus laskee alle 93 prosentin, tarkkuuden vaihdellessa merkittävästi tekstilajeittain.
 
 Tarkkuustuloksia arvioidessa tulee myös ottaa huomioon varsin korkea lähtötaso: jo yksinkertaisimmalla metodilla, eli valitsemalla kullekin sanalle se sanaluokka, joka esiintyy harjoitusaineistossa useiten annetun sanan yhteydessä, saavutetaan noin 90\% tunnistustarkkuus \citep{charniak1993}. On myös mielenkiintoista huomata, että edes ammattilaisten käsin luokittelemat aineistot eivät saavuta täydellistä tunnistamistarkkuutta: yksittäisen ihmisen tunnistustarkkuuden on arvioitu olevan noin 97\% \citep{manning2011}, mikä vastaa edellä mainittua automaattisten tunnistimien huipputulosta.
  
@@ -240,7 +243,6 @@ Kun arvokkain transformaatiosääntö on löydetty, sääntö laitetaan muistiin
 Yksi Brillin alkuperäisen tunnistimen puutteista on se, että käytetyt sääntörungot huomioivat pelkästään sanaluokkien väliset suhteet: itse sanoihin liittyvää kontekstuaalista informaatiota ei käsitellä lainkaan. Tällöin merkittävä osa kielen kontekstuaalisista vihjeistä jää hyödyntämättä. Tätä puutetta voidaan paikata laajentamalla tunnistinta seuraavilla sääntörungoilla:
 
 Vaihda sanaluokka $a$ sanaluokkaan $b$, kun:
-
 \begin{enumerate}
 \item Edellinen (seuraava) sana on $w$.
 \item Edellistä edeltävä (seuraavaa seuraava) sana on $w$. 
@@ -254,7 +256,6 @@ Tunnistimen leksikalisointi edellä mainituilla säännöillä vähentää tunni
 Tunnistimen toinen merkittävä puute on tuntemattomien sanojen heikko tunnistustarkkuus. Tämä ei ole varsinaisesti yllättävää, sillä edellä kuvailtu sanojen pääteliitteisiin perustuva tuntemattomien sanojen erikoiskäsittely jää melko pinnalliseksi: lokaaleista vihjeistä huomioidaan vain pääte sekä alkukirjaimen koko, ja kontekstuaaliset vihjeet sivuutetaan täysin. Tätäkin ongelmaa voidaan lieventää laajentamalla tunnistinta uusilla sääntörungoilla: 
 
 Vaihda tuntemattoman sanan sanaluokka $a$ sanaluokkaan $b$, kun:
-
 \begin{enumerate}
 \item Etuliitteen $x$, $|x| \leq 4$, poistamisesta seuraa uusi sana.
 \item Sanan ensimmäiset (1,2,3,4) kirjainta ovat $x$. 
@@ -268,7 +269,8 @@ Vaihda tuntemattoman sanan sanaluokka $a$ sanaluokkaan $b$, kun:
 
 Huomataan, ettei yksikään sääntörunko ota kantaa sanaluokkiin, koska tuntemattomat sanat käsitellään ennen varsinaisten transformaatiosääntöjen soveltamista. Näiden kahden lisäyksen myötä Brillin tunnistin saavuttaa 96,6\% tunnistustarkkuuden, missä tuntemattomien sanojen tunnistustarkkuus on 85\%. \citep{brill1994, brill1995}
 
-Edellisten puutteiden lisäksi Brillin tunnistin on itsessään suhteellisen epätehokas: 
+Edellisten puutteiden lisäksi Brillin tunnistin on itsessään suhteellisen epätehokas: \citetalias{ngai2001} mainitsevat, että tunnistimen harjoittaminen miljoonan sanan aineistolla vie tyypillisesti yli 38 tuntia. Samoin \citetalias{volk1998} raportoivat Brillin tunnistimen harjoittamisen vievän päiviä siinä missä vastaava tilastollinen tunnistin harjoitetaan minuuteissa. Harjoittamisen nopeuttamiseksi on esitetty muun muassa inkrementaalinen menetelmä, jonka myötä Brillin tunnistin skaalautuu paremmin laajoille harjoitusaineistoille \citep{ramshaw1994}. Menetelmässä jokainen transformaatiosääntö sisältää listan niistä sääntöaineiston kohdista, joissa sääntöä voidaan soveltaa. Samoin jokainen sääntöaineiston indeksi sisältää listan kyseisessä kohdassa sovellettaviin sääntöihin. Näiden indeksien avulla vältytään koko  sääntöaineiston läpikäymiseltä transformaatiosäännön arvoa laskiessa. Inkrementaaliseen menetelmään perustuva FastTBL-algoritmi suoriutuu mainitusta 38 tunnin harjoittamisesta noin 17 minuutissa \citep{ngai2001}. Harjoittamisen nopeuttamisen lisäksi \citetalias{roche1995} ovat osoittaneet kuinka tunnistimen käyttämistä voidaan nopeuttaa muokkaamalla transformaatiosäännöt eräänlaiseksi äärelliseksi automaatiksi: artikkelissa raportoidaan noin 20-kertainen tunnistusnopeus verrattuna Brillin alkuperäiseen tunnistimeen.
+
 
 \section{Arviota}
 TODO keskeneräinen luku, asiasisältö on jokseenkin selvillä.
