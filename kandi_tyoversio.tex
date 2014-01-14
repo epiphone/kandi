@@ -50,7 +50,7 @@
 \defcitealias{ngai2001}{Ngai ja Florian (2001)}
 \defcitealias{volk1998}{Volk ja Schneider (1998)}
 \defcitealias{roche1995}{Roche ja Schabes (1995)}
-
+\defcitealias{schneider1998}{Schneider ja Volk (1998)}
 
 \begin{document}
 
@@ -106,7 +106,7 @@ Sanaluokkien tunnistaminen on tärkeä ja käytännöllinen ongelma, joka kohdat
 Sanaluokkien tunnistaminen voi intuitiivisesti tuntua helpolta, mutta tehtävän automaatiota hankaloittavat kaksi oleellista ongelmaa: sanojen monitulkintaisuus sekä tuntemattomat sanat. Esimerkiksi lauseissa
 \[Time\: flies\: like\: an\: arrow.\]
 \[Fruit\: flies\: like\: a\: banana.\]
-sana \textit{flies} esiintyy ensin verbinä ja sitten substantiivina. Sanan \textit{time} ilmeisin sanaluokka on substantiivi, mutta se voidaan mieltää myös imperatiiviverbinä, jolloin lauseen merkitys muuttuu täysin. Itse asiassa kummatkin esimerkkilauseet voidaan tulkita kymmenin eri tavoin, joista ilmeisimmän tulkinnan valitseminen automaattisesti on haastavaa. Lisäksi, vaikka tosielämässä tulkittavat lauseet ovat harvoin yhtä ongelmallisia kuin edellämainitut lingvistiset esimerkkilauseet, on monitulkintaisuus hyvin yleistä: arviolta 40\% englanninkielisen proosan sanastosta voidaan luokitella useampaan kuin yhteen sanaluokkaan \citep{derose1988}. 
+sana \textit{flies} esiintyy ensin verbinä ja sitten substantiivina. Sanan \textit{time} ilmeisin sanaluokka on substantiivi, mutta se voidaan mieltää myös imperatiiviverbinä, jolloin lauseen merkitys muuttuu täysin. Itse asiassa kummatkin esimerkkilauseet voidaan tulkita kymmenin eri tavoin, joista ilmeisimmän tulkinnan valitseminen automaattisesti on haastavaa. Lisäksi, vaikka tosielämässä tulkittavat lauseet ovat harvoin yhtä ongelmallisia kuin edellä mainitut lingvistiset esimerkkilauseet, on monitulkintaisuus hyvin yleistä: arviolta 40\% englanninkielisen proosan sanastosta voidaan luokitella useampaan kuin yhteen sanaluokkaan \citep{derose1988}. 
 
 Jatkokäsittelyn kannalta automaattisen tunnistajan oleellisin tehtävä onkin valita kaikista mahdollisista sanaluokista se, joka tuottaa luontevimman tulkinnan. Tällaisen yksikäsitteistämisen mahdollistavat luonnollisten kielten sisäänrakennetut rajoitteet, jotka voidaan jakaa lokaaleihin sekä kontekstuaalisiin vihjeisiin: lokaaleista vihjeistä ilmeisin on itse sana (''sana \textit{can} on on todennäköisemmin modaaliverbi kuin substantiivi''), mutta päätelmiä voidaan tehdä myös mm. sanan prefiksin, suffiksin tai kirjainten koon perusteella. Kontekstuaalisia vihjeitä ovat kaikki lauseen muut sanat sanaluokkineen: esimerkiksi sana \textit{fly} on todennäköisimmin substantiivi, jos edeltävä sana on artikkeli.
 
@@ -117,7 +117,7 @@ Monitulkintaisuuden lisäksi toinen merkittävä ongelma on tuntemattomien eli h
 
 \section{Automaattisten tunnistajien suorituskyky}
 
-Kuten mainittua, nykyisten tunnistimien saavuttama tunnistustarkkuus on hieman yli 97\%  (mm. \citealp{toutanova2003}, \citealp{shen2007}, \citealp{spoustova2009}). \citet{manning2011} kuitenkin osoittaa, että kyseistä tulosta ei ole syytä tulkita liian optimistisesti: esimerkiksi lukuisat välimerkit ja muut yksikäsitteiset elementit vääristävät evaluaatiotuloksia. Lisäksi useissa tekstilajeissa, kuten uutisiartikkeleissa, lauseiden keskipituus on yli 20 sanaa, jolloin edellämainitullakin tunnistustarkkuudella jokaisessa lauseessa on keskimäärin yksi virhe \citep{manning1999}. Artikkelissa huomautetaankin, että realistisempaa olisi tarkastella automaattisten tunnistimien kykyä tunnistaa kokonaiset lauseet oikein, sillä pienikin virhe lauseessa voi vahingoittaa tunnistajan hyödyllisyyttä myöhempien prosessointivaiheiden kannalta; tällä saralla tunnistajat saavuttavat noin 55-57\% tarkkuuden, mikä on huomattavasti vaatimattomampi tulos. Lisäksi \citetalias{giesbrecht2009} ovat osoittaneet, että kyseiset huipputulokset ovat saavutettavissa vain hyvin keinotekoisissa koetilanteissa: todellisissa käyttötapauksissa tunnistimien tarkkuus laskee alle 93 prosentin, tarkkuuden vaihdellessa merkittävästi tekstilajeittain.
+Kuten mainittua, nykyisten tunnistimien saavuttama tunnistustarkkuus on hieman yli 97\%  \citep[mm.][]{toutanova2003, spoustova2009, sogaard2011}. \citet{manning2011} kuitenkin osoittaa, että kyseistä tulosta ei ole syytä tulkita liian optimistisesti: esimerkiksi lukuisat välimerkit ja muut yksikäsitteiset elementit vääristävät evaluaatiotuloksia. Lisäksi useissa tekstilajeissa, kuten uutisiartikkeleissa, lauseiden keskipituus on yli 20 sanaa, jolloin edellä mainitullakin tunnistustarkkuudella jokaisessa lauseessa on keskimäärin yksi virhe \citep{manning1999}. Artikkelissa huomautetaankin, että realistisempaa olisi tarkastella automaattisten tunnistimien kykyä tunnistaa kokonaiset lauseet oikein, sillä pienikin virhe lauseessa voi vahingoittaa tunnistajan hyödyllisyyttä myöhempien prosessointivaiheiden kannalta; tällä saralla tunnistajat saavuttavat noin 55-57\% tarkkuuden, mikä on huomattavasti vaatimattomampi tulos. Lisäksi \citetalias{giesbrecht2009} ovat osoittaneet, että kyseiset huipputulokset ovat saavutettavissa vain hyvin keinotekoisissa koetilanteissa: todellisissa käyttötapauksissa tunnistimien tarkkuus laskee alle 93 prosentin, tarkkuuden vaihdellessa merkittävästi tekstilajeittain.
 
 Tarkkuustuloksia arvioidessa tulee myös ottaa huomioon varsin korkea lähtötaso: jo yksinkertaisimmalla metodilla, eli valitsemalla kullekin sanalle se sanaluokka, joka esiintyy harjoitusaineistossa useiten annetun sanan yhteydessä, saavutetaan noin 90\% tunnistustarkkuus \citep{charniak1993}. On myös mielenkiintoista huomata, että edes ammattilaisten käsin luokittelemat aineistot eivät saavuta täydellistä tunnistamistarkkuutta: yksittäisen ihmisen tunnistustarkkuuden on arvioitu olevan noin 97\% \citep{manning2011}, mikä vastaa edellä mainittua automaattisten tunnistimien huipputulosta.
  
@@ -191,15 +191,13 @@ Kyseisen lähestymistavan ilmeisin heikkous on vaaditun manuaalisen työn määr
 
 Sääntöpohjaisten menetelmien puutteiden vuoksi useimmat nykyiset sanaluokkien tunnistajat perustuvat tilastollisiin menetelmiin: sanaluokkia koskeva tilastollinen informaatio voidaan poimia harjoitusaineistosta automaattisesti, siinä missä sääntöjen laatiminen vaatii lingvististä asiantuntemusta ja manuaalista työtä. Sääntöpohjaisilla menetelmillä on kuitenkin joitakin etuja tilastollisiin menetelmiin verrattuna: ensinnäkin kielioppisääntöjen tallentaminen vaatii huomattavasti vähemmän tallennustilaa kuin vastaava tilastollinen informaatio. Tilastollista informaatiota on myös hankalampi tulkita ja käsitellä kuin yksinkertaisia kielioppisääntöjä, jonka myötä tunnistusvirheiden tunnistaminen ja korjaaminen on helpompaa kielioppisääntöjä käytettäessä. \citep{brill1992}
 
-\citet{brill1992} huomauttaakin, että tilastolliset tunnistajat saavuttavat korkean tunnistamistarkkuuden kiinnittämättä varsinaisesti huomiota aineiston taustalla olevaan kieliopilliseen rakenteeseen. Hän laskee tilastollisten menetelmien puutteeksi sen, että ne poimivat aineistosta lingvistisen informaation sijaan vain suuren määrän vaikeselkoisia tilastoja.
-
 \section{Brillin sääntöpohjainen sanaluokkatunnistin}
 
 \citet{brill1992} esittää artikkelissaan vaihtoehtoisen lähestymistavan, joka pohjautuu varhaisimpien tunnistusmenetelmien tavoin kieliopillisiin sääntöihin. Aikaisemmista sääntöpohjaisista menetelmistä poiketen sääntöjä ei kuitenkaan syötetä manuaalisesti, vaan tunnistin oppii ne automaattisesti oikeilla sanaluokilla merkitystä harjoitusaineistosta. Menetelmän kantava idea on (1) aloittaa jostakin yksinkertaisesta ratkaisusta, (2) tunnistaa tehdyt virheet ja (3) inkrementaalisesti soveltaa virheitä korjaavia transformaatiosääntöjä, kunnes ne eivät enää paranna kokonaistarkkuutta.
 
 Brillin tunnistinta alustettaessa harjoitusaineisto jaetaan kahteen osaan, joista pienempää käytetään niin sanottuna sääntöaineistona (engl. \textit{patch corpus}) ja suurempaa varsinaisena harjoitusaineistona. Tunnistimen alustus alkaa siten, että sääntöaineiston kukin sana luokitellaan ensin sillä sanaluokalla, joka useimmiten esiintyy sanan yhteydessä harjoitusaineistossa. Tuntemattomien sanojen kohdalla sanaluokka määräytyy sanan kolmen viimeisen kirjaimen mukaan: esimerkiksi kaikki \textit{ous}-päätteiset tuntemattomat sanat luokitellaan adjektiiveiksi, koska harjoitusaineiston \textit{ous}-päätteiset sanat ovat useimmiten adjektiiveja. Lisäksi kaikki isolla alkukirjaimella alkavat tuntemattomat sanat luokitellaan erisnimiksi. Tämän yksinkertaisen menetelmän tarkkuus on noin 92\%. \citep{brill1992}
 
-Seuraavaksi verrataan edellämainitulla menetelmällä tunnistettuja sanaluokkia sääntöaineiston oikeisiin sanaluokkiin. Vertailun tuloksena saadaan lista virheistä muodossa $<tag_a, tag_b, number>$, josta ilmenee montako kertaa jokin sana tunnistettiin luokkaan $tag_a$, kun oikea sanaluokka olisi ollut $tag_b$. Nyt käyttämällä valmiita sääntörunkoja voidaan laskennallisesti selvittää se transformaatiosääntö, joka laskee virheprosenttia eniten. Kunkin virhe-sääntörunko-parin muodostamaa sääntöä siis sovelletaan vuorostaan sääntöaineistoon, ja säännön arvo lasketaan vähentämällä korjattujen virheiden määrästä mahdollisesti aiheutettujen uusien virheiden lukumäärä. \citet{brill1992} käyttää artikkelissaan seuraavia sääntörunkoja:
+Seuraavaksi verrataan edellä mainitulla menetelmällä tunnistettuja sanaluokkia sääntöaineiston oikeisiin sanaluokkiin. Vertailun tuloksena saadaan lista virheistä muodossa $<tag_a, tag_b, number>$, josta ilmenee montako kertaa jokin sana tunnistettiin luokkaan $tag_a$, kun oikea sanaluokka olisi ollut $tag_b$. Nyt käyttämällä valmiita sääntörunkoja voidaan laskennallisesti selvittää se transformaatiosääntö, joka laskee virheprosenttia eniten. Kunkin virhe-sääntörunko-parin muodostamaa sääntöä siis sovelletaan vuorostaan sääntöaineistoon, ja säännön arvo lasketaan vähentämällä korjattujen virheiden määrästä mahdollisesti aiheutettujen uusien virheiden lukumäärä. \citet{brill1992} käyttää artikkelissaan seuraavia sääntörunkoja:
 
 Vaihda sanaluokka $a$ sanaluokkaan $b$, kun:
 
@@ -214,7 +212,7 @@ Vaihda sanaluokka $a$ sanaluokkaan $b$, kun:
 \item Edellinen sana alkaa isolla (pienellä) alkukirjaimella.
 \end{enumerate}
 
-Kun arvokkain transformaatiosääntö on löydetty, sääntö laitetaan muistiin ja sääntöaineistoon tehdään löydetyn säännön mukaiset muutokset. Prosessia jatketaan keräämällä taas lista sääntöaineiston tunnistusvirheistä, ja etsimällä uusi paras transformaatiosääntö. Tätä toistetaan, kunnes ei enää löydetä sellaista sääntöä, joka tuottaisi enemmän korjauksia kuin aiheuttaisi uusia virheitä. Tällöin alustamisprosessi on valmis, ja tuloksena saatuja transformaatiosääntöjä voidaan soveltaa uuden aineston tunnistamiseen seuraavasti: ensin aineisto luokitellaan edellämainitulla yksinkertaisella menetelmällä. Tämän jälkeen aineistoon sovelletaan kutakin alustusvaiheessa löydettyä transformaatiosääntöä, jolloin virheprosentti laskee. \citep{brill1992}
+Kun arvokkain transformaatiosääntö on löydetty, sääntö laitetaan muistiin ja sääntöaineistoon tehdään löydetyn säännön mukaiset muutokset. Prosessia jatketaan keräämällä taas lista sääntöaineiston tunnistusvirheistä, ja etsimällä uusi paras transformaatiosääntö. Tätä toistetaan, kunnes ei enää löydetä sellaista sääntöä, joka tuottaisi enemmän korjauksia kuin aiheuttaisi uusia virheitä. Tällöin alustamisprosessi on valmis, ja tuloksena saatuja transformaatiosääntöjä voidaan soveltaa uuden aineston tunnistamiseen seuraavasti: ensin aineisto luokitellaan mainitulla yksinkertaisella menetelmällä. Tämän jälkeen aineistoon sovelletaan kutakin alustusvaiheessa löydettyä transformaatiosääntöä, jolloin virheprosentti laskee. \citep{brill1992}
 
 % Esimerkit löytyneistä säännöistä
 \begin{comment}
@@ -269,34 +267,35 @@ Vaihda tuntemattoman sanan sanaluokka $a$ sanaluokkaan $b$, kun:
 
 Huomataan, ettei yksikään sääntörunko ota kantaa sanaluokkiin, koska tuntemattomat sanat käsitellään ennen varsinaisten transformaatiosääntöjen soveltamista. Näiden kahden lisäyksen myötä Brillin tunnistin saavuttaa 96,6\% tunnistustarkkuuden, missä tuntemattomien sanojen tunnistustarkkuus on 85\%. \citep{brill1994, brill1995}
 
-Edellisten puutteiden lisäksi Brillin tunnistin on itsessään suhteellisen epätehokas: \citetalias{ngai2001} mainitsevat, että tunnistimen harjoittaminen miljoonan sanan aineistolla vie tyypillisesti yli 38 tuntia. Samoin \citetalias{volk1998} raportoivat Brillin tunnistimen harjoittamisen vievän päiviä siinä missä vastaava tilastollinen tunnistin harjoitetaan minuuteissa. Harjoittamisen nopeuttamiseksi on esitetty inkrementaalinen menetelmä, jonka avulla Brillin tunnistin skaalautuu paremmin laajoille harjoitusaineistoille \citep{ramshaw1994}. Menetelmässä jokainen transformaatiosääntö sisältää listan niistä sääntöaineiston kohdista, joissa sääntöä voidaan soveltaa. Samoin jokainen sääntöaineiston indeksi sisältää listan kyseisessä kohdassa sovellettaviin sääntöihin. Näiden indeksien avulla vältytään koko sääntöaineiston läpikäymiseltä transformaatiosäännön arvoa laskiessa. Inkrementaaliseen menetelmään perustuva FastTBL-algoritmi suoriutuu mainitusta 38 tunnin harjoittamisesta noin 17 minuutissa \citep{ngai2001}. Harjoittamisen nopeuttamisen lisäksi \citetalias{roche1995} ovat osoittaneet kuinka tunnistimen käyttämistä voidaan nopeuttaa muokkaamalla löydetyt transformaatiosäännöt eräänlaiseksi äärelliseksi automaatiksi: artikkelissa raportoidaan noin 20-kertainen tunnistusnopeus Brillin alkuperäiseen tunnistimeen verrattuna.
+Edellisten puutteiden lisäksi Brillin tunnistin on itsessään suhteellisen epätehokas: \citetalias{ngai2001} mainitsevat, että tunnistimen harjoittaminen miljoonan sanan aineistolla vie tyypillisesti yli 38 tuntia. Samoin \citetalias{volk1998} raportoivat Brillin tunnistimen harjoittamisen vievän päiviä siinä missä vastaava tilastollinen tunnistin harjoitetaan minuuteissa. Harjoittamisen nopeuttamiseksi on esitetty inkrementaalinen menetelmä, jonka avulla tunnistin skaalautuu paremmin laajoille harjoitusaineistoille \citep{ramshaw1994}. Menetelmässä jokainen transformaatiosääntö sisältää listan niistä sääntöaineiston kohdista, joissa sääntöä voidaan soveltaa. Samoin jokainen sääntöaineiston indeksi sisältää listan kyseisessä kohdassa sovellettaviin sääntöihin. Näiden indeksien avulla vältytään koko sääntöaineiston läpikäymiseltä transformaatiosäännön arvoa laskiessa. Inkrementaaliseen menetelmään perustuva FastTBL-algoritmi suoriutuu mainitusta 38 tunnin harjoittamisesta noin 17 minuutissa \citep{ngai2001}. Harjoittamisen nopeuttamisen lisäksi \citetalias{roche1995} ovat osoittaneet kuinka tunnistimen käyttämistä voidaan nopeuttaa muokkaamalla löydetyt transformaatiosäännöt eräänlaiseksi äärelliseksi automaatiksi: artikkelissa raportoidaan noin 20-kertainen tunnistusnopeus Brillin alkuperäiseen tunnistimeen verrattuna.
 
 \section{Brillin tunnistimen arviointi}
 
-Brillin tunnistin osoittaa, että sääntöpohjaisilla menetelmillä voidaan saavuttaa sekä kilpailukykyisiä tarkkuustuloksia että tilastollisia menetelmiä vastaava helppokäyttöisyys. Tunnistin myös säilyttää kaikki aikaisemmin mainitut sääntöpohjaisten menetelmien edut: transformaatiosäännöt peittoavat vastaavan tilastodatan havainnollisuudessa, kompaktiudessa sekä muokattavuudessa. Yltääkseen esimerkiksi siihen tarkkuuteen, mihin Markovin malleihin perustuva tilastollinen tunnistin vaatii 10 000 todennäköisyyslukemaa, Brillin tunnistin tarvitsee vain 217 transformaatiosääntöä \citep{brill1994}. Tunnistimen kompaktiuden ansiosta sen tuloksia on helpompi analysoida ja tarvittaessa muokata manuaalisesti. Edellä esitettyjen parannusten myötä Brillin tunnistin on myös hyvin tehokas.
+Brillin tunnistin osoittaa, että sääntöpohjaisilla menetelmillä voidaan saavuttaa sekä kilpailukykyisiä tarkkuustuloksia että tilastollisia menetelmiä vastaava helppokäyttöisyys. Tunnistin myös säilyttää kaikki aikaisemmin mainitut sääntöpohjaisten menetelmien edut: transformaatiosäännöt peittoavat vastaavan tilastodatan havainnollisuudessa, kompaktiudessa sekä muokattavuudessa. Yltääkseen esimerkiksi siihen tarkkuuteen, mihin Markovin malleihin perustuva tilastollinen tunnistin vaatii 10 000 todennäköisyyslukemaa, Brillin tunnistin tarvitsee vain 217 transformaatiosääntöä \citep{brill1994}. Tunnistimen kompaktiuden ansiosta sen tuloksia on helpompi analysoida ja tarvittaessa muokata manuaalisesti: esimerkiksi \citetalias{schneider1998} ovat esittäneet, kuinka tunnistimen tarkkuutta voi parantaa huomattavasti hyödyntämällä lisäämällä sääntöjä käsin.  Edellä esitettyjen laajennusten myötä Brillin tunnistin on myös hyvin tehokas.
 
 Koska Brillin tunnistin sisältää itsessään hyvin vähän lingvististä tietoa, se on helposti kohdennettavissa erilaisille aineistoille. Esimerkiksi saksankielisten tekstien analysointiin Brillin tunnistin soveltuu lähes sellaisenaan \citep{volk1998}. \citet{megyesi1999} puolestaan on osoittanut, että tunnistin on siirrettävissä myös agglutinatiivisille kielille käytettyjä sääntörunkoja muokkaamalla. Huipputulosten saavuttamiseksi Brillin tunnistin voi siis joissakin tapauksissa vaatia ainestokohtaista hienosäätöä. Toisaalta \citet{brill1992} huomauttaa, ettei sääntörunkojen laatimisessa tarvitse olla erityisen varovainen, sillä huonot sääntörungot eivät heikennä tunnistustarkkuutta: jos sääntörunko ei päde aineistoon, sen pohjalta ei luoda yhtään sääntöä. Täten erilaisten sääntölaajennusten kokeileminen on helppoa.
 
 Brillin tunnistimen on myös havaittu olevan kohtalaisen immuuni ylisovittamiselle \citep{ramshaw1994}. Ylisovittaminen (engl. \textit{overfitting}) tarkoittaa tilannetta, missä luotu malli kuvastaa hyvin harjoitusaineistoa, muttei enää päde laajemmalle aineistolle. Brillin tunnistin minimoi ylisovittamisen riskiä hylkäämällä ne säännöt, jotka esiintyvät tiettyä raja-arvoa harvemmin. Tämän ominaisuuden perusteella voidaan spekuloida, että tunnistin suoriutuu hyvin myös todellisissa käyttötapauksissa.
 
-Yksi Brillin tunnistimen puutteista on se, että sen tulosten varmuus ei ole suoraan määritettävissä. Tilastollisten tunnistimien tuloksiin liittyy aina jonkinlainen todennäköisyysarvo, jonka perusteella tunnistamisen onnistumista voidaan arvioida; Brillin tunnistin taas asettaa jokaiselle sanalle aina yhden sanaluokan ottamatta kantaa todennäköisyyksiin. Todennäköisyysarvot ovat hyödyllisiä monin eri tavoin: esimerkiksi jos tunnistin ei pysty käsittelemään jotakin aineiston osaa tarpeeksi suurella varmuudella, voidaan yrittää samaa erilaisilla tunnistimilla ja käyttää sitä arvoa, jolla on suurin todennäköisyys. Brillin tunnistin ei --- ilman muokkauksia --- pysty toimimaan osana tällaista järjestelmää. 
+Yksi Brillin tunnistimen puutteista on se, että sen tulosten varmuus ei ole suoraan määritettävissä. Tilastollisten tunnistimien tuloksiin liittyy aina todennäköisyysarvo, jonka perusteella tunnistamisen onnistumista voidaan arvioida; Brillin tunnistin taas asettaa jokaiselle sanalle aina yhden sanaluokan ottamatta kantaa todennäköisyyksiin. Todennäköisyysarvot ovat hyödyllisiä useissa eri tilanteissa: esimerkiksi jos tunnistin ei pysty käsittelemään jotakin aineiston osaa tarpeeksi suurella varmuudella, voidaan yrittää samaa jollakin toisella tunnistimella ja käyttää sitä tulosta, jolla on suurempi todennäköisyys. Brillin tunnistin ei --- ilman muokkauksia --- pysty toimimaan osana tällaista järjestelmää. 
 
-Tarkkuus on noin prosenttiyksikön jäljessä nykyisistä huipputuloksista. Poikkeuksellisen matala tuntemattomien sanojen tunnistustarkkuus --- voisiko käsittelyä parantaa? \citet{brill1995} myös väittää, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. Tilastollisia menetelmiä on kehitetty (Brillin menetelmän jälkeen) jo 20 vuotta, mutta tarkkuus on noussut vain prosenttiyksikön, oliko Brill oikeassa? \citep{manning2011} 
+Brillin tunnistimen toinen merkittävä epäkohta on se, että tunnistimen tarkkuus --- vaikkakin aikanaan ennätyksellinen --- on jäänyt jälkeen nykyisistä tilastollisista tunnistimista. Esimerkiksi \citet{spoustova2009} sekä \citet{sogaard2011} ovat saavuttaneet koetilanteissa noin prosenttiyksikön verran parempia tarkkuustuloksia, mikä tarkoittaa noin 20\% vähennystä tunnistusvirheiden määrässä. Erityisesti tuntemattomien sanojen oikein tunnistaminen on Brillin tunnistimelle ongelmallista \citep{schneider1998}. Varsinaisesta tilastollisten tunnistusmenetelmien läpimurrosta ei välttämättä kuitenkaan voida puhua, sillä edellä mainittu 20\% vähennys tunnistusvirheissä on vienyt lähes 20 vuotta. \citet{brill1995} väittääkin, että jos aineistopohjaisessa luonnollisten kielten käsittelyssä halutaan saavuttaa edistysaskeleita, on pyrittävä ymmärtämään itse kieltä tilastollisten rinnakkaisilmiöiden sijaan. Väitettä tukee havainto siitä, ettei tilastollisilla menetelmillä ole virheanalyysin perusteella odotettavissa suuria korotuksia nykyiseen sanaluokkien tunnistustarkkuuteen \citep{manning2011}.   
 
 
 \chapter{Tilastolliset menetelmät}
 
-Edellisestä sääntöpohjaisesta menetelmästä poiketen useimmat nykyiset sanaluokkien tunnistajat perustuvat tilastollisiin menetelmiin. Tilastollisissa menetelmissä sanaluokkien tunnistaminen mielletään lingvistisen lähestymistavan sijaan koneoppimisongelmaksi, tai tarkemmin sarjanluokitteluongelmaksi. Sarjanluokitteluongelmassa tavoitteena on oppia funktio $f: \mathcal{X} \to \mathcal{Y}$, joka luokittelee kunkin syötteen $x$ johonkin luokkaan $y$. Todennäköisyyslaskennan kautta funktio $f$ voidaan määritellä muodossa
+Edellisestä sääntöpohjaisesta menetelmästä poiketen useimmat nykyiset sanaluokkien tunnistajat perustuvat tilastollisiin menetelmiin. Tilastollisissa sanaluokkien tunnistusmenetelmissä tavoitteena on löytää kullekin lauseelle sitä todennäköisimmin vastaava sanaluokkasarja:
 \begin{align}
-f(x) = \argmax{y \in \mathcal{Y}} P(y|x)
+\argmax{t_1 \ldots t_n} p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n)
+\label{statisticalproblem}
 \end{align}
-missä todennäköisyyttä $P(y|x)$ estimoidaan harjoitusaineiston perusteella.
+missä $p$ ilmaisee todennäköisyyden sille, että jokin lause $ w_1 \ldots w_n $ esiintyy jonkin sanaluokkasarjan $ t_1 \ldots t_n $ yhteydessä. Mahdollisten sanaluokkasarjojen määrä kuitenkin kasvaa eksponentiaalisesti sanojen ja sanaluokkien määrän mukaan, jolloin maksimiarvon ratkaiseminen naiivisti on epätehokasta.
 
-Tilastolliset menetelmät voidaan vuorostaan jakaa diskriminatiivisiin ja generatiivisiin malleihin. Diskriminatiiviset mallit käsittelevät suoraan todennäköisyyttä $P(y|x)$, eli ne eivät ota kantaa syötteeseen $x$. Generatiiviset mallit puolestaan käsittelevät koko yhteisjakaumaa $P(x,y)$, josta todennäköisyys $P(y|x)$ johdetaan Bayesin säännön avulla. Diskriminatiiviset mallit ovat siten generatiivisia malleja rajoittuneempia, mutta sarjanluokitteluongelman kannalta mallin rajoitteet eivät ole oleellisia. Intuition mukaan generatiivinen malli on diskriminatiivista mallia tehottomampi, sillä yhteisjakauman mallintaminen on laskennallisesti vaativampaa kuin ehdollisen jakauman. \citetalias{ng2002} kuitenkin osoittavat, ettei tämä välttämättä aina pidä paikkaansa: sanaluokkien tunnistamiseen onkin olemassa kumpaankin malliin perustuvia tehokkaita ratkaisuja. Seuraavassa luvussa esitellään generatiivinen Markovin piilomalli; diskriminatiivisen tunnistimen on esittänyt muun muassa \citet{ratnaparkhi1996}.
+Tilastolliset menetelmät voidaan vuorostaan jakaa diskriminatiivisiin ja generatiivisiin malleihin. Diskriminatiiviset mallit käsittelevät suoraan todennäköisyyttä $P(y|x)$, eli ne eivät ota kantaa syötteeseen $x$. Generatiiviset mallit puolestaan käsittelevät koko yhteisjakaumaa $P(x,y)$, josta todennäköisyys $P(y|x)$ johdetaan Bayesin säännön avulla. Intuition mukaan diskriminatiivinen malli on generatiivista mallia tehokkaampi, sillä yhteisjakauman mallintaminen on laskennallisesti vaativampaa kuin ehdollisen jakauman mallintaminen. \citetalias{ng2002} kuitenkin osoittavat, ettei tämä välttämättä aina pidä paikkaansa: sanaluokkien tunnistamiseen onkin olemassa kumpaankin malliin perustuvia tehokkaita ratkaisuja. Tässä tutkielmassa käsitellään generatiiviseen Markovin piilomalliin perustuvaa tunnistinta; diskriminatiivisen tunnistimen on esittänyt muun muassa \citet{ratnaparkhi1996}.
 
 \section{Markovin malli}
 
-Markovin malli \citep[mm.][]{rabiner1989} kuvaa sellaista stokastista prosessia, joka toteuttaa ns. Markov-ominaisuuden: seuraava tila riippuu aina vain $N$:stä edeltävästä tilasta. Markov-ominaisuus on siis eräänlainen riippumattomuusoletus, joka yksinkertaistaa stokastisen prosessin tilan estimointia rajoittamalla tilasiirtymien historian määrää. $N$:nen asteen Markov-ominaisuuden toimiessa esimerkiksi todennäköisyys
+Markovin malli \citep[mm.][]{rabiner1989} kuvaa sellaista stokastista prosessia, joka toteuttaa niin sanotun Markov-ominaisuuden: seuraava tila riippuu aina vain $N$:stä edeltävästä tilasta. Markov-ominaisuus on siis eräänlainen riippumattomuusoletus, joka yksinkertaistaa stokastisen prosessin tilan estimointia rajoittamalla tilasiirtymien historian määrää. $N$:nen asteen Markov-ominaisuuden toimiessa esimerkiksi todennäköisyys
 \begin{align}
 P(x_k | x_1, \ldots, x_{k-1})
 \end{align}
@@ -305,42 +304,17 @@ voidaan laskea huomattavasti yksinkertaisemmin tarkastelemalla vain $N$:ää ede
 P(x_k | x_{k - N }, \ldots, x_{k-1})
 \end{align}
 
-Markov-ominaisuudesta puhuttaessa on yleensä kyse juuri ensimmäisen asteen Markov-ominaisuudesta, jolloin $N=1$. Käytännössä tämä tarkoittaa sitä, että tarkastellaan jotakin kahta peräkkäistä tilaa --- nykyistä sekä tulevaa. Markov-ominaisuutta voidaan kuitenkin laajentaa myös korkeampiin asteisiin, jolloin myös tarkasteltavien tilasarjojen pituudet kasvavat. Sanaluokkia tunnistaessa näitä tilasarjoja vastaavat n:n peräkkäisen sanaluokan sarjat, eli ns. n-grammit.   
+Markov-ominaisuudesta puhuttaessa on yleensä kyse juuri ensimmäisen asteen Markov-ominaisuudesta, jolloin $N=1$. Käytännössä tämä tarkoittaa sitä, että tarkastellaan jotakin kahta peräkkäistä tilaa --- nykyistä sekä tulevaa. Markov-ominaisuutta voidaan kuitenkin laajentaa myös korkeampiin asteisiin, jolloin myös tarkasteltavien tilasarjojen pituudet kasvavat. Sanaluokkia tunnistaessa näitä tilasarjoja vastaavat n:n peräkkäisen sanaluokan sarjat, eli n-grammit.   
 
-TODO: Asteen valinnan merkitys.
-
-Yksinkertaisimmillaan Markovin mallia voidaan kuvata tilakoneena, joka koostuu havaittavia tapahtumia kuvaavista tiloista, sekä tilasiirtymämatriisista, josta ilmenevät todennäköisyydet siirtyä kustakin tilasta mihin tahansa muuhun tilaan. Kukin tila on siis itsenäinen ja muistiton.
-
-TODO Mahd. selitykset HMM:n viidestä elementistä \citep{rabiner1989}, esimerkkikuva Markovin ketjusta.
-
-
-\subsection{Markovin piilomalli}
-
-Markovin mallin hyödyllisyyttä rajoittaa se, että malli ei pysty itsessään mallintamaan prosesseja, joiden tilat eivät ole suoraan havaittavissa. Useimmissa mielenkiintoisissa tapauksissa prosessin tilat eivät kuitenkaan suoraan vastaa havaintoja, eli prosessin tila --- vaikkakin havainnosta riippuvainen --- on piilotettu: esimerkiksi sanaluokkien tunnistamisongelmassa havainto (sana) on tiedossa, tila (sanaluokka) on riippuvainen havainnosta, mutta tila itsessään ei ole tiedossa. Tällöin Markovin malli tulee laajentaa Markovin piilomalliksi, jossa havainto on aina sitä vastaavan tilan todennäköisyysfunktio.
-
-TODO: tähän kuva Markovin piilomallista
-
-
-\section{Lähtökohta}
-
-Tunnistamisongelmassa siis haetaan annetulla lauseelle sitä todennäköisimmin vastaavaa sanaluokkien sarjaa. Todennäköisyyttä voidaan mallintaa yhteisjakaumalla
-\begin{align}
-p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n)
-\label{generativemodel}
-\end{align}
-mikä ilmaisee todennäköisyyden sille, että jokin lause $ w_1 \ldots w_n $ esiintyy jonkin sanaluokkasarjan $ t_1 \ldots t_n $ yhteydessä. Tällöin ratkaistavaksi jää
-\begin{align}
-\argmax{t_1 \ldots t_n} p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n)
-\end{align}
-eli sanaluokkasarja $ t_1 \ldots t_n $, jolla saadaan maksimiarvo edeltävästä funktiosta. Mahdollisten sanaluokkasarjojen määrä kuitenkin kasvaa eksponentiaalisesti sanojen ja sanaluokkien määrän mukaan, jolloin maksimiarvon ratkaiseminen naiivisti on epätehokasta.
+Markovin mallin hyödyllisyyttä rajoittaa se, että malli ei pysty itsessään mallintamaan prosesseja, joiden tilat eivät ole suoraan havaittavissa. Useimmissa mielenkiintoisissa tapauksissa prosessin tilat eivät kuitenkaan suoraan vastaa havaintoja, eli prosessin tila --- vaikkakin havainnosta riippuvainen --- on piilotettu: esimerkiksi sanaluokkien tunnistamisongelmassa havainto (sana) on tiedossa, tila (sanaluokka) on riippuvainen havainnosta, mutta tila itsessään ei ole tiedossa. Tällöin Markovin malli tulee laajentaa Markovin piilomalliksi, jossa havainto on aina sitä vastaavan tilan todennäköisyysfunktio. \citep{rabiner1989}
 
 \section{Tunnistusongelma Markovin piilomallina}
 
-Markovin piilomallit hyödyntävät sitä yhteisjakauman laskusääntöä $P(x,y) = P(y)P(x|y)$. Tällöin edellämainittu funktio $ p $ \eqref{generativemodel} voidaan kuvata muodossa (TODO: parempi selitys siitä miten parametrit vastaavat yhteisjakauman osia, e = P(x|y) ja q = P(y)
+Markovin piilomallit hyödyntävät yhteisjakauman laskusääntöä $P(x,y) = P(y)P(x|y)$. Tällöin edellä mainittu funktio $p$ kaavassa \eqref{statisticalproblem} voidaan kuvata muodossa
 \begin{align}
-& \hphantom{= } p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n) \\
-& = p(t_1, t_2, \ldots, t_n)\:p(w_1, w_2, \ldots, w_n|t_1, t_2, \ldots, t_n) \\
-& = \prod_{i=1}^{n+1} q(t_i | t_{i-2}, t_{i-1}) \prod_{i=1}^{n}e(w_i | t_i)
+\hphantom{=} & p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n) \\
+= & p(t_1, t_2, \ldots, t_n)\:p(w_1, w_2, \ldots, w_n|t_1, t_2, \ldots, t_n) \\
+= & \prod_{i=1}^{n+1} q(t_i | t_{i-2}, t_{i-1}) \prod_{i=1}^{n}e(w_i | t_i)
 \end{align}
 missä $t_0$ ja $t_{-1}$ ovat lauseen alkuun lisättyjä alkusanaluokkia, ja $t_{n+1}$ on päätemerkkisanaluokka. Mallin ensimmäinen parametri
 \begin{align}
@@ -350,7 +324,7 @@ laskee todennäköisyyden sanaluokalle $t_i$, kun kaksi edeltävää sanaluokkaa
 \begin{align}
 e(w_i | t_i)
 \end{align}
-laskee todennäköisyyden sille, että sana $w_i$ esiintyy sanaluokan $t_i$ yhteydessä.
+laskee todennäköisyyden sille, että sana $w_i$ esiintyy sanaluokan $t_i$ yhteydessä. \citep{brants2000}
 
 \subsection{Parametrien estimointi}
 
@@ -358,46 +332,50 @@ Yksinkertaisimmillaan parametri $q(t_i|t_{i-2},t_{i-1})$ voidaan estimoida laske
 \begin{align}
 q(t_i|t_{i-2},t_{i-1}) = \frac{f(t_{i-2},t_{i-1},t_i)}{f(t_{i-1},t_{i-1})}
 \end{align}
-missä funktio $f$ merkitsee annetun n-grammin lukumäärää harjoitusaineistossa. \citet{brants2000} kuitenkin osoittaa, että datan harvuuden vuoksi tällainen estimaatti ei ole käyttökelpoinen: laajassakaan harjoitusaineistossa ei ole tarpeeksi montaa kappaletta kutakin eri trigrammia. Lisäksi osa trigrammeista $t_{i-2},t_{i-1},t_i$ ovat väistämättä sellaisia, että $f(t_{i-2},t_{i-1},t_i) = 0$, jolloin koko sarja $t_1 \ldots t_n$ saa todennäköisyyden $0$. Luotettavampi tapa estimoida arvoa $q$ on hyödyntää trigrammien lisäksi myös harjoitusaineistosta johdettujen uni- ja bigrammien suhteellisia frekvenssejä:
+missä funktio $f$ merkitsee annetun n-grammin lukumäärää harjoitusaineistossa. \citet{brants2000} kuitenkin osoittaa, että datan harvuuden vuoksi tällainen estimaatti ei ole käyttökelpoinen: laajassakaan harjoitusaineistossa ei ole tarpeeksi montaa kappaletta kutakin eri trigrammia. Lisäksi osa trigrammeista $t_{i-2},t_{i-1},t_i$ ovat väistämättä sellaisia, että $f(t_{i-2},t_{i-1},t_i) = 0$, jolloin koko sarjan $t_1 \ldots t_n$ todennäköisyys on $0$. Luotettavampi tapa estimoida parametria $q$ on hyödyntää trigrammien lisäksi myös harjoitusaineistosta johdettujen uni- ja bigrammien suhteellisia frekvenssejä:
 \begin{align}
-Unigrammi&: P(t_i) = \frac{f(t_i)}{N} \\
+Unigrammi&: P(t_i) = \frac{f(t_i)}{M} \\
 Bigrammi&: P(t_i | t_{i-1}) = \frac{f(t_{i-1}, t_i)}{f(t_{i-1})} \\
 Trigrammi&: P(t_i | t_{i-2}, t_{i-1}) = \frac{f(t_{i-2},t_{i-1},t_i)}{f(t_{i-2},t_{i-1})}
 \end{align}
-missä $N$ merkitsee harjoitusaineiston sanojen kokonaislukumäärää. Nyt funktion $q$ arvoa voidaan silottaa interpoloimalla edellämainittuja n-grammeja:
+missä $M$ merkitsee harjoitusaineiston sanojen kokonaislukumäärää. Nyt parametrin $q$ arvoa voidaan silottaa interpoloimalla edellä mainittuja n-grammeja:
 \begin{align}
 q(t_i | t_{i-2}, t_{i-1}) = \lambda_1 P(t_i) + \lambda_2 P(t_i | t_{i-1}) + \lambda_3 P(t_i | t_{i-2}, t_{i-1})
 \end{align}
-missä $\lambda_1+\lambda_2+\lambda_3 = 1$ ja $\lambda_1,\lambda_2,\lambda_3 \geq 0$ (TODO muut silotusmenetelmät, perustelu interpolaatiolle ja lambda-arvoille). Vastaavasti todennäköisyys $e$ voidaan estimoida vertaamalla sana-sanaluokka-yhdistelmän frekvenssiä pelkän sanaluokan frekvenssiin:
+missä $\lambda_1+\lambda_2+\lambda_3 = 1$ ja $\lambda_1,\lambda_2,\lambda_3 \geq 0$. \citep{brants2000}
+
+Vastaavasti todennäköisyys $e$ voidaan estimoida vertaamalla sana-sanaluokka-yhdistelmän frekvenssiä pelkän sanaluokan frekvenssiin:
 \begin{align}
 e(w_i|t_i) = \frac{f(w_i, t_i)}{f(t_i)}
 \label{hmm_param_e}
 \end{align}
 
+Edellisten estimaattien myötä alkuperäinen tunnistusongelma kaavassa \eqref{statisticalproblem} on valmis ratkaistavaksi:
+\begin{align}
+\hphantom{=} & \argmax{t_1 \ldots t_n} p(w_1, w_2, \ldots, w_n,\: t_1, t_2, \ldots, t_n) \\
+= & \argmax{t_1 \ldots t_n} \left(\prod_{i=1}^{n+1} q(t_i | t_{i-2}, t_{i-1}) \prod_{i=1}^{n}e(w_i | t_i) \right)
+\end{align}
 TODO: Maininta Viterbi-algoritmista \citep{viterbi1967}.
 
 \subsection{Tuntemattomien sanojen käsittely}
 
-Todennäköisyyden $e$ estimaatti \eqref{hmm_param_e} ei kuitenkaan ole luotettava, jos jokin kohdattu sana ei esiinny harjoitusaineistossa kertaakaan. Tällöin, jos sana $w_i$ on tuntematon, on $e(w_i|t_i)=0$ millä tahansa sanaluokalla $t_i$. Samoin $p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n) = 0$, jos yksikään sanoista $w_i \ldots w_n$ on tuntematon. Jotta vältytään mallin rikkovilta nollaestimaateilta, on tuntemattomien sanojen kohdalla sovellettava jonkinlaista poikkeuskäsittelyä.
+Todennäköisyyden $e$ estimaatti \eqref{hmm_param_e} ei ole luotettava, jos jokin kohdattu sana ei esiinny harjoitusaineistossa kertaakaan. Tällöin, jos sana $w_i$ on tuntematon, on $e(w_i|t_i)=0$ millä tahansa sanaluokalla $t_i$. Samoin $p(w_1, w_2, \ldots, w_n, t_1, t_2, \ldots, t_n) = 0$, jos yksikään sanoista $w_i \ldots w_n$ on tuntematon. Jotta vältytään mallin rikkovilta nollaestimaateilta, on tuntemattomien sanojen kohdalla sovellettava jonkinlaista poikkeuskäsittelyä.
 
 Yksinkertaisin ratkaisu on määrätä tuntemattoman sanalle aina harjoitusaineiston yleisin sanaluokka, yleensä substantiivi. Joitain kieliä --- kuten englantia --- tulkittaessa voidaan saavuttaa parempia tuloksia suffiksianalyysin \citep{samuelsson1993} avulla. Tällöin tarkoituksena on hyödyntää sitä seikkaa, että sanan pääte on usein vahva indikaattori sen sanaluokasta. Lisäksi \citet{toutanova2003} ovat esittäneet, kuinka diskriminatiivisia log-lineaarisia malleja voidaan hyödyntää tuntemattomien sanojen käsittelyssä.
 
 \citet{bikel1999} esittivät vaihtoehtoisen, pseudosanoihin perustuvan menetelmän tuntemattomien sanojen käsittelylle. Menetelmän perusajatuksena on korvata tunnistettavan aineiston kukin tuntematon sana jollakin pseudosanalla, joita on rajallinen määrä. Myös kaikki harvinaiset (vähemmän kuin 5 esiintymää) sanat voidaan korvata pseudosanoilla. Korvaava pseudosana määräytyy aina tuntemattoman sanan ominaisuuksien mukaan: esimerkiksi \textit{isoAlkukirjain}, \textit{lauseenEnsimmäinenSana} sekä \textit{neljäNumeroa} ovat tyypillisiä pseudosanoja. Nyt kun harjoitusaineiston harvinaiset sanat korvataan vastaavilla pseudosanoilla, voidaan tunnistettavan aineiston pseudosanoja käsitellä samoin kuin tavallisia sanoja.
 
 
-\section{Cyclic Dependency Network (TODO mahd. suomennos)}
+\section{Tilastollisen tunnistimen arviointi}
 
-TODO Tähän kuvaus Cyclic Dependency Network-menetelmästä \citep{heckerman2000, toutanova2003}, jolla HMM-tunnistin voi oppia laajemmin kontekstuaalisista vihjeistä.
-
-\section{Arviota}
-
-TODO
-
-1. Trigrammi-oletus on melko vahva ja lingvistisesti naiivi --- johtaa kuitenkin käytännössä hyödyllisiin malleihin.
+1. Trigrammi-oletus on melko vahva ja lingvistisesti naiivi --- johtaa kuitenkin käytännössä hyödyllisiin malleihin. CDC \citep{heckerman2000, toutanova2003}.
 
 2. Ei poimi sanojen välisiä suhteita, pelkästään sanaluokkien.
 
 3. Jää jälkeen nykyisistä SOTA-taggereista, mutta pärjää hyvin web-tekstissä \citep{giesbrecht2009}.
+
+\citet{brill1992} huomauttaakin, että tilastolliset tunnistajat saavuttavat korkean tunnistamistarkkuuden kiinnittämättä varsinaisesti huomiota aineiston taustalla olevaan kieliopilliseen rakenteeseen. Hän laskee tilastollisten menetelmien puutteeksi sen, että ne poimivat aineistosta lingvistisen informaation sijaan vain suuren määrän vaikeselkoisia tilastoja.
+
 
 \chapter{Yhteenveto}
 
@@ -476,12 +454,18 @@ Roche, E., \& Schabes, Y. 1995. \textit{Deterministic part-of-speech tagging wit
 \bibitem[Samuelsson(1993)]{samuelsson1993}
 Samuelsson, C. 1993. \textit{Morphological tagging based entirely on Bayesian inference}. Proceedings of the 9th Nordic Conference on Computational Linguistics NODALIDA-93.
 
+\bibitem[Schneider \& Volk(1998)]{schneider1998}
+Schneider, G., \& Volk, M. 1998. \textit{Adding manual constraints and lexical look-up to a Brill-tagger for German}. Proceedings of the ESSLLI-98 Workshop on Recent Advances in Corpus Annotation, Saarbrücken.
+
 \bibitem[Shen ym.(2007)]{shen2007}
 Shen, L., Satta, G. \& Joshi, A. 2007. \textit{Guided learning for bidirectional sequence classification}. In: ACL 2007. (2007)
 
 \bibitem[Spoustova ym.(2009)]{spoustova2009}
 Spoustova, D.j., Hajic, J., Raab, J. \& Spousta, M. 2009. \textit{Semi-supervised training for the averaged perceptron POS tagger}. Proceedings of the 12th Conference of the
 European Chapter of the ACL (EACL 2009), s.~763-711.
+
+\bibitem[Søgaard(2011)]{sogaard2011}
+Søgaard, A. 2011. \textit{Semi-supervised condensed nearest neighbor for part-of-speech tagging}. Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies, 2, s.~48--52. Association for Computational Linguistics.
 
 \bibitem[Toutanova ym.(2003)]{toutanova2003}
 Toutanova, K., Klein, D., Manning, C. D., \& Singer, Y. 2003. \textit{Feature-rich part-of-speech tagging with a cyclic dependency network}. Proceedings of the 2003 Conference of the North American Chapter of the Association for Computational Linguistics on Human Language Technology, 1, s.~173--180. Association for Computational Linguistics.
