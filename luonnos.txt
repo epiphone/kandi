@@ -82,61 +82,6 @@ transformation-based tagger, where transformation templates do not make referenc
 to words."
 
 
-### MAXENT ###
-
-On Discriminative vs. Generative classifiers (Ng & Jordan) !!!
-- generative classifiers learn a model of the joint probability p(x,y) of the inputs x and the label y,
-  and make their predictions using Bayes rules to calculate p(y|x), and then picking the most likely label y.
-- Discriminative classifiers model the posterior p(y|x) directly, or learn a direct map from inputs x to the
-  class labels.
-- "one should solve the classification problem directly and never solve more general problem as an
-  intermediate step" Ng eri mieltä?
--
-
-Wikipedia - Generative Model:
-Generative models contrast with discriminative models, in that a generative model is a full probabilistic model of all variables, whereas a discriminative model provides a model only for the target variable(s) conditional on the observed variables. Thus a generative model can be used, for example, to simulate (i.e. generate) values of any variable in the model, whereas a discriminative model allows only sampling of the target variables conditional on the observed quantities.
-
-- generatiivinen (yhteisjakauma, "generate the observed data from hidden stuff") vs diskriminatiivinen (ehdollinen jakauma)
-- generatiiviset mallit
-  - painot triviaaleja: just relative frequencies
-- diskriminatiiviset mallit (https://class.coursera.org/nlp/lecture/38)
-  - korkea tarkkuus
-  - helposti laajennettavissa, virheitä tutkimalla, observation! rich features -> major improvements
-  - " in that a generative model is a full probabilistic model of all variables, whereas a discriminative model provides a model only for the target variable(s) conditional on the observed variables. Thus a generative model can be used, for example, to simulate (i.e. generate) values of any variable in the model, whereas a discriminative model allows only sampling of the target variables conditional on the observed quantities." - WikiPedia
-  - training is slower, requires linguistic understanding
-  - they make it easy to incorporate lots of linguistically important features
-  - Instead of putting probabilities over observed data (i.e. P(data,class) ) like joint models (e.g. Naive Bayes) do, conditional models take data as given and put probabilities over hidden structures (i.e. P(class|data) ) because these probabilities are more closely related to classification success. Conditional models seek to maximize these conditional probabilities.
-
-- features
-  - 1. an indicator function
-  - 2. a particular class
-- weights
-- crucially two expectations:
-  - empirical count (training data) of a feature
-  - model expectation of a feature
-
-Brill & Wu 1998:
-The maximum-entropy framework is a
-probabilistic framework where a model is found
-that is consistent with the observed data and is
-maximally agnostic with respect to all
-parameters for which no data exists. It is a nice
-framework for combining multiple constraints.
-Whereas the transformation-based tagger
-enforces multiple constraints by having multiple
-rules fire, the maximum-entropy tagger can have
-all of these constraints play a role at setting the
-probability estimates for the model's parameters.
-In Ratnaparkhi (1996), a maximum entropy
-tagger is presented. The tagger uses essentially
-the same parameters as the transformation-based
-tagger, but employs them in a different model.
-For our experiments, we used a publicly
-available implementation of maximum-entropy
-tagging) retrained on our training set.
-
-
-
 ### YHTEENVETO ###
 
 Tässä tutkielmassa käsiteltiin jalkapallon pelianalyysin ohjelmistoja.
